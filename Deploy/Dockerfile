@@ -1,6 +1,7 @@
 FROM node:16-alpine
 
-WORKDIR /app
+# WORKDIR /app
+WORKDIR /usr/src/app
 
 # Install Git
 RUN apk add --no-cache git
@@ -18,4 +19,5 @@ COPY . .
 EXPOSE 9000
 
 # Start the application
-CMD ["node", "app.js"]
+# CMD ["node", "app.js"]
+CMD ["node", "Deploy/src/app.js"]
