@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-COPY .env /Deploy/.env  
+COPY .env .env  
 # Copy the .env file to the container
 
 CMD ["node", "index.js"]
