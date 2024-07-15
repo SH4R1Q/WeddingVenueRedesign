@@ -43,6 +43,6 @@ jobs:
           script: |
             docker pull sokhi/mern-frontend:latest
             docker pull sokhi/mern-backend:latest
-            # cd docker-compose
+            cd home/root/
             docker-compose down
             docker-compose up -d
