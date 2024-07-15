@@ -8,29 +8,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-          fetch-depth: 0
-      
-      - name: Debug Git info
-        run: |
-           git status
-           git submodule status
-           git config --list
 
-      - name: Debug repository structure
+      - name: List repository contents
         run: |
-          echo "Current working directory:"
           pwd
-          echo "Repository root contents:"
-          ls -la
-          echo "FrontDeploy folder contents:"
-          ls -la FrontDeploy || echo "FrontDeploy not found"
-          echo "Deploy folder contents:"
-          ls -la Deploy || echo "Deploy not found"
+          ls -R
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -43,32 +29,20 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          if [ -d "./FrontDeploy" ] && [ -f "./FrontDeploy/Dockerfile" ]; then
-            echo "Building frontend Docker image"
-            docker build -t sokhi/mern-frontend:latest ./FrontDeploy
-            docker push sokhi/mern-frontend:latest
-          else
-            echo "Frontend Dockerfile not found"
-            exit 1
-          fi
-
-          if [ -d "./Deploy" ] && [ -f "./Deploy/Dockerfile" ]; then
-            echo "Building backend Docker image"
-            docker build -t sokhi/mern-backend:latest ./Deploy
-            docker push sokhi/mern-backend:latest
-          else
-            echo "Backend Dockerfile not found"
-            exit 1
-          fi
+          ls FrontDeploy  # Verify directory contents
+          ls Deploy       # Verify directory contents
+          docker build -t sokhi/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
+          docker build -t sokhi/mern-backend:latest -f Deploy/Dockerfile Deploy
+          docker push sokhi/mern-frontend:latest
+          docker push sokhi/mern-backend:latest
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
 
       - name: Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@master
