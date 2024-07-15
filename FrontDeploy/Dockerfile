@@ -1,15 +1,27 @@
-FROM node:14-alpine
+FROM node:16-alpine
 
 WORKDIR /app
 
+# Install Git
+RUN apk add --no-cache git
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
+# Copy project files
 COPY . .
-COPY .env .env  
-# Copy the .env file to the container
 
+# Copy .env file
+COPY .env .env
+
+# Build the application
 RUN npm run build
+
+# Install serve globally
 RUN npm install -g serve
 
+# Serve the application
 CMD ["serve", "-s", "build"]
