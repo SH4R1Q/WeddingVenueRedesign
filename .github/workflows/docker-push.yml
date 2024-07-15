@@ -32,6 +32,7 @@ jobs:
           ls FrontDeploy  # Verify directory contents
           ls Deploy       # Verify directory contents
           docker build -t sokhi/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
+          docker build -t sokhi/mern-backend:latest -f Deploy/Dockerfile Deploy
           docker push sokhi/mern-frontend:latest
           docker push sokhi/mern-backend:latest
 

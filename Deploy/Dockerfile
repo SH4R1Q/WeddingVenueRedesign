@@ -9,4 +9,4 @@ COPY . .
 COPY .env .env  
 # Copy the .env file to the container
 
-CMD ["node", "index.js"]
+CMD ["node", "app.js"]
