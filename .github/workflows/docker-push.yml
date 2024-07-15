@@ -13,6 +13,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
+          fetch-depth: 0
+      
+      - name: Debug Git info
+        run: |
+           git status
+           git submodule status
+           git config --list
 
       - name: Debug repository structure
         run: |
