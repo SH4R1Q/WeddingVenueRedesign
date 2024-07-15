@@ -13,6 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Initialize submodules
+        run: |
+          git submodule update --init --recursive
+
       - name: List repository contents
         run: |
           pwd
@@ -31,8 +35,10 @@ jobs:
         run: |
           ls FrontDeploy  # Verify directory contents
           ls Deploy       # Verify directory contents
-          docker build -t sokhi/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
-          docker build -t sokhi/mern-backend:latest -f Deploy/Dockerfile Deploy
+          cd FrontDeploy
+          docker build -t sokhi/mern-frontend:latest -f Dockerfile .
+          cd ../Deploy
+          docker build -t sokhi/mern-backend:latest -f Dockerfile .
           docker push sokhi/mern-frontend:latest
           docker push sokhi/mern-backend:latest
 
@@ -43,6 +49,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Initialize submodules
+        run: |
+          git submodule update --init --recursive
 
       - name: Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@master
