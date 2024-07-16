@@ -24,10 +24,12 @@ services:
     networks:
       - app-network
 
-  networks:
-    app-network:
-      driver: bridge  
+# Define the network for communication between services
+networks:
+  app-network:
+    driver: bridge
 
+# Commenting out the MongoDB service since you're using MongoDB Atlas
 #   mongo:
 #     image: mongo
 #     ports:
@@ -35,6 +37,7 @@ services:
 #     volumes:
 #       - mongo-data:/data/db
 
+# Define a volume for MongoDB data storage (commented out since not used)
 # volumes:
 #   mongo-data:
 
