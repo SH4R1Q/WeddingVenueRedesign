@@ -23,14 +23,10 @@ services:
       - ./Deploy/.env
     networks:
       - app-network
-    hostname: backend  # Set a hostname for the backend service
-    aliases:
-      - backend
 
 networks:
   app-network:
     driver: bridge
-
 
 # Commenting out the MongoDB service since you're using MongoDB Atlas
 #   mongo:
