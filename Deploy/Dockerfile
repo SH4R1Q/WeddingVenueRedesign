@@ -3,7 +3,9 @@
 FROM node:16-alpine
 
 # Set working directory
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
+ WORKDIR /app
+
 
 # Install Git
 RUN apk add --no-cache git
