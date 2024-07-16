@@ -11,8 +11,8 @@ services:
 
   backend:
     build:
-      context: .
-      dockerfile: Deploy/Dockerfile
+      context: ./Deploy
+      dockerfile: Dockerfile
     ports:
       - "9000:9000"
     env_file:
@@ -27,6 +27,7 @@ services:
 
 volumes:
   mongo-data:
+
 
 # version: '3'
 # services:
