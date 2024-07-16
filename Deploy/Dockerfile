@@ -1,6 +1,8 @@
+# Deploy/Dockerfile
+
 FROM node:16-alpine
 
-# WORKDIR /app
+# Set working directory
 WORKDIR /usr/src/app
 
 # Install Git
@@ -19,5 +21,4 @@ COPY . .
 EXPOSE 9000
 
 # Start the application
-# CMD ["node", "app.js"]
-CMD ["node", "Deploy/src/app.js"]
+CMD ["node", "src/app.js"]
