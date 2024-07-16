@@ -10,6 +10,8 @@ services:
       - ./FrontDeploy/.env
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     build:
@@ -19,6 +21,12 @@ services:
       - "9000:9000"
     env_file:
       - ./Deploy/.env
+    networks:
+      - app-network
+
+  networks:
+    app-network:
+      driver: bridge  
 
 #   mongo:
 #     image: mongo
@@ -27,8 +35,8 @@ services:
 #     volumes:
 #       - mongo-data:/data/db
 
-volumes:
-  mongo-data:
+# volumes:
+#   mongo-data:
 
 
 # version: '3'
