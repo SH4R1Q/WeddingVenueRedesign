@@ -8,6 +8,8 @@ services:
       - "80:5000"
     env_file:
       - ./FrontDeploy/.env
+    depends_on:
+      - backend
 
   backend:
     build:
