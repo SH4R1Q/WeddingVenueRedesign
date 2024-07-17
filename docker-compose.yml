@@ -6,7 +6,7 @@ services:
       context: ./FrontDeploy
       dockerfile: Dockerfile
     ports:
-      - "80:5000"
+      - "5000:5000"
     env_file:
       - ./FrontDeploy/.env
     depends_on:
