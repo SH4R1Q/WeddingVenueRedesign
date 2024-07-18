@@ -47,7 +47,7 @@ import enquiryRoutes from './routes/enquiry.js';
 import realWeddingsRoutes from './routes/realweddings.js';
 import bookingsRoutes from './routes/booking.js';
 app.use("/api/v1/vendor", vendorRoutes);
-app.use("/api/api/v1/venue", venueRoutes);
+app.use("/api/v1/venue", venueRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/notification", notificationRoutes);
 app.use("/api/v1/", wishlistRoutes);
