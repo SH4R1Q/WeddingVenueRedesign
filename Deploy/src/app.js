@@ -46,16 +46,16 @@ import enquiryRoutes from './routes/enquiry.js';
 // import { addDemoVenues } from "./dummy.js";
 import realWeddingsRoutes from './routes/realweddings.js';
 import bookingsRoutes from './routes/booking.js';
-app.use("/api/v1/vendor", vendorRoutes);
-app.use("/api/v1/venue", venueRoutes);
-app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/notification", notificationRoutes);
-app.use("/api/v1/", wishlistRoutes);
-app.use("/api/v1/admin", adminRoutes);
-app.use("/api/v1/enquiry", enquiryRoutes);
-app.use("/api/v1/blog", blogRoutes);
-app.use("/api/v1/weddingpost", realWeddingsRoutes);
-app.use("/api/v1/bookings", bookingsRoutes);
+app.use("/api/api/v1/vendor", vendorRoutes);
+app.use("/api/api/v1/venue", venueRoutes);
+app.use("/api/api/v1/user", userRoutes);
+app.use("/api/api/v1/notification", notificationRoutes);
+app.use("/api/api/v1/", wishlistRoutes);
+app.use("/api/api/v1/admin", adminRoutes);
+app.use("/api/api/v1/enquiry", enquiryRoutes);
+app.use("/api/api/v1/blog", blogRoutes);
+app.use("/api/api/v1/weddingpost", realWeddingsRoutes);
+app.use("/api/api/v1/bookings", bookingsRoutes);
 // addDemoVenues();
 // export const prepareDummyData = async () => {
 //   try {
