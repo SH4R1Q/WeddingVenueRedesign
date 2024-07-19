@@ -16,9 +16,9 @@ const PopUp = () => {
     message: '',
     typeOfEvent: ''
   });
-  const [submit] = useSubmitEnquiryMutation()
+  const [submit] = useSubmitEnquiryMutation();
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-  const [seconds, setSeconds] = useState(20);
+  const [seconds, setSeconds] = useState(10);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ const PopUp = () => {
   useEffect(() => {
     if (isLoggedIn) {
       setShowLoginPopup(false);
-      setSeconds(20);
+      setSeconds(10);
     }
   }, [isLoggedIn]);
 
@@ -74,7 +74,7 @@ const PopUp = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("from", formData)
+    console.log("Form data:", formData);
     try {
       await submit(formData).unwrap();
       setFormData({
@@ -93,11 +93,23 @@ const PopUp = () => {
     }
   };
 
+  const handleClose = () => {
+    setShowLoginPopup(false);
+  };
+
   return (
     <>
       {showLoginPopup && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg relative z-50 w-full max-w-4xl">
+          <div className="bg-white p-8 rounded-lg shadow-lg relative z-50 w-full max-w-4xl max-h-[90vh] overflow-auto">
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
             <h1 className='text-2xl font-bold text-[#173445] mb-6 text-center'>Welcome to WeddingzVenue.in</h1>
             <h1 className='text-xl font-bold text-[#173445] mb-6 text-center'>Please fill the enquiry form</h1>
 
@@ -209,7 +221,7 @@ const PopUp = () => {
               </div>
 
               <div className="md:col-span-2">
-                <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300">
+                <button type="submit" className="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-gray-950 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300">
                   Submit
                 </button>
               </div>
