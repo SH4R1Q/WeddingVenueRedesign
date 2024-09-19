@@ -89,7 +89,7 @@ const AboutUs: React.FC = () => {
                   <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Our Story</p>
                 </dt>
                 <dd className="mt-2 ml-16 text-base text-gray-500">
-                  Our journey began in 2015 with a passion for creating unforgettable wedding experiences. Founded by John Doe, our company has grown from a small startup into a leading provider of wedding vendor services. With a dedicated team of professionals and a network of top-tier vendors, we have helped hundreds of couples bring their dream weddings to life. Our commitment to excellence and personalized service sets us apart, and we are proud to be a trusted partner in one of life's most important moments.
+                  Our journey began in 2015 with a passion for creating unforgettable wedding experiences. Founded by ABDUL KAREEM, our company has grown from a small startup into a leading provider of wedding vendor services. With a dedicated team of professionals and a network of top-tier vendors, we have helped hundreds of couples bring their dream weddings to life. Our commitment to excellence and personalized service sets us apart, and we are proud to be a trusted partner in one of life's most important moments.
                 </dd>
               </div>
             </dl>
@@ -116,7 +116,7 @@ const AboutUs: React.FC = () => {
             <h3 className="text-2xl font-semibold text-gray-900 text-center mb-8">Videos</h3>
             <div className="mt-6  grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
               {localVideos.map((videoPath, index) => (
-                <div key={index} className="rounded-lg shadow-md overflow-hidden ">
+                <div key={index} className="rounded-lg shadow-md overflow-hidden h-[400px] flex justify-center">
                   <video
                     width="100%"
                     height="315"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from "../components/navbar";
 import InformationBanner from "../components/InformationBanner";
@@ -21,6 +21,7 @@ const imageUrl = "/wv_cover2.jpg";
 
 const Home: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<string>('');
+  const venuesRef = useRef<HTMLDivElement>(null);
 
   const { data: venuesData, isLoading: isLoadingVenues, error: venuesError } = useRankedVenuesQuery();
   const { data: blogData, isLoading: isLoadingBlogs, error: blogsError } = useGetAllBlogsQuery('');
@@ -63,11 +64,16 @@ const Home: React.FC = () => {
       : realWeddingsError.message
     : null;
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(event.target.value);
-    dispatch(cityStatus(event.target.value)); // Assuming cityStatus is a Redux action creator
-  };
-
+    const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const cityValue = event.target.value;
+      setSelectedCity(cityValue);
+      dispatch(cityStatus(cityValue));
+      
+      // Scroll to the venues section
+      if (cityValue && venuesRef.current) {
+        venuesRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
   // console.log("cityy: ", selectedCity);
   
   return (
@@ -111,7 +117,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="py-12">
+      <div className="py-12" ref={venuesRef}>
         <h2 className="text-3xl text-gray-900 font-bold text-center mb-8">Top Rated Venues</h2>
         {isLoadingVenues ? (
             <Universal />
