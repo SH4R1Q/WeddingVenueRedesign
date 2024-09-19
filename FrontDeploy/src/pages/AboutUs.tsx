@@ -22,9 +22,9 @@ const AboutUs: React.FC = () => {
   ];
 
   const localVideos = [
-    '/aboutusvid.mp4', // Update these paths to your actual video file paths
-    '/aboutvid2.mp4',
-    '/aboutvid3.mp4',
+    '/aboutus1.mp4', // Update these paths to your actual video file paths
+    '/aboutus2.mp4',
+    '/aboutus3.mp4',
   ];
 
   return (
