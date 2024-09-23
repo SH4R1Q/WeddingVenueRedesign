@@ -177,7 +177,7 @@ export const searchvenuesByCity = async (req, res) => {
 // Assuming Venue is a Mongoose model and asyncHandler is used for error handling
 export const topVenues = asyncHandler(async (req, res) => {
     // Query to find venues where rank is between 1 and 5
-    const venues = await Venue.find({ rank: { $gte: 1, $lte: 2 } });
+    const venues = await Venue.find({ rank: { $gte: 1, $lte: 10 } }).sort({rank : 1});
     // Return a JSON response with a custom API response format
     return res.status(200).json(new ApiResponse(200, venues, "Here are the Vendors by rank"));
 });

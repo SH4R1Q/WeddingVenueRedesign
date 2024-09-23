@@ -86,7 +86,7 @@ const Home: React.FC = () => {
             backgroundImage: `url(${imageUrl})`,
           }}
         >
-          <div className="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 -translate-y-16 w-full max-w-md px-4">
+          <div className="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 -translate-y-24 w-full max-w-md px-4">
           <h1 className="text-4xl font-bold text-center mb-4 text-white" 
           style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
   Weddingz Venue

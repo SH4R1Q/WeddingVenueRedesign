@@ -38,6 +38,9 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
   const [editing, setEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Add loading state
   const [imagedata, setImageData] = useState<File[]>([]);
+  // const [progress, setProgress] = useState(0);  // Progress state
+  // const [isUploading, setIsUploading] = useState(false);  // Uploading state
+  const [progress, setProgress] = useState(0); // For progress bar
   const [formData, setFormData] = useState<Props>({
     phone,
     address,
@@ -71,6 +74,8 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
     });
   }, [phone, images, featuresOfVenue, guestCapacity, howToReach, summary, venuePolicies, id, foodPackages, venueType, facilities, address]);
 
+   // Simulate rapid progress
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -80,10 +85,58 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
     }));
   };
 
+  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     setImageData(Array.from(e.target.files));
+  //     simulateProgress(); // Start progress simulation on image upload
+  //   }
+  // };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setImageData(Array.from(e.target.files));
+      const files = Array.from(e.target.files);
+      setImageData(files);
+      uploadFiles(files); // Call the file upload function here
     }
+  };
+
+  const uploadFiles = (files: File[]) => {
+    const formDataToSend = new FormData();
+    files.forEach((file) => formDataToSend.append('images', file));
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:9000/api/api/v1/venue/', true); // Update with your endpoint URL
+
+    // Track upload progress
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) {
+        const uploadProgress = (event.loaded / event.total) * 100;
+        console.log('Upload progress:', uploadProgress); // Add this line
+        setProgress(Math.round(uploadProgress));
+        // console.log("progress iss", progress);
+        if(uploadProgress == 100){
+        alert("File uploaded");
+        }
+      }
+    };
+
+    // Handle successful upload
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        
+        console.log('File uploaded successfully');
+      } else {
+        console.error('File upload failed');
+      }
+    };
+
+    // Handle errors
+    xhr.onerror = () => {
+      console.error('File upload error');
+    };
+
+    // Send the form data with the files
+    xhr.send(formDataToSend);
   };
 
   const handleVenueTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,6 +202,8 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
 
   const handleEditClick = () => {
     // Populate the formData state with the current values
+    setProgress(0);
+
     setFormData({
       phone,
       images,
@@ -233,7 +288,16 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
                   multiple
                   className="w-3/4 rounded-md border-gray-300 px-3 py-2 text-lg bg-white text-[#110069]"
                 />
+                {progress > 0 && (
+                  <div className="w-3/4 bg-gray-200 rounded-full h-4 mt-2">
+                    <div
+                      className="bg-blue-600 h-4 rounded-full"
+                      style={{ width: `${progress}%` }}
+                    ></div>
+                  </div>
+                )}
               </div>
+              
               <div className="mb-10 border-b pb-8">
                 <label htmlFor="featuresOfVenue" className="block mb-4 font-bold text-2xl text-[#110069]">
                   Features Of Venue:

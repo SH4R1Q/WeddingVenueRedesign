@@ -54,7 +54,7 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
   };
 
   if (!venue?.images || venue.images.length === 0) {
-    return <div>No images available</div>;
+    return <div></div>;
   }
 
   return (
@@ -81,18 +81,18 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
         </div>
       </div>
 
-      <div className="md:w-1/2 p-4 text-center">
+      <div className="md:w-1/2 p-4 text-center text-2xl">
         <div className={`flex justify-center text-end items-end ${isInWishlist ? "text-red-500 transform scale-125" : "text-white transform scale-125 "}`}>
           <FaHeart size={25} />
         </div>
         <h2 className="text-xl md:text-3xl font-bold mb-2">{venue.name}</h2>
         <p className="text-lg md:text-xl text-gray-600 mb-2">{venue.location}</p>
         <div className="mb-4 flex justify-center">
-          <p className="text-sm md:text-lg text-gray-600 mr-4">
-            <span className="font-bold">Max Guests:</span> {venue.maxGuests}
+          <p className="text-sm md:text-lg text-gray-600 mr-4 flex flex-col">
+            <span className="font-bold">Max Guests</span>{venue.maxGuests}
           </p>
-          <p className="text-sm md:text-lg text-gray-600">
-            <span className="font-bold">Contact:</span> {venue.contact}
+          <p className="text-sm md:text-lg text-gray-600 flex flex-col">
+            <span className="font-bold">Contact</span> {venue.contact}
           </p>
         </div>
         <div className="mb-4 text-sm md:text-lg text-gray-700">
@@ -112,15 +112,18 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
           )}
         </div>
         <div className="mb-4 flex justify-center">
-          <div className="mr-8 text-sm md:text-lg text-gray-600 flex items-center">
-            <MdDinnerDining size={20} className="mr-2" />
-            <span className="font-bold">Price Per Plate: </span> {venue.vegPrice}
+          <div className=" text-sm md:text-lg text-gray-600 flex flex-col items-center justify-center">
+            <MdDinnerDining size={40} className="mr-2" />
+            <span className="font-bold">Price Per Plate</span> {venue.vegPrice}
           </div>
         </div>
         <Link to={{ pathname: `/venuelist/${venue?.id}`, state: { venue } } as To}>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+          <button className="bg-black hover:bg-gray-800 text-[#D6BF5E] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
             View Venue
-          </button>
+          </button> 
+          {/* <button className="bg-[#D6BF5E] hover:bg-blue-700 text-black font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+            View Venue
+          </button> */}
         </Link>
       </div>
     </div>

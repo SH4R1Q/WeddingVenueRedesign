@@ -68,6 +68,7 @@ export const VenueRegistrationForm: React.FC = () => {
       const res = await register(values);
       console.log('datat', res)
       if(res?.data?.success==true){
+        alert("You Have Successfully Registered");
         navigate('/login')
       }
       setIsLoading(false);

@@ -58,11 +58,13 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex h-screen ">
-      <div className="w-1/3 bg-gray-800 text-white p-2 flex flex-col items-center">
+    <div className="flex h-screen  ">
+      <div className="w-1/3 bg-gray-800 text-white p-2 flex flex-col items-center ">
         <div className="flex items-center mb-6 ">
-          <img src="/path/to/your/logo.png" alt="Logo" className="w-12 h-12 mr-2" />
+          <div className="flex justify-center flex-col">
+          <img src="/weddingz_venue_logo.png" alt="Logo" className=" h-16 m-4 " />
           <h1 className=" sm:text-sm lg:text-2xl font-bold">Admin Dashboard</h1>
+          </div>
         </div>
         <ul className="mt-4 w-full space-y-2 flex flex-col items-center">
           {["Profile", "Admin Management", "Vendor Management", "Venue Management", "User Management", "Blog Management", "Real Wedding Management" , "Notification Management"].map((section) => (

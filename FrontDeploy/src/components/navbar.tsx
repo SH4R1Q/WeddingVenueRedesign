@@ -96,6 +96,14 @@ const NavBar: React.FC = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 bg-[#000000]  text-[#D6BF5E] flex flex-col items-center justify-center space-y-4 z-10 transition-transform duration-300">
+
+
+          <div className='absolute top-8 '>
+           <img src={Logo} alt="Logo" className="w-32  h-12 items-stretch " />
+          </div>
+
+
+
           <button onClick={toggleMobileMenu} className="absolute top-4 right-4 text-[#D6BF5E]">
             <FaTimes size={24} />
           </button>
