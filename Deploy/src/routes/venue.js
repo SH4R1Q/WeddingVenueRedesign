@@ -15,7 +15,7 @@ router.route("/:id").put(upload.array('images', 20), UpdateVenue);
 // GET - Search vendors by city
 router.get("search_venues/:city", searchvenuesByCity);
 //delete
-router.route("/:id").delete(checkAdmin, DeleteVenueById);
+router.route("/:id").delete(DeleteVenueById);
 
 //ranked venues
 router.route("/ranked/venues").get(topVenues);

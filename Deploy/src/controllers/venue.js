@@ -77,7 +77,7 @@ export const UpdateVenue = asyncHandler(async (req, res) => {
     }
     // Update all fields present in req.body
     for (const [key, value] of Object.entries(updateFields)) {
-        if (key !== '_id' && key !== '__v') {
+        if (key !== '_id' && key !== '_v') {
             venue[key] = value;
         }
     }
@@ -89,7 +89,7 @@ export const UpdateVenue = asyncHandler(async (req, res) => {
 export const DeleteVenueById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { user } = req.body;
-    console.log("useers ", user);
+    console.log("users ", user);
     const venue = await Venue.findById(id);
     if (!venue) {
         throw new ApiError(404, "No Vendor Found!!!");
