@@ -73,8 +73,8 @@ const App: React.FC = () => {
             <Route path="/vendor/:type/:_id" element={<VendorServicePage />} />
             <Route path="/venuelist/:id" element={<VenueServicePage />} />
             <Route path="/blogs" element={<BlogList />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/blog/new" element={<NewBlog />} />
+            {/* <Route path="/blog/:id" element={<BlogPost />} /> */}
+            {/* <Route path="/blog/new" element={<NewBlog />} /> */}
             <Route path="/realWeddings/new" element={<NewRealWedding />} />
             <Route path="/realWeddings/:id" element={<RealWeddingsPost />} />
             <Route path="/notification" element={<EnquiryNotif />} />
@@ -89,6 +89,8 @@ const App: React.FC = () => {
               <Route path="/VendorProfile/:id" element={<VendorProfile />} />
               <Route path="/VendorProfile/:id" element={<VendorProfile />} />
               <Route path="/VenueProfile/:id" element={<VenueProfile />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/blog/new" element={<NewBlog />} />
             </Route>
 
             <Route element={<VendorProtectedRoutes />}>

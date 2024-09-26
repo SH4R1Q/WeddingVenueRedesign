@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { DeleteVenueById, GetVenueById, Login, Register, filterVenues, UpdateVenue, searchvenuesByCity, topVenues } from "../controllers/venue.js";
 import { upload } from "../middlewares/multer.js";
-import { checkAdmin } from "../middlewares/Admin.js";
+// import { checkAdmin } from "../middlewares/Admin.js";
 const router = Router();
 //post
 router.route("/register").post(Register);
