@@ -295,6 +295,8 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
                       className="bg-blue-600 h-4 rounded-full"
                       style={{ width: `${progress}%` }}
                     ></div>
+                    {/* Displaying the progress percentage */}
+                    <p className="mt-2 text-sm font-semibold text-[#110069]">{progress}%</p>
                   </div>
                 )}
               </div>
