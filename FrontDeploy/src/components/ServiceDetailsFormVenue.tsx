@@ -105,7 +105,7 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
     files.forEach((file) => formDataToSend.append('images', file));
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://weddingzvenue.in/api/api/v1/venue/', true); // Update with your endpoint URL
+    xhr.open('POST', `https://weddingzvenue.in/api/api/v1/venue/${id}`, true); // Update with your endpoint URL
 
     // Track upload progress
     xhr.upload.onprogress = (event) => {
