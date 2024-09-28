@@ -105,7 +105,7 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
     files.forEach((file) => formDataToSend.append('images', file));
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:9000/api/api/v1/venue/', true); // Update with your endpoint URL
+    xhr.open('POST', 'https://weddingzvenue.in/api/api/v1/venue/', true); // Update with your endpoint URL
 
     // Track upload progress
     xhr.upload.onprogress = (event) => {
@@ -191,6 +191,7 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
     try {
       const result = await updateVenue({ venueId: id || "", formData: formDataToSend }).unwrap();
       console.log('Venue updated:', result);
+      alert("Venue Updated")
       // Handle success (e.g., show a success message, redirect)
     } catch (error) {
       console.error('Failed to update venue:', error);
