@@ -92,52 +92,52 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
   //   }
   // };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      setImageData(files);
-      uploadFiles(files); // Call the file upload function here
-    }
-  };
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        const files = Array.from(e.target.files);
+        setImageData(files);
+        uploadFiles(files); // Call the file upload function here
+      }
+    };
 
-  const uploadFiles = (files: File[]) => {
-    const formDataToSend = new FormData();
-    files.forEach((file) => formDataToSend.append('images', file));
+    const uploadFiles = (files: File[]) => {
+      const formDataToSend = new FormData();
+      files.forEach((file) => formDataToSend.append('images', file));
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('PUT', `https://weddingzvenue.in/api/api/v1/venue/${id}`, true); // Update with your endpoint URL
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', `https://weddingzvenue.in/api/api/v1/venue/${id}`, true); // Update with your endpoint URL
 
-    // Track upload progress
-    xhr.upload.onprogress = (event) => {
-      if (event.lengthComputable) {
-        const uploadProgress = (event.loaded / event.total) * 100;
-        console.log('Upload progress:', uploadProgress); // Add this line
-        setProgress(Math.round(uploadProgress));
-        // console.log("progress iss", progress);
-        if(uploadProgress == 100){
-        alert("File uploaded");
+      // Track upload progress
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const uploadProgress = (event.loaded / event.total) * 100;
+          console.log('Upload progress:', uploadProgress); // Add this line
+          setProgress(Math.round(uploadProgress));
+          // console.log("progress iss", progress);
+          if(uploadProgress == 100){
+          alert("File uploaded");
+          }
         }
-      }
-    };
+      };
 
-    // Handle successful upload
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        
-        console.log('File uploaded successfully');
-      } else {
-        console.error('File upload failed');
-      }
-    };
+      // Handle successful upload
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          
+          console.log('File uploaded successfully');
+        } else {
+          console.error('File upload failed');
+        }
+      };
 
-    // Handle errors
-    xhr.onerror = () => {
-      console.error('File upload error');
-    };
+      // Handle errors
+      xhr.onerror = () => {
+        console.error('File upload error');
+      };
 
-    // Send the form data with the files
-    xhr.send(formDataToSend);
-  };
+      // Send the form data with the files
+      xhr.send(formDataToSend);
+    };
 
   const handleVenueTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     
