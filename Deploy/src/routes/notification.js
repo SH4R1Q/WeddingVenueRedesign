@@ -1,17 +1,5 @@
 import { Router } from "express";
 import { 
-// getNotificationAdmin,
-// getNotificationUser,
-// getNotificationVendor,
-// getNotificationVenue,
-// postNotificationAdmin,
-// postNotificationUser,
-// postNotificationVendor,
-// postNotificationVenue,
-// updateAdminNotification,
-// updateUserNotification,
-// updateVendorNotification,
-// updateVenueNotification,
 postNotification, updateNotification, getNotification, getNotificationByIdStatus, getAllNotificationsByVendorId } from "../controllers/notification.js";
 const router = Router();
 //notification
