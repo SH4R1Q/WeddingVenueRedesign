@@ -7,6 +7,7 @@ import {
 } from "../../redux/api/booking";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import NavBar from "../../components/navbar";
+import { useAllEnquiriesQuery } from "../../redux/api/enquiry";
 
 const EnquiryNotif = () => {
   const vId = useSelector((state: RootState) => state?.auth?.user?._id);
@@ -17,6 +18,7 @@ const EnquiryNotif = () => {
   console.log("otpppp", otp);
 
   const { data, refetch } = useGetBookingbyIdQuery({ vId: vId as string });
+  const {data:enquiryData, refetch:refetchEnquiries} = useAllEnquiriesQuery();
   const [verify] = useUpdateIsVerifiedMutation();
   const [reloadTrigger, setReloadTrigger] = useState(false);
   console.log("data", data);
@@ -24,9 +26,10 @@ const EnquiryNotif = () => {
   useEffect(() => {
     if (reloadTrigger) {
       refetch();
+      refetchEnquiries();
       setReloadTrigger(false);
     }
-  }, [reloadTrigger, refetch]);
+  }, [reloadTrigger, refetch, refetchEnquiries]);
 
   const handleApproval = async (uId: string) => {
     try {
@@ -123,7 +126,45 @@ const EnquiryNotif = () => {
             </div>
           </div>
         ))}
+        
+        {/* Display Enquiry (Vendor/Venue Registration) Notifications */}
+        {enquiryData?.map((enquiry: any, index: number) => (
+          <div
+            key={index}
+            className="p-4 m-4 border border-gray-200 rounded shadow-md"
+          >
+            <div className="mb-4">
+              <p className="text-lg font-bold">{enquiry.name}</p>
+              <p className="text-gray-500">{enquiry.location}</p>
+            </div>
+            <div className="mb-2">
+              <p className="text-gray-600">Contact: {enquiry.contact}</p>
+              <p className="text-gray-600">Guests: {enquiry.guests}</p>
+              <p className="text-gray-600">Event Type: {enquiry.typeOfEvent}</p>
+              <p className="text-gray-600">Message: {enquiry.message}</p>
+            </div>
+
+            <div className="w-1/12 p-2 flex justify-center items-center">
+              {enquiry.isRead ? (
+                <span className="bg-green-500 text-white rounded-full px-2 py-1 font-semibold">
+                  Read
+                </span>
+              ) : (
+                <button
+                  onClick={() => console.log("Mark as Read")} // Add logic for marking as read
+                  className="bg-blue-500 text-white rounded-full px-4 py-2"
+                >
+                  Mark as Read
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
+      
+
+      
+
       {showOTPPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow-md">

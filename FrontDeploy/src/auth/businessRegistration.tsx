@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "../components/skeleton/Loader";
+import { useSubmitAdminEnquiryMutation } from "../redux/api/enquiry";
 
 const businessCategories = [
   "Photographer",
@@ -41,6 +42,7 @@ export const VenueRegistrationForm: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [register] = useSignupVenueMutation();
   const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const [submitAdminEnquiry] = useSubmitAdminEnquiryMutation();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -67,7 +69,21 @@ export const VenueRegistrationForm: React.FC = () => {
       values.city = capitalizeFirstLetter(values.city);
       const res = await register(values);
       console.log('datat', res)
+
+
       if(res?.data?.success==true){
+
+        await submitAdminEnquiry({
+          name: values.yourName,
+          contact: values.phone,
+          location: values.city,
+          typeOfEvent: "Venue Registration", 
+          message: `New venue registration: ${values.businessName}`,
+        });
+
+        toast.success("You Have Successfully Registered");
+        navigate('/login');
+
         alert("You Have Successfully Registered");
         navigate('/login')
       }
@@ -243,6 +259,7 @@ export const VendorRegistrationForm: React.FC = () => {
   const navigate = useNavigate();
 
   const [register, { data, error, isSuccess }] = useSignupMutation();
+  const [submitAdminEnquiry] = useSubmitAdminEnquiryMutation();
   const [isLoading, setIsLoading] = useState(false); // Add loading state
 
   useEffect(() => {
@@ -278,6 +295,16 @@ export const VendorRegistrationForm: React.FC = () => {
       try {
         const res = await register(values);
         if (res?.data?.success === true) {
+          await submitAdminEnquiry({
+            name: values.name,
+            contact: values.phone,
+            location: values.city,
+            typeOfEvent: "Vendor Registration", 
+            message: `New vendor registration: ${values.businessName}`,
+          });
+
+
+          
           toast.success("Registration successful! Please log in.");
           navigate("/login");
         } else {

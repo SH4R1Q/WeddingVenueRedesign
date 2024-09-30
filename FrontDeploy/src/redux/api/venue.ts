@@ -30,7 +30,7 @@ export const VenueAPI = createApi({
       invalidatesTags: ["venues"], // Invalidate venues tag after signup
     }),
 
-    loginVenue: builder.mutation<LoggdInVenueResponse, { email: string; password: string }>({
+    loginVenue: builder.mutation<LoggdInVenueResponse, { email: string; password: string }>({ //request body being sent to the server
       query: ({ email, password }) => ({
         url: "login",
         method: "POST",

@@ -40,3 +40,14 @@ export const updateReadStatus = async (req, res) => {
         res.status(400).json({ message: 'Error submitting form', err });
     }
 };
+
+export const NewAdminForm = async (req, res) => {
+    try {
+        const newEnquiry = new Enquiry(req.body);
+        await newEnquiry.save();
+        res.status(201).json({ message: 'Form submitted successfully', data: newEnquiry });
+    }
+    catch (error) {
+        res.status(400).json({ message: 'Error submitting form', error });
+    }
+};

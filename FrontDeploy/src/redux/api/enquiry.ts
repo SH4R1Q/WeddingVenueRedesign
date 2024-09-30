@@ -33,7 +33,16 @@ export const enquiryAPI = createApi({
       }),
     }),
 
+    submitAdminEnquiry: builder.mutation<EnquiryResponse, Enquiry>({
+      query: (formdata)=>({
+        url: 'new/buisness',
+        method: 'POST',
+        body: formdata,
+      }),
+
+    }),
+
   }),
 });
 
-export const { useSubmitEnquiryMutation , useAllEnquiriesQuery , useUpdateEnquiryMutation } = enquiryAPI;
+export const { useSubmitEnquiryMutation , useAllEnquiriesQuery , useUpdateEnquiryMutation, useSubmitAdminEnquiryMutation } = enquiryAPI;
