@@ -4,7 +4,7 @@ const router = Router();
 router.route("/submit").post(submitEnquiryForm);
 router.get('/all/enquiry', allEnquiries);
 router.patch('/:id', updateReadStatus);
-router.post('/new/business', NewAdminForm);
+router.post('/new/buisness', NewAdminForm);
 export default router;
 
 
