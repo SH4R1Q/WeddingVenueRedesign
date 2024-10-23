@@ -30,7 +30,7 @@ const Home: React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
- 
+
 
 
   // setAllvenue(ven)
@@ -46,9 +46,9 @@ const Home: React.FC = () => {
   // console.log("sokhi" , venues)
 
   // Handle error appropriately based on its type
-  const errorMessageVenues = venuesError 
-    ? 'status' in venuesError 
-      ? `Error: ${venuesError.status} - ${JSON.stringify(venuesError.data)}` 
+  const errorMessageVenues = venuesError
+    ? 'status' in venuesError
+      ? `Error: ${venuesError.status} - ${JSON.stringify(venuesError.data)}`
       : venuesError.message
     : null;
 
@@ -64,39 +64,39 @@ const Home: React.FC = () => {
       : realWeddingsError.message
     : null;
 
-    const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const cityValue = event.target.value;
-      setSelectedCity(cityValue);
-      dispatch(cityStatus(cityValue));
-      
-      // Scroll to the venues section
-      if (cityValue && venuesRef.current) {
-        venuesRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    };
+  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const cityValue = event.target.value;
+    setSelectedCity(cityValue);
+    dispatch(cityStatus(cityValue));
+
+    // Scroll to the venues section
+    if (cityValue && venuesRef.current) {
+      venuesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   // console.log("cityy: ", selectedCity);
-  
+
   return (
     <div>
       <NavBar />
       <div className="relative">
         <div
           className="bg-cover bg-center h-[95vh]"
-          // style={{
-          //   backgroundImage: `url(${imageUrl})`,
-          // }}
-          
-        >Error Fetching Image from frontend// Token Expired~
-          <div className="absolute bottom-1/2 left-1/2 transform -translate-x-1/2 -translate-y-24 w-full max-w-md px-4">
-          <h1 className="text-4xl font-bold text-center mb-4 text-white" 
-          style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
-  Weddingz Venue
-</h1>
-<h2 className="text-2xl font-bold text-center mb-4 text-white" style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
-  The Best Place To Plan Your Wedding
-</h2>
+          style={{
+            backgroundImage: `url(${imageUrl})`,
+          }}
 
-            <div className="relative">
+        >
+          <div className="absolute bg-bg-gradient-to-b top-[6rem] left-1/2 transform -translate-x-1/2 -translate-y-24 w-full">
+            <h1 className="text-4xl font-bold text-center mb-4 text-white"
+              style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white', paddingTop: '10px'}}>
+              Weddingz Venue
+            </h1>
+            <h2 className="text-2xl font-bold text-center mb-4 text-white" style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
+              The Best Place To Plan Your Wedding
+            </h2>
+
+            {/* <div className="relative">
               <select
                 value={selectedCity}
                 onChange={handleCityChange}
@@ -114,14 +114,14 @@ const Home: React.FC = () => {
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
       <div className="py-12" ref={venuesRef}>
         <h2 className="text-3xl text-gray-900 font-bold text-center mb-8">Top Rated Venues</h2>
         {isLoadingVenues ? (
-            <Universal />
+          <Universal />
         ) : venuesError ? (
           <div>{errorMessageVenues}</div>
         ) : (
