@@ -1,31 +1,30 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
+        marcellus: ["Marcellus", "sans-serif"],
       },
-      // added colors as per theme 
+      // added colors as per theme
       colors: {
-        majenta: '#87255B',
-        pink:{
-          600 : '#6b2049',
-          500 : '#B370B0',
-          300 : '#BBA0CA',
-          100 : "#d4b4c4",
-          '100-a' : "#d4b4c470"
+        majenta: "#87255B",
+        pink: {
+          600: "#6b2049",
+          500: "#B370B0",
+          300: "#BBA0CA",
+          100: "#d4b4c4",
+          "100-a": "#d4b4c470",
         },
+        lightpink: "#D1C8E1",
         white: {
-          100 : '#D1C8E1',
-          500 : '#ffffff',
-          '500-a' : '#ffffff66'
-        } ,
-        'light-blue': '#C3C3E6'
+          100: "#D1C8E1",
+          500: "#ffffff",
+          "500-a": "#ffffff66",
+        },
+        "light-blue": "#C3C3E6",
       },
       spacing: {
         px: "1px",
@@ -41,7 +40,9 @@ export default {
         36: "9rem",
         40: "10rem",
         44: "11rem",
-        60: "33rem"
+        60: "33rem",
+        100: "1200px",
+        full: "100%",
       },
       borderRadius: {
         none: "0",
@@ -78,23 +79,23 @@ export default {
       //   "5xl": "3rem",
       // },
       backgroundImage: {
-        'bg-gradient-to-b': 'linear-gradient(180deg, black, transparent)'
+        "bg-gradient-to-b": "linear-gradient(180deg, black, transparent)",
       },
       keyframes: {
         gradient: {
-          '0%': {
-            background: 'linear-gradient(45deg, #FAFAFA, #D6D6D6)',
+          "0%": {
+            background: "linear-gradient(45deg, #FAFAFA, #D6D6D6)",
           },
-          '50%': {
-            background: 'linear-gradient(45deg, #FAFAFA, #D6D6D6)',
+          "50%": {
+            background: "linear-gradient(45deg, #FAFAFA, #D6D6D6)",
           },
-          '100%': {
-            background: 'linear-gradient(45deg, #D6D6D6, #FAFAFA)',
+          "100%": {
+            background: "linear-gradient(45deg, #D6D6D6, #FAFAFA)",
           },
         },
       },
       animation: {
-        gradient: 'gradient 15s ease infinite',
+        gradient: "gradient 15s ease infinite",
       },
     },
   },

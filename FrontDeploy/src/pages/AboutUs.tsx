@@ -1,13 +1,13 @@
-import React from 'react';
-import Footer from '../components/Footer';
-import NavBar from '../components/navbar';
+import React from "react";
+import Footer from "../components/Footer";
+import NavBar from "../components/navbar";
 
 const AboutUs: React.FC = () => {
   const teamMembers = [
     {
-      name: 'ABDUL KAREEM',
-      role: 'Founder & CEO',
-      imageUrl: '/founderandCEO.jpg',
+      name: "ABDUL KAREEM",
+      role: "Founder & CEO",
+      imageUrl: "/founderandCEO.jpg",
     },
     // {
     //   name: 'Raziya Kareem',
@@ -22,115 +22,176 @@ const AboutUs: React.FC = () => {
   ];
 
   const localVideos = [
-    '/aboutus1.mp4', // Update these paths to your actual video file paths
-    '/aboutus2.mp4',
-    '/aboutus3.mp4',
+    "/aboutus1.mp4", // Update these paths to your actual video file paths
+    "/aboutus2.mp4",
+    "/aboutus3.mp4",
   ];
 
   return (
-    <div>
+    <div className="w-100">
       <NavBar />
-      <div className="bg-gray-100 py-16">
+      <div className="bg-grey-100 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center">
-            <h2 className="text-4xl font-extrabold text-gray-900">About Us</h2>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
-              Welcome to our wedding planning and vendor services website. We are dedicated to helping you create the wedding of your dreams by connecting you with the best venues and vendors in the industry.
-            </p>
-          </div>
-
-          <div className="mt-10">
-            <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-              <div className="relative">
-                <dt>
-                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                    <svg
-                      className="h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
-                  </div>
-                  <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Our Mission</p>
-                </dt>
-                <dd className="mt-2 ml-16 text-base text-gray-500">
-                  Our mission is to provide the best wedding vendor services to couples and make their special day truly memorable. We believe that every couple deserves a wedding that reflects their unique love story, and we are committed to making that vision a reality through exceptional service and attention to detail.
-                </dd>
-              </div>
-
-              <div className="relative">
-                <dt>
-                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                    <svg
-                      className="h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                      />
-                    </svg>
-                  </div>
-                  <p className="ml-16 text-lg leading-6 font-medium text-gray-900">Our Story</p>
-                </dt>
-                <dd className="mt-2 ml-16 text-base text-gray-500">
-                  Our journey began in 2015 with a passion for creating unforgettable wedding experiences. Founded by ABDUL KAREEM, our company has grown from a small startup into a leading provider of wedding vendor services. With a dedicated team of professionals and a network of top-tier vendors, we have helped hundreds of couples bring their dream weddings to life. Our commitment to excellence and personalized service sets us apart, and we are proud to be a trusted partner in one of life's most important moments.
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <div className="mt-16">
-            <h3 className="text-2xl font-semibold text-gray-900 text-center mb-8">Our Team</h3>
-            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-1 xl:gap-x-8 justify-items-center">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="text-center">
-                  <img
-                    src={member.imageUrl}
-                    alt={member.name}
-                    className="mx-auto rounded-full w-32 h-32 mb-4"
-                  />
-                  <h4 className="text-lg font-semibold text-gray-900">{member.name}</h4>
-                  <p className="text-gray-500">{member.role}</p>
-                </div>
-              ))}
+          <section id="title">
+            <div
+              id="banner"
+              className="lg:text-center bg-[url('/aboutusbanner.jpg')] h-64 flex place-items-center place-content-center bg-cover"
+            >
+              <h2 className="text-5xl font-marcellus font-semibold text-pink-950">
+                About Us
+              </h2>
             </div>
-          </div>
-
-          <div className="mt-16">
-            <h3 className="text-2xl font-semibold text-gray-900 text-center mb-8">Videos</h3>
-            <div className="mt-6  grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-              {localVideos.map((videoPath, index) => (
-                <div key={index} className="rounded-lg shadow-md overflow-hidden h-[400px] flex justify-center">
-                  <video
-                    width="100%"
-                    height="315"
-                    controls
-                  >
-                    <source src={videoPath} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              ))}
+            <div id="title">
+              <p className="font-roboto mt-24 text-center text-sm text-black uppercase">
+                Welcome to Wedding Venuez
+              </p>
+              <p className="font-marcellus mt-4 text-center text-4xl text-black font-bold">
+                Dedicated to helping you create the wedding of your dreams
+              </p>
+              <p className="font-roboto mt-4 text-center text-lg text-black">
+                Connecting you with the best venues and vendors in the industry
+              </p>
             </div>
-          </div>
+          </section>
+
+          <section id="info">
+            <div className="mt-24 flex flex-col items-center">
+              <div className="flex w-full">
+                {/*first column*/}
+                <div className="flex flex-col w-1/3 border border-white-500 border-3">
+                  <div className="flex-1 flex-col bg-majenta p-4 flex justify-center">
+                    <div>
+                      <h2 className="text-white-500 font-marcellus text-3xl font-bold tracking-wider">
+                        Our Mission
+                      </h2>
+                    </div>
+                    <div className="mt-4">
+                      <p className="text-white-500 text-md font-roboto">
+                        Our mission is to create unforgettable weddings by
+                        pairing couples with top vendors. We ensure every love
+                        story is beautifully celebrated through personalized
+                        service and attention to detail.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex-1 h-1/2 overflow-hidden">
+                    <img
+                      src="/aboutusLeft.jpg"
+                      alt="Placeholder"
+                      className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
+                    />
+                  </div>
+                </div>
+
+                {/* Second Column*/}
+                <div className="w-1/3 border border-white-500 border-3 ">
+                  <div className="w-full h-full overflow-hidden">
+                    <img
+                      src="aboutusMiddle.png"
+                      alt="Placeholder"
+                      className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
+                    />
+                  </div>
+                </div>
+
+                {/* Third Column */}
+                <div className="flex flex-col w-1/3 border border-white-500 border-3">
+                  <div className="flex-1 flex-col bg-majenta p-4 flex justify-center">
+                    <div>
+                      <h2 className="text-white-500 font-marcellus text-3xl font-bold tracking-wider">
+                        Our Story
+                      </h2>
+                    </div>
+                    <div className="mt-4">
+                      <p className="text-white-500 text-md font-roboto">
+                        Founded in 2015 by Abdul Kareem, we’ve grown from a
+                        small startup into a trusted leader in wedding vendor
+                        services. With a dedicated team and top-tier vendors, we
+                        bring couples' dream weddings to life through excellence
+                        and personalized service.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex-1 h-1/2 overflow-hidden">
+                    <img
+                      src="/aboutusRight.jpg"
+                      alt="Placeholder"
+                      className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
+
+      <div className="bg-pink-50 mt-12 py-20">
+        <div>
+          <section className="founders-note bg-gradient-to-b from-pink-50 to-white py-12">
+            <div className="w-11/12 sm:w-3/5 md:w-2/5 mx-auto text-center py-6 rounded-3xl shadow-lg transition-transform transform hover:scale-105">
+              {/* Title: Founder's Note */}
+              <h2 className="font-marcellus text-4xl md:text-5xl font-bold text-pink-950 mb-4">
+                Founder's Note
+              </h2>
+
+              {/* Founder name and title */}
+              <div className="text-xl font-medium font-inter mb-6 text-pink-800">
+                <p>ABDUL KAREEM - Founder & CEO</p>
+              </div>
+
+              {/* Circular founder's photo */}
+              <div className="mb-8">
+                <img
+                  src="/founderandCEO.jpg"
+                  alt="Founder Abdul Kareem"
+                  className="w-40 h-40 sm:w-64 sm:h-64 rounded-full mx-auto object-cover border-4 border-pink-500 shadow-md transition-transform duration-300 hover:scale-110"
+                />
+              </div>
+
+              {/* Founder's description */}
+              <div className="text-gray-700">
+                <p className="mb-2 px-4 text-center text-lg font-roboto">
+                  Abdul Kareem is a visionary leader dedicated to making every
+                  wedding unique. He believes that every couple deserves a
+                  wedding that reflects their unique love story, and we are
+                  committed to making that vision a reality through exceptional
+                  service and attention to detail.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div className="bg-grey-100 py-16">
+        <div className="mt-8">
+          <section id="videos">
+            <div>
+              <h2 className="font-marcellus text-4xl font-semibold text-gray-900 text-center mb-8">
+                Media
+              </h2>
+            </div>
+
+            <div className="container mx-auto p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {localVideos.map((videoPath, index) => (
+                  <div
+                    key={index}
+                    className="rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+                  >
+                    <video className="w-full h-80 object-cover" controls>
+                      <source src={videoPath} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
