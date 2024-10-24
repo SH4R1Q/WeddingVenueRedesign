@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FaChevronLeft, FaChevronRight, FaHeart, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaHeart, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { Link, To } from 'react-router-dom';
 import { useGetWishlistQuery } from '../redux/api/wishlist';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { MdDinnerDining } from "react-icons/md";
+import { MdContacts, MdDinnerDining, MdLocationPin, MdPeople } from "react-icons/md";
 
 interface VenueProps {
   venue: {
@@ -25,8 +25,17 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { data: wishlistData } = useGetWishlistQuery(userId ?? "");
+  const [fade, setFade] = useState(true);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const itemId = venue.id;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNextImage();
+    }, 3000); // Change image every 3 seconds
+    return () => clearInterval(interval);
+  }, [currentImageIndex]);
+
 
   useEffect(() => {
     if (wishlistData) {
@@ -41,25 +50,71 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
 
   const truncatedDescription = venue.description ? `${venue.description.slice(0, 100)}...` : '';
 
-  const handlePrevImage = () => {
-    setCurrentImageIndex(
-      currentImageIndex === 0 ? (venue?.images?.length ?? 0) - 1 : currentImageIndex - 1
-    );
-  };
+  // const handlePrevImage = () => {
+  //   setCurrentImageIndex(
+  //     currentImageIndex === 0 ? (venue?.images?.length ?? 0) - 1 : currentImageIndex - 1
+  //   );
+  // };
 
+  // const handleNextImage = () => {
+  //   setCurrentImageIndex(
+  //     currentImageIndex === (venue?.images?.length ?? 0) - 1 ? 0 : currentImageIndex + 1
+  //   );
+  // };
+
+  //auto change crousal handler
   const handleNextImage = () => {
-    setCurrentImageIndex(
-      currentImageIndex === (venue?.images?.length ?? 0) - 1 ? 0 : currentImageIndex + 1
-    );
+    setFade(false);
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === (venue?.images?.length ?? 0) - 1 ? 0 : prevIndex + 1
+      );
+      setFade(true);
+    }, 200); // Fade duration is 200ms
   };
 
   if (!venue?.images || venue.images.length === 0) {
     return <div></div>;
   }
-
   return (
-    <div className="flex bg-gray-100 flex-col md:flex-row rounded-lg shadow-lg overflow-hidden mx-4 my-4">
-      <div className="relative md:w-1/2 h-56 md:h-80">
+    <div className="flex bg-gray-100 flex-col md:flex-row rounded-lg overflow-hidden mx-4 my-4
+                    transition-transform transform hover:scale-105 hover:shadow-2xl">
+      <div className="relative md:w-1/2 h-full md:h-full">
+        <div className={`w-full h-full transition-opacity duration-300 ease-in-out ${fade ? 'opacity-100' : 'opacity-80'}`}>
+          <img
+            src={venue?.images[currentImageIndex]}
+            alt={`Venue ${currentImageIndex}`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        {/* Arrow Navigation
+      <div className="absolute inset-0 flex justify-between items-center px-4">
+        <button
+          onClick={handlePrevImage}
+          className="bg-white rounded-full p-1 text-gray-600 hover:text-gray-800 focus:outline-none"
+        >
+          <FaChevronLeft size={16} />
+        </button>
+        <button
+          onClick={handleNextImage}
+          className="bg-white rounded-full p-1 text-gray-600 hover:text-gray-800 focus:outline-none"
+        >
+          <FaChevronRight size={16} />
+        </button>
+      </div> */}
+        {/* Dot Navigation */}
+        <div className="absolute bottom-4 inset-x-0 flex justify-center space-x-2">
+          {venue?.images.map((_, index) => (
+            <span
+              key={index}
+              className={`w-2 h-2 rounded-full bg-white ${index === currentImageIndex ? 'bg-gray-800' : 'opacity-50'
+                }`}
+              onClick={() => setCurrentImageIndex(index)}
+            />
+          ))}
+        </div>
+      </div>
+      {/* <div className="relative md:w-1/2 h-full md:h-full">
         <img
           src={venue?.images[currentImageIndex]}
           alt={`Venue ${currentImageIndex}`}
@@ -79,18 +134,21 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
             <FaChevronRight size={24} />
           </button>
         </div>
-      </div>
+      </div> */}
 
-      <div className="md:w-1/2 p-4 text-center text-2xl">
-        <div className={`flex justify-center text-end items-end ${isInWishlist ? "text-red-500 transform scale-125" : "text-white transform scale-125 "}`}>
+      <div className="md:w-1/2 p-4 text-left text-2xl">
+        {/* <div className={`flex justify-center text-end items-end ${isInWishlist ? "text-red-500 transform scale-125" : "text-white transform scale-125 "}`}>
           <FaHeart size={25} />
-        </div>
+        </div> */}
         <h2 className="text-xl md:text-3xl font-bold mb-2">{venue.name}</h2>
+        <MdLocationPin size={20} className='mr-4' />
         <p className="text-lg md:text-xl text-gray-600 mb-2">{venue.location}</p>
-        <div className="mb-4 flex justify-center">
-          <p className="text-sm md:text-lg text-gray-600 mr-4 flex flex-col">
+        <div className="block my-4">
+          <MdPeople size={20} />
+          <p className="text-sm md:text-lg text-gray-600 mb-4 flex flex-col">
             <span className="font-bold">Max Guests</span>{venue.maxGuests}
           </p>
+          <MdContacts size={20} />
           <p className="text-sm md:text-lg text-gray-600 flex flex-col">
             <span className="font-bold">Contact</span> {venue.contact}
           </p>
@@ -111,16 +169,16 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
             </>
           )}
         </div>
-        <div className="mb-4 flex justify-center">
-          <div className=" text-sm md:text-lg text-gray-600 flex flex-col items-center justify-center">
+        <div className="mb-4 flex justify-start">
+          <div className=" text-sm md:text-lg text-gray-600 flex flex-col items-start justify-start">
             <MdDinnerDining size={40} className="mr-2" />
             <span className="font-bold">Price Per Plate</span> {venue.vegPrice}
           </div>
         </div>
         <Link to={{ pathname: `/venuelist/${venue?.id}`, state: { venue } } as To}>
-          <button className="bg-black hover:bg-gray-800 text-[#D6BF5E] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+          <button className="bg-black hover:!bg-transparent border-2 border-solid border-black text-[#D6BF5E] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
             View Venue
-          </button> 
+          </button>
           {/* <button className="bg-[#D6BF5E] hover:bg-blue-700 text-black font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
             View Venue
           </button> */}

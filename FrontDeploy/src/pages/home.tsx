@@ -87,21 +87,21 @@ const Home: React.FC = () => {
           }}
 
         >
-          <div className="absolute bg-bg-gradient-to-b top-[6rem] left-1/2 transform -translate-x-1/2 -translate-y-24 w-full">
-            <h1 className="text-4xl font-bold text-center mb-4 text-white"
-              style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white', paddingTop: '10px'}}>
+          <div className="absolute bg-pink-100-a rounded-xl top-[6rem] left-1/2 mt-4 transform -translate-x-1/2 -translate-y-24 w-[50%]">
+            <h1 className="text-4xl font-bold text-center mb-4 text-white font-sans pt-4"
+              style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
               Weddingz Venue
             </h1>
-            <h2 className="text-2xl font-bold text-center mb-4 text-white" style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
+            <h2 className="text-2xl font-bold text-center mb-4 text-white font-roboto" style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
               The Best Place To Plan Your Wedding
             </h2>
 
-            {/* <div className="relative">
+            <div className="relative flex justify-center mb-4">
               <select
                 value={selectedCity}
                 onChange={handleCityChange}
-                className="w-full px-6 py-2 sm:px-10 sm:py-3 border border-gray-300 opacity-80
-                 rounded-full bg-white bg-opacity-90 text-gray-900
+                className="w-1/2 px-1 py-2 sm:px-10 sm:py-3 border border-gray-300 opacity-80
+                 rounded-xl bg-white bg-opacity-90 text-gray-900 
                   focus:ring focus:ring-indigo-300 focus:outline-none transition duration-300"
               >
                 <option value="">Select City</option>
@@ -109,24 +109,27 @@ const Home: React.FC = () => {
                   <option key={city} value={city}>{city}</option>
                 ))}
               </select>
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              {/* <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg className="h-5 w-5 text-gray-800" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-              </div>
-            </div> */}
+              </div> */}
+            </div>
           </div>
         </div>
       </div>
-      <div className="py-12" ref={venuesRef}>
-        <h2 className="text-3xl text-gray-900 font-bold text-center mb-8">Top Rated Venues</h2>
+      <div className="pt-12 bg-pink-100" ref={venuesRef}>
+        {venues
+        .filter((venue: any) => selectedCity ? venue.city.toLowerCase() === selectedCity.toLowerCase() : true) &&(
+          <h2 className="text-3xl text-gray-900 font-bold text-center mb-8">Top Rated Venues</h2>
+        )}
         {isLoadingVenues ? (
           <Universal />
         ) : venuesError ? (
           <div>{errorMessageVenues}</div>
         ) : (
           <div className="flex justify-center items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 scale-90 -mt-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 scale-90">
               {venues
                 .filter((venue: any) => selectedCity ? venue.city.toLowerCase() === selectedCity.toLowerCase() : true)
                 .map((venue: any, index: any) => (
@@ -147,12 +150,19 @@ const Home: React.FC = () => {
             </div>
           </div>
         )}
+        <div className='flex justify-center'>
+          <Link to={{ pathname: '/venuelist' }}>
+            <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+              View More
+            </button>
+          </Link>
+        </div>
       </div>
 
-      <div className="py-12 bg-white">
-        <h2 className="text-3xl text-gray-900 font-bold text-center mb-8">Latest Blog Posts</h2>
+      <div className="pb-12 px-12 bg-pink-100">
+        <h2 className="text-3xl text-gray-900 font-bold text-center mb-20">Latest Blog Posts</h2>
         {isLoadingBlogs ? (
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
             {Array.from({ length: 4 }).map((_, index) => (
               <SkeletonBlogCard key={index} />
             ))}
@@ -160,17 +170,18 @@ const Home: React.FC = () => {
         ) : blogsError ? (
           <div>{errorMessageBlogs}</div>
         ) : blogs.length > 0 ? (
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
             {blogs.slice(0, 4).map((blog: Blog) => {
               const imageUrl = Array.isArray(blog.images) ? blog.images[0] : blog.images || '/default-image.jpg';
               const contentPreview = blog.content ? blog.content.substring(0, 100) : 'No content available';
               return (
-                <div key={blog._id} className="border rounded-lg overflow-hidden shadow-lg">
+                <div key={blog._id} className="border border-2s rounded-lg overflow-hidden !shadow-lg 
+                transition-transform transform hover:scale-105 ">
                   <img src={imageUrl} alt={blog.title} className="w-full h-48 object-cover" />
                   <div className="p-4">
                     <h2 className="text-xl font-bold mb-2">{blog.title}</h2>
                     <p className="text-gray-700">{contentPreview}...</p>
-                    <Link to={`/blogs/${blog._id}`} className="text-red-500 hover:underline mt-2 block">
+                    <Link to={`/blogs/${blog._id}`} className="text-pink-600 hover:underline mt-2 block">
                       Read More
                     </Link>
                   </div>
@@ -181,6 +192,13 @@ const Home: React.FC = () => {
         ) : (
           <p>No blogs available</p>
         )}
+        <div className='flex justify-center mt-8'>
+          <Link to={{ pathname: '/blogs' }}>
+            <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+              View More
+            </button>
+          </Link>
+        </div>
       </div>
 
       <div className="py-12 bg-white">
