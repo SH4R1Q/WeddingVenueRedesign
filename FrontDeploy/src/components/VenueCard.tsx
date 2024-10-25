@@ -141,17 +141,25 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
           <FaHeart size={25} />
         </div> */}
         <h2 className="text-xl md:text-3xl font-bold mb-2">{venue.name}</h2>
-        <MdLocationPin size={20} className='mr-4' />
-        <p className="text-lg md:text-xl text-gray-600 mb-2">{venue.location}</p>
-        <div className="block my-4">
-          <MdPeople size={20} />
-          <p className="text-sm md:text-lg text-gray-600 mb-4 flex flex-col">
-            <span className="font-bold">Max Guests</span>{venue.maxGuests}
-          </p>
-          <MdContacts size={20} />
-          <p className="text-sm md:text-lg text-gray-600 flex flex-col">
-            <span className="font-bold">Contact</span> {venue.contact}
-          </p>
+        <div className="flex items-center my-3">
+          <MdLocationPin size={25} className="mr-2 text-gray-600" />
+          <p className="text-lg md:text-xl text-gray-600">{venue.location?.substring(0,20)}...</p>
+        </div>
+        <div className="space-y-4 my-4">
+          <div className="flex items-center">
+            <MdPeople size={25} className="mr-2 text-gray-600" />
+            <p className="text-sm md:text-lg text-gray-600 flex flex-col">
+              <span className="font-bold">Max Guests</span>
+              {venue.maxGuests}
+            </p>
+          </div>
+          <div className="flex items-center">
+            <MdContacts size={25} className="mr-2 text-gray-600" />
+            <p className="text-sm md:text-lg text-gray-600 flex flex-col">
+              <span className="font-bold">Contact</span>
+              {venue.contact}
+            </p>
+          </div>
         </div>
         <div className="mb-4 text-sm md:text-lg text-gray-700">
           {venue.description && (
@@ -169,14 +177,22 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
             </>
           )}
         </div>
-        <div className="mb-4 flex justify-start">
+        {/* <div className="mb-4 flex justify-start">
           <div className=" text-sm md:text-lg text-gray-600 flex flex-col items-start justify-start">
             <MdDinnerDining size={40} className="mr-2" />
             <span className="font-bold">Price Per Plate</span> {venue.vegPrice}
           </div>
+        </div> */}
+        <div className="mb-4 flex items-center">
+          <MdDinnerDining size={25} className="mr-2 text-gray-600" />
+          <div className="text-sm md:text-lg text-gray-600 flex flex-col">
+            <span className="font-bold">Price Per Plate</span>
+            {venue.vegPrice?.substring(0,5)} Onwards
+          </div>
         </div>
+
         <Link to={{ pathname: `/venuelist/${venue?.id}`, state: { venue } } as To}>
-          <button className="bg-black hover:!bg-transparent border-2 border-solid border-black text-[#D6BF5E] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+          <button className="bg-black hover:!bg-transparent border-2 border-solid border-black text-[#D6BF5E] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
             View Venue
           </button>
           {/* <button className="bg-[#D6BF5E] hover:bg-blue-700 text-black font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">

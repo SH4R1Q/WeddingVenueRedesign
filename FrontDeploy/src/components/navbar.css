@@ -1,0 +1,44 @@
+.link-effect {
+    position: relative;
+    color: #add8e6; /* Default link color */
+    transition: color 0.3s ease;
+  }
+  
+  .link-effect:hover {
+    color: #e5e7eb; /* Hovered link color */
+  }
+  
+  /* active class */
+  .active-link{
+    position: relative;
+    color: #e5e7eb;
+  }
+  
+  .active-link::after{
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    height: 2px;
+    background-color: #e5e7eb; /* Underline color */
+    width: 100%;
+    left: 0;
+  }
+
+  /* Before pseudo-element to create the underline */
+  .link-effect::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #e5e7eb; /* Underline color */
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+  
+  /* Hover effect expands underline from center */
+  .link-effect:hover::before {
+    width: 100%;
+    left: 0;
+  }
+  

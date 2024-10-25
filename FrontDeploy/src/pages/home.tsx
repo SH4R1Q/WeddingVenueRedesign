@@ -88,7 +88,7 @@ const Home: React.FC = () => {
 
         >
           <div className="absolute bg-pink-100-a rounded-xl top-[6rem] left-1/2 mt-4 transform -translate-x-1/2 -translate-y-24 w-[50%]">
-            <h1 className="text-4xl font-bold text-center mb-4 text-white font-sans pt-4"
+            <h1 className="text-4xl font-bold text-center mb-4 text-white font-inter pt-4"
               style={{ textShadow: '1px 1px 10px black, 0 0 4em black, 0 0 2em white' }}>
               Weddingz Venue
             </h1>
@@ -120,9 +120,9 @@ const Home: React.FC = () => {
       </div>
       <div className="pt-12 bg-pink-100" ref={venuesRef}>
         {venues
-        .filter((venue: any) => selectedCity ? venue.city.toLowerCase() === selectedCity.toLowerCase() : true) &&(
-          <h2 className="text-3xl text-gray-900 font-bold text-center mb-8">Top Rated Venues</h2>
-        )}
+          .filter((venue: any) => selectedCity ? venue.city.toLowerCase() === selectedCity.toLowerCase() : true) && (
+            <h2 className="text-3xl text-gray-900 font-bold text-center mb-8">Top Rated Venues</h2>
+          )}
         {isLoadingVenues ? (
           <Universal />
         ) : venuesError ? (
@@ -152,7 +152,7 @@ const Home: React.FC = () => {
         )}
         <div className='flex justify-center'>
           <Link to={{ pathname: '/venuelist' }}>
-            <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+            <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
               View More
             </button>
           </Link>
@@ -173,13 +173,15 @@ const Home: React.FC = () => {
           <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
             {blogs.slice(0, 4).map((blog: Blog) => {
               const imageUrl = Array.isArray(blog.images) ? blog.images[0] : blog.images || '/default-image.jpg';
-              const contentPreview = blog.content ? blog.content.substring(0, 100) : 'No content available';
+              const contentPreview = blog.content ? blog.content.substring(0, 200) : 'No content available';
               return (
-                <div key={blog._id} className="border border-2s rounded-lg overflow-hidden !shadow-lg 
-                transition-transform transform hover:scale-105 ">
-                  <img src={imageUrl} alt={blog.title} className="w-full h-48 object-cover" />
-                  <div className="p-4">
-                    <h2 className="text-xl font-bold mb-2">{blog.title}</h2>
+                <div key={blog._id} className="group border border-2 rounded-lg overflow-hidden !shadow-lg 
+                transition-transform transform hover:scale-105 relative !h-50 ">
+                  <img src={imageUrl} alt={blog.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
+                    <h2 className="text-white text-shadow-sm text-xl font-bold px-4 text-center">{blog.title}</h2>
+                  </div>
+                  <div className="absolute inset-0 p-4 bg-white-500-a transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <p className="text-gray-700">{contentPreview}...</p>
                     <Link to={`/blogs/${blog._id}`} className="text-pink-600 hover:underline mt-2 block">
                       Read More
@@ -194,7 +196,7 @@ const Home: React.FC = () => {
         )}
         <div className='flex justify-center mt-8'>
           <Link to={{ pathname: '/blogs' }}>
-            <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded focus:outline-none text-sm md:text-lg">
+            <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
               View More
             </button>
           </Link>

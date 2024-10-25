@@ -22,7 +22,7 @@ export default {
         white: {
           100: "#D1C8E1",
           500: "#ffffff",
-          "500-a": "#ffffff66",
+          "500-a": "#ffffffa8",
         },
         "light-blue": "#C3C3E6",
       },
@@ -40,6 +40,7 @@ export default {
         36: "9rem",
         40: "10rem",
         44: "11rem",
+        50: "20rem",
         60: "33rem",
         100: "1200px",
         full: "100%",
@@ -66,18 +67,21 @@ export default {
         inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
         none: "none",
       },
-      // fontSize: {
-      //   xs: "0.75rem",
-      //   sm: "0.875rem",
-      //   almost: "0.93rem",
-      //   base: "1rem",
-      //   lg: "1.125rem",
-      //   xl: "1.25rem",
-      //   "2xl": "1.5rem",
-      //   "3xl": "1.875rem",
-      //   "4xl": "2.25rem",
-      //   "5xl": "3rem",
-      // },
+      textShadow: {
+        sm : "0px 5px 4px black"
+      },
+      fontSize: {
+        xs: "0.75rem",
+        sm: "0.875rem",
+        almost: "0.93rem",
+        base: "1rem",
+        lg: "1.125rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+        "5xl": "3rem",
+      },
       backgroundImage: {
         "bg-gradient-to-b": "linear-gradient(180deg, black, transparent)",
       },
@@ -99,5 +103,13 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.text-shadow-sm': {
+          textShadow: '0px 5px 4px black',
+        },
+      });
+    },
+  ],
 };
