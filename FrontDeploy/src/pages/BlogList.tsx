@@ -49,7 +49,7 @@ const BlogList: React.FC = () => {
                                             transition-transform transform hover:scale-105">
                 <img src={blog.images} alt={blog.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
-                  <h2 className="text-white text-shadow-sm text-xl font-bold px-4 text-center">{blog.title}</h2>
+                  <h2 className="text-white text-shadow-sm text-2xl font-bold px-4 text-center">{blog.title}</h2>
                 </div>
                 <div className="absolute inset-0 p-4 bg-white-500-a transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-gray-700">{blog.content.substring(0, 200)}...</p>

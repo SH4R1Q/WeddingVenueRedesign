@@ -2,7 +2,7 @@ import { Phone } from 'lucide-react'; // Import phone icon from react-icons
 
 const InformationBanner = () => {
   return (
-    <div className="bg-gradient-to-r from-red-900 via-red-700 to-red-500 text-white py-8 px-6 md:px-10 mt-8 shadow-lg rounded-lg">
+    <div className="bg-gradient-to-r from-red-900 via-red-700 to-red-500 text-white py-12 px-6 md:px-10 shadow-lg">
       <div className="space-y-6 max-w-2xl">
         <div className="flex items-center text-3xl font-bold animate-pulse">
           <Phone className="w-8 h-8 mr-3" strokeWidth={2.5} />
