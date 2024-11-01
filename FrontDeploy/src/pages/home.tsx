@@ -332,7 +332,7 @@ const Home: React.FC = () => {
                   .
                   <div
                     className="absolute inset-0 p-5 bg-white-500-a transform 
-                transition-all duration-500 translate-y-full group-hover:translate-y-0 flex flex-col justify-start ease-in-out"
+                transition-all duration-300 translate-y-full group-hover:translate-y-0 flex flex-col justify-start"
                   >
                     <h2 className="text-xl font-bold font-marcellus text-gray-800 mb-4">
                       {wedding.title}
@@ -356,9 +356,16 @@ const Home: React.FC = () => {
             Currently no weddings available. Stay tuned for updates!
           </p>
         )}
+        <div className="flex justify-center mt-12">
+          <Link to={{ pathname: "/realWedding" }}>
+            <button className="bg-transparent hover:!bg-[#bd87a5] mb-8 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
+              View More
+            </button>
+          </Link>
+        </div>
       </div>
 
-      <div className="bg-white">
+      <div>
         <InformationBanner />
       </div>
       <Footer />
