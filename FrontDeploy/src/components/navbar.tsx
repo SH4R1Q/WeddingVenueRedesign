@@ -12,7 +12,7 @@
 //   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 //   const role = useSelector((state: RootState) => state?.auth?.user?.role);
 //   let url = "/";
-  
+
 //   if (role === "vendor") url = '/vendorProfilePage';
 //   if (role === "venue") url = '/venueProfilePage';
 //   if (role === "user") url = '/userProfilePage';
@@ -28,7 +28,7 @@
 //         <Link to="/" className="flex items-center ">
 //           <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0 " />
 //           {/* Adjust the class above (w-10 h-10 rounded-full) according to your logo size and shape */}
-          
+
 //         </Link>
 
 //         {/* Navigation Links */}
@@ -36,7 +36,7 @@
 //           <ul className="hidden md:flex justify-center items-center space-x-8 flex-grow static top-0">
 //             <li className="relative">
 //             {/* #D6BF5E  */}
-//               <Link to="/" className="text-light-blue hover:text-gray-200">Home</Link> 
+//               <Link to="/" className="text-light-blue hover:text-gray-200">Home</Link>
 //             </li>
 //             <li className="relative">
 //               <Link to="/venuelist" className="text-light-blue hover:text-gray-200">Venues</Link>
@@ -47,7 +47,7 @@
 //             <li>
 //               <Link to="/blogs" className="text-light-blue hover:text-gray-200">Blogs</Link>
 //             </li>
-            
+
 //             <li>
 //               <Link to="/realWedding" className="text-light-blue hover:text-gray-200">Real Weddings</Link>
 //             </li>
@@ -66,13 +66,13 @@
 //                  <Link to="/notification" className="text-light-blue hover:text-gray-200">
 //                   <FaBell />
 //                 </Link>
-//               </li> 
+//               </li>
 //             )}
 //           </ul>
 
 //           <ul className="flex items-center space-x-4">
 //             {!isLoggedIn && (
-//               <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4"> 
+//               <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4">
 //                 <Link to="/login" className="text-light-blue hover:text-gray-200">Login</Link>
 //               </li>
 //             )}
@@ -98,12 +98,9 @@
 //       {mobileMenuOpen && (
 //         <div className="fixed inset-0 bg-majenta  text-light-blue flex flex-col items-center justify-center space-y-4 z-10 transition-transform duration-300">
 
-
 //           <div className='absolute top-8 '>
 //            <img src={Logo} alt="Logo" className="w-32  h-12 items-stretch " />
 //           </div>
-
-
 
 //           <button onClick={toggleMobileMenu} className="absolute top-4 right-4 text-light-blue">
 //             <FaTimes size={24} />
@@ -121,7 +118,7 @@
 //             <li>
 //               <Link to="/blogs" className="text-2xl text-light-blue hover:text-gray-200">Blogs</Link>
 //             </li>
-            
+
 //             <li>
 //               <Link to="/realWedding" className= " text-2xl text-light-blue hover:text-gray-200">Real Weddings</Link>
 //             </li>
@@ -150,14 +147,14 @@
 
 // Import necessary modules and define the component
 // Import necessary modules and define the component
-import './navbar.css';
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaUser, FaBell, FaBars, FaTimes } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+import "./navbar.css";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FaUser, FaBell, FaBars, FaTimes } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-import Logo from '/weddingz_venue_logo.png';
+import Logo from "/weddingz_venue_logo.png";
 
 const NavBar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -167,20 +164,20 @@ const NavBar: React.FC = () => {
   const currentPath = location.pathname;
 
   let url = "/";
-  if (role === "vendor") url = '/vendorProfilePage';
-  if (role === "venue") url = '/venueProfilePage';
-  if (role === "user") url = '/userProfilePage';
-  if (role === "admin") url = '/adminDashboard';
+  if (role === "vendor") url = "/vendorProfilePage";
+  if (role === "venue") url = "/venueProfilePage";
+  if (role === "user") url = "/userProfilePage";
+  if (role === "admin") url = "/adminDashboard";
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  const getActiveClass = (path: string) => 
-    currentPath === path ? 'active-link' : '';
+  const getActiveClass = (path: string) =>
+    currentPath === path ? "active-link" : "";
 
   return (
-    <nav className="bg-majenta bg-opacity-90 py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0">
+    <nav className="bg-majenta bg-opacity-90 py-2 pl-4 pr-4 font-roboto relative z-10 m-0 sticky top-0">
       <div className="container mx-0 flex md:justify-between justify-between items-center">
         <Link to="/" className="flex items-center">
           <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0" />
@@ -194,27 +191,44 @@ const NavBar: React.FC = () => {
               </Link>
             </li>
             <li className="relative">
-              <Link to="/venuelist" className={`${getActiveClass("/venuelist")} link-effect`}>
+              <Link
+                to="/venuelist"
+                className={`${getActiveClass("/venuelist")} link-effect`}
+              >
                 Venues
               </Link>
             </li>
             <li className="relative">
-              <Link to="/vendor/AllVendors" className={`${getActiveClass("/vendor/AllVendors")} link-effect`}>
+              <Link
+                to="/vendor/AllVendors"
+                className={`${getActiveClass(
+                  "/vendor/AllVendors"
+                )} link-effect`}
+              >
                 Vendors
               </Link>
             </li>
             <li>
-              <Link to="/blogs" className={`${getActiveClass("/blogs")} link-effect`}>
+              <Link
+                to="/blogs"
+                className={`${getActiveClass("/blogs")} link-effect`}
+              >
                 Blogs
               </Link>
             </li>
             <li>
-              <Link to="/realWedding" className={`${getActiveClass("/realWedding")} link-effect`}>
+              <Link
+                to="/realWedding"
+                className={`${getActiveClass("/realWedding")} link-effect`}
+              >
                 Real Weddings
               </Link>
             </li>
             <li>
-              <Link to="/aboutus1" className={`${getActiveClass("/aboutus1")} link-effect`}>
+              <Link
+                to="/aboutus1"
+                className={`${getActiveClass("/aboutus1")} link-effect`}
+              >
                 Why Us
               </Link>
             </li>
@@ -224,7 +238,10 @@ const NavBar: React.FC = () => {
           <ul className="space-x-4 hidden md:block">
             {isLoggedIn && (
               <li className="relative">
-                <Link to="/notification" className="text-light-blue hover:text-gray-200">
+                <Link
+                  to="/notification"
+                  className="text-light-blue hover:text-gray-200"
+                >
                   <FaBell />
                 </Link>
               </li>
@@ -234,7 +251,10 @@ const NavBar: React.FC = () => {
           <ul className="flex items-center space-x-4">
             {!isLoggedIn && (
               <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4">
-                <Link to="/login" className="text-light-blue hover:text-gray-200">
+                <Link
+                  to="/login"
+                  className="text-light-blue hover:text-gray-200"
+                >
                   Login
                 </Link>
               </li>
@@ -261,36 +281,99 @@ const NavBar: React.FC = () => {
           <div className="absolute top-8">
             <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch" />
           </div>
-          <button onClick={toggleMobileMenu} className="absolute top-4 right-4 text-light-blue">
+          <button
+            onClick={toggleMobileMenu}
+            className="absolute top-4 right-4 text-light-blue"
+          >
             <FaTimes size={24} />
           </button>
           <ul className="flex flex-col items-center space-y-4">
             <li>
-              <Link to="/" className={`${getActiveClass("/")} text-2xl hover:border-b-2 hover:border-gray-200`} onClick={toggleMobileMenu}>Home</Link>
+              <Link
+                to="/"
+                className={`${getActiveClass(
+                  "/"
+                )} text-2xl hover:border-b-2 hover:border-gray-200`}
+                onClick={toggleMobileMenu}
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/venuelist" className={`${getActiveClass("/venuelist")} text-2xl hover:border-b-2 hover:border-gray-200`} onClick={toggleMobileMenu}>Venues</Link>
+              <Link
+                to="/venuelist"
+                className={`${getActiveClass(
+                  "/venuelist"
+                )} text-2xl hover:border-b-2 hover:border-gray-200`}
+                onClick={toggleMobileMenu}
+              >
+                Venues
+              </Link>
             </li>
             <li>
-              <Link to="/vendor/AllVendors" className={`${getActiveClass("/vendor/AllVendors")} text-2xl hover:border-b-2 hover:border-gray-200`} onClick={toggleMobileMenu}>Vendors</Link>
+              <Link
+                to="/vendor/AllVendors"
+                className={`${getActiveClass(
+                  "/vendor/AllVendors"
+                )} text-2xl hover:border-b-2 hover:border-gray-200`}
+                onClick={toggleMobileMenu}
+              >
+                Vendors
+              </Link>
             </li>
             <li>
-              <Link to="/blogs" className={`${getActiveClass("/blogs")} text-2xl hover:border-b-2 hover:border-gray-200`} onClick={toggleMobileMenu}>Blogs</Link>
+              <Link
+                to="/blogs"
+                className={`${getActiveClass(
+                  "/blogs"
+                )} text-2xl hover:border-b-2 hover:border-gray-200`}
+                onClick={toggleMobileMenu}
+              >
+                Blogs
+              </Link>
             </li>
             <li>
-              <Link to="/realWedding" className={`${getActiveClass("/realWedding")} text-2xl hover:border-b-2 hover:border-gray-200`} onClick={toggleMobileMenu}>Real Weddings</Link>
+              <Link
+                to="/realWedding"
+                className={`${getActiveClass(
+                  "/realWedding"
+                )} text-2xl hover:border-b-2 hover:border-gray-200`}
+                onClick={toggleMobileMenu}
+              >
+                Real Weddings
+              </Link>
             </li>
             <li>
-              <Link to="/aboutus1" className={`${getActiveClass("/aboutus1")} text-2xl hover:border-b-2 hover:border-gray-200`} onClick={toggleMobileMenu}>Why Us</Link>
+              <Link
+                to="/aboutus1"
+                className={`${getActiveClass(
+                  "/aboutus1"
+                )} text-2xl hover:border-b-2 hover:border-gray-200`}
+                onClick={toggleMobileMenu}
+              >
+                Why Us
+              </Link>
             </li>
             {!isLoggedIn && (
               <li>
-                <Link to="/login" className="text-2xl text-light-blue hover:text-gray-200" onClick={toggleMobileMenu}>Login</Link>
+                <Link
+                  to="/login"
+                  className="text-2xl text-light-blue hover:text-gray-200"
+                  onClick={toggleMobileMenu}
+                >
+                  Login
+                </Link>
               </li>
             )}
             {isLoggedIn && (
               <li>
-                <Link to={url} className="text-2xl text-light-blue hover:text-gray-200" onClick={toggleMobileMenu}><FaUser /></Link>
+                <Link
+                  to={url}
+                  className="text-2xl text-light-blue hover:text-gray-200"
+                  onClick={toggleMobileMenu}
+                >
+                  <FaUser />
+                </Link>
               </li>
             )}
           </ul>
@@ -301,5 +384,3 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
-
-
