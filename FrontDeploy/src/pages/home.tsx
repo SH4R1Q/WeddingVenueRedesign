@@ -118,7 +118,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="pt-12 bg-pink-100" ref={venuesRef}>
+      <div className="pt-12 bg-pink-50" ref={venuesRef}>
         {venues
           .filter((venue: any) => selectedCity ? venue.city.toLowerCase() === selectedCity.toLowerCase() : true) && (
             <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-8">Top Rated Venues</h2>
@@ -159,7 +159,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="pb-12 px-12 bg-pink-100">
+      <div className="pb-12 px-12 bg-pink-50">
         <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-20">Latest Blog Posts</h2>
         {isLoadingBlogs ? (
           <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
@@ -203,41 +203,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* <div className="pb-12 px-12 bg-pink-100">
-        <h2 className="text-3xl text-gray-900 font-bold text-center mb-12">Real Wedding Posts</h2>
-        {isLoadingRealWeddings ? (
-          <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <SkeletonRealWeddingCard key={index} />
-            ))}
-          </div>
-        ) : realWeddingsError ? (
-          <div>{errorMessageRealWeddings}</div>
-        ) : realWeddings.length > 0 ? (
-          <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {realWeddings.slice(0, 4).map((wedding: RealWeddings) => {
-              const imageUrl = wedding.images && wedding.images.length > 0 ? wedding.images[0] : '/default-image.jpg';
-              const contentPreview = wedding.content ? wedding.content.substring(0, 100) : 'No content available';
-              return (
-                <div key={wedding._id} className="border rounded-lg overflow-hidden shadow-lg">
-                  <img src={imageUrl} alt={wedding.title} className="w-full h-48 object-cover" />
-                  <div className="p-4">
-                    <h2 className="text-xl font-bold mb-2">{wedding.title}</h2>
-                    <p className="text-gray-700">{contentPreview}...</p>
-                    <Link to={`/realWedding/${wedding._id}`} className="text-blue-500 hover:underline mt-2 block">
-                      Read More
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <p>No real weddings available</p>
-        )}
-      </div> */}
-
-      <div className="pb-12 px-12 bg-pink-100">
+      <div className="pb-12 px-12 bg-pink-50">
         <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-12">Real Wedding Highlights</h2>
         {isLoadingRealWeddings ? (
           <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
@@ -257,7 +223,7 @@ const Home: React.FC = () => {
                   key={wedding._id}
                   className="bg-white border border-2 !border-pink-100 shadow-xl overflow-hidden relative group"
                 >
-                  <img src={imageUrl} alt={wedding.title} className="w-full h-full object-cover" />
+                  <img src={imageUrl} alt={wedding.title} className="w-full h-60 object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end justify-center p-5">
                     <h2 className="text-xl font-bold font-marcellus text-white group-hover:opacity-0">{wedding.title}</h2>
                   </div>
@@ -266,7 +232,7 @@ const Home: React.FC = () => {
                             transition-transform duration-300 group-hover:-translate-y-2/3"
             > */}.
                   <div className="absolute inset-0 p-5 bg-white-500-a transform 
-                transition-all duration-300 translate-y-full group-hover:translate-y-0 flex flex-col justify-start"
+                transition-all duration-500 ease-in-out translate-y-full group-hover:translate-y-0 flex flex-col justify-start"
                   >
 
                     <h2 className="text-xl font-bold font-marcellus text-gray-800 mb-4">{wedding.title}</h2>
@@ -282,11 +248,18 @@ const Home: React.FC = () => {
         ) : (
           <p className="text-center text-gray-700">Currently no weddings available. Stay tuned for updates!</p>
         )}
+        <div className='flex justify-center mt-12'>
+          <Link to={{ pathname: '/realWedding' }}>
+            <button className="bg-transparent hover:!bg-[#bd87a5] mb-8 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
+              View More
+            </button>
+          </Link>
+        </div>
       </div>
 
 
 
-      <div className="bg-white">
+      <div>
         <InformationBanner />
       </div>
       <Footer />
