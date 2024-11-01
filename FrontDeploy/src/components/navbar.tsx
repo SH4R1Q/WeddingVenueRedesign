@@ -162,6 +162,7 @@ const NavBar: React.FC = () => {
   const role = useSelector((state: RootState) => state?.auth?.user?.role);
   const location = useLocation();
   const currentPath = location.pathname;
+  const [opacity, setOpacity] = useState(1);
 
   let url = "/";
   if (role === "vendor") url = "/vendorProfilePage";
@@ -177,7 +178,7 @@ const NavBar: React.FC = () => {
     currentPath === path ? "active-link" : "";
 
   return (
-    <nav className="bg-majenta bg-opacity-90 py-2 pl-4 pr-4 font-roboto relative z-10 m-0 sticky top-0">
+    <nav className="bg-majenta bg-opacity-90 py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0">
       <div className="container mx-0 flex md:justify-between justify-between items-center">
         <Link to="/" className="flex items-center">
           <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0" />
