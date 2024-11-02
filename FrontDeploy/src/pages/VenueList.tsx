@@ -1,4 +1,4 @@
-import  { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import VenueCard from '../components/VenueCard';
 import NavBar from '../components/navbar';
 import RelatedArticles from '../components/RelatedArticles';
@@ -27,14 +27,14 @@ function VenueList() {
   ).toString();
   const { data, error, isLoading } = useAllVenueQuery(queryString);
   const [allVenues, setAllVenues] = useState<Venue[]>([]);
-// console.log('helod', data)
+  // console.log('helod', data)
   const updateVenues = useCallback(() => {
     if (data && Array.isArray(data.data)) {
       setAllVenues(data.data);
     }
   }, [data]);
 
-  const city = useSelector((state : RootState) => state?.auth?.city)
+  const city = useSelector((state: RootState) => state?.auth?.city)
   console.log("data", city,)
 
   useEffect(() => {
@@ -61,39 +61,39 @@ function VenueList() {
     return <Universal />;
   }
 
-  
+
   return (
-    <div className="flex flex-col min-h-screen  bg-[#fffdd0]">
+    <div className="flex flex-col min-h-screen  bg-pink-50">
       <NavBar />
-      <div className="container mx-auto px-4">
+      <div className="w-full mt-4">
+        <FilterBar onFilterChange={handleFilterChange} />
+      </div>
+      <div className="container mx-auto px-4 mt-12">
         <div className="flex flex-col md:flex-row gap-8">
-          <div className="w-full md:w-1/4">
-            <FilterBar onFilterChange={handleFilterChange} />
-          </div>
           <div className="w-full md:w-3/4">
-          <div className="grid grid-cols-1 gap-4">
-            {allowedVenues.length > 0 ? (
-              allowedVenues.map((venue, index) => (
-               
-                <VenueCard
-                  key={index}
-                  venue={{
-                    name: venue?.businessName,
-                    location: venue.city,
-                    maxGuests: venue.guestCapacity,
-                    contact: venue.phone,
-                    description: venue.summary,
-                    vegPrice: venue.foodPackages,
-                    nonVegPrice: 30,
-                    images: venue.images,
-                    id: venue._id,
-                  }}
-                />)
-              )
-            ) : (
-              <div>No Venue found</div>
-            )}
-          </div>
+            <div className="grid grid-cols-1 gap-4">
+              {allowedVenues.length > 0 ? (
+                allowedVenues.map((venue, index) => (
+
+                  <VenueCard
+                    key={index}
+                    venue={{
+                      name: venue?.businessName,
+                      location: venue.city,
+                      maxGuests: venue.guestCapacity,
+                      contact: venue.phone,
+                      description: venue.summary,
+                      vegPrice: venue.foodPackages,
+                      nonVegPrice: 30,
+                      images: venue.images,
+                      id: venue._id,
+                    }}
+                  />)
+                )
+              ) : (
+                <div>No Venue found</div>
+              )}
+            </div>
           </div>
         </div>
       </div>
