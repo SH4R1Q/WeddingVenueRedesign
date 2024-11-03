@@ -178,10 +178,11 @@ const NavBar: React.FC = () => {
     currentPath === path ? "active-link" : "";
 
   return (
-    <nav className="bg-majenta py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 " style={{ opacity }}>
-      <div className='!bg-pink-50'>
-        hello
-      </div>
+    <nav
+      className="bg-pink-600 py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 "
+      style={{ opacity }}
+    >
+      <div className="!bg-pink-50">hello</div>
       <div className="container mx-0 flex md:justify-between justify-between items-center">
         <Link to="/" className="flex items-center">
           <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0" />
@@ -234,6 +235,15 @@ const NavBar: React.FC = () => {
                 className={`${getActiveClass("/aboutus1")} link-effect`}
               >
                 Why Us
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/newhome"
+                className={`${getActiveClass("/NewHome")} link-effect`}
+              >
+                New Home
               </Link>
             </li>
           </ul>
@@ -316,6 +326,17 @@ const NavBar: React.FC = () => {
             </li>
             <li>
               <Link
+                to="/newhome"
+                className={`${getActiveClass(
+                  "/NewHome"
+                )} text-2xl hover:border-b-2 hover:border-gray-200`}
+                onClick={toggleMobileMenu}
+              >
+                Venues
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/vendor/AllVendors"
                 className={`${getActiveClass(
                   "/vendor/AllVendors"
@@ -358,6 +379,7 @@ const NavBar: React.FC = () => {
                 Why Us
               </Link>
             </li>
+
             {!isLoggedIn && (
               <li>
                 <Link

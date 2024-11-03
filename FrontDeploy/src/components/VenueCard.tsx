@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { FaHeart, FaChevronUp, FaChevronDown } from 'react-icons/fa';
-import { Link, To } from 'react-router-dom';
-import { useGetWishlistQuery } from '../redux/api/wishlist';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { MdContacts, MdDinnerDining, MdLocationPin, MdPeople } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+import { FaHeart, FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { Link, To } from "react-router-dom";
+import { useGetWishlistQuery } from "../redux/api/wishlist";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import {
+  MdContacts,
+  MdDinnerDining,
+  MdLocationPin,
+  MdPeople,
+} from "react-icons/md";
 
 interface VenueProps {
   venue: {
@@ -36,19 +41,22 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
     return () => clearInterval(interval);
   }, [currentImageIndex]);
 
-
   useEffect(() => {
     if (wishlistData) {
-      const isWishlisted = wishlistData?.wishlist?.items?.some(item => item.itemId === itemId) ?? false;
+      const isWishlisted =
+        wishlistData?.wishlist?.items?.some((item) => item.itemId === itemId) ??
+        false;
       setIsInWishlist(isWishlisted);
     }
   }, [wishlistData, itemId]);
 
   const toggleDescription = () => {
-    setShowFullDescription(prevState => !prevState);
+    setShowFullDescription((prevState) => !prevState);
   };
 
-  const truncatedDescription = venue.description ? `${venue.description.slice(0, 100)}...` : '';
+  const truncatedDescription = venue.description
+    ? `${venue.description.slice(0, 100)}...`
+    : "";
 
   // const handlePrevImage = () => {
   //   setCurrentImageIndex(
@@ -77,10 +85,16 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
     return <div></div>;
   }
   return (
-    <div className="flex bg-gray-100 flex-col md:flex-row rounded-lg overflow-hidden mx-4 my-4
-                    transition-transform transform hover:scale-105 hover:shadow-2xl">
+    <div
+      className="flex bg-gray-100 flex-col md:flex-row rounded-lg overflow-hidden mx-4 my-4
+                    transition-transform transform hover:scale-105 hover:shadow-2xl"
+    >
       <div className="relative md:w-1/2 h-full md:h-full">
-        <div className={`w-full h-full transition-opacity duration-300 ease-in-out ${fade ? 'opacity-100' : 'opacity-80'}`}>
+        <div
+          className={`w-full h-full transition-opacity duration-300 ease-in-out ${
+            fade ? "opacity-100" : "opacity-80"
+          }`}
+        >
           <img
             src={venue?.images[currentImageIndex]}
             alt={`Venue ${currentImageIndex}`}
@@ -107,8 +121,9 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
           {venue?.images.map((_, index) => (
             <span
               key={index}
-              className={`w-2 h-2 rounded-full bg-white ${index === currentImageIndex ? 'bg-gray-800' : 'opacity-50'
-                }`}
+              className={`w-2 h-2 rounded-full bg-white ${
+                index === currentImageIndex ? "bg-gray-800" : "opacity-50"
+              }`}
               onClick={() => setCurrentImageIndex(index)}
             />
           ))}
@@ -143,7 +158,9 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
         <h2 className="text-xl md:text-3xl font-bold mb-2">{venue.name}</h2>
         <div className="flex items-center my-3">
           <MdLocationPin size={25} className="mr-2 text-gray-600" />
-          <p className="text-lg md:text-xl text-gray-600">{venue.location?.substring(0,20)}...</p>
+          <p className="text-lg md:text-xl text-gray-600">
+            {venue.location?.substring(0, 20)}...
+          </p>
         </div>
         <div className="space-y-4 my-4">
           <div className="flex items-center">
@@ -170,8 +187,12 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
                   onClick={toggleDescription}
                   className="text-blue-500 hover:text-blue-700 focus:outline-none ml-2"
                 >
-                  {showFullDescription ? ' Read Less' : ' Read More'}
-                  {showFullDescription ? <FaChevronUp size={18} /> : <FaChevronDown size={18} />}
+                  {showFullDescription ? " Read Less" : " Read More"}
+                  {showFullDescription ? (
+                    <FaChevronUp size={18} />
+                  ) : (
+                    <FaChevronDown size={18} />
+                  )}
                 </button>
               )}
             </>
@@ -187,11 +208,13 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
           <MdDinnerDining size={25} className="mr-2 text-gray-600" />
           <div className="text-sm md:text-lg text-gray-600 flex flex-col">
             <span className="font-bold">Price Per Plate</span>
-            {venue.vegPrice?.substring(0,5)} Onwards
+            {venue.vegPrice?.substring(0, 5)} Onwards
           </div>
         </div>
 
-        <Link to={{ pathname: `/venuelist/${venue?.id}`, state: { venue } } as To}>
+        <Link
+          to={{ pathname: `/venuelist/${venue?.id}`, state: { venue } } as To}
+        >
           <button className="bg-black hover:!bg-transparent border-2 border-solid border-black text-[#D6BF5E] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
             View Venue
           </button>

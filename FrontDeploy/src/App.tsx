@@ -20,6 +20,7 @@ import React, { Suspense } from "react";
 
 import AdminDashboard from "./pages/admin/adminDashboard";
 import Home from "./pages/home";
+import NewHome from "./pages/NewHome";
 
 import UserRegister from "./pages/userRegister";
 import VendorsList from "./pages/VendorsList";
@@ -37,32 +38,35 @@ import RealWeddingsView from "./pages/realWeddingsView";
 import RealWeddingsPost from "./pages/admin/components/profile/realWedding/realWeddingsPost";
 import NewRealWedding from "./pages/admin/components/profile/realWedding/newRealWeddings";
 
-import {AdminProtectedRoutes , VendorProtectedRoutes , VenueProtectedRoutes , UserProtectedRoutes} from "./utils/ProtectedRoutes";
+import {
+  AdminProtectedRoutes,
+  VendorProtectedRoutes,
+  VenueProtectedRoutes,
+  UserProtectedRoutes,
+} from "./utils/ProtectedRoutes";
 import VenueProfile from "./pages/admin/components/profile/venue/VenueProfilePage";
 import EnquiryNotif from "./pages/notification/enquirynotif";
 import ScrollToTop from "./components/ScrollToTop";
 // import UpdateVenueComponent from "./pages/Test";
 
-import PopUp from "./components/PopUp"
+import PopUp from "./components/PopUp";
 
 const App: React.FC = () => {
   return (
     <ChakraProvider>
-     
-     
       <Router>
         <Suspense fallback={<Loader />}>
-        <PopUp/>
-        <ScrollToTop />
+          <PopUp />
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
 
             {/* <Route path="/popup" element={<PopUp />} /> */}
 
-
             {/* <Route path="/popup" element={<PopUp />} /> */}
 
             <Route path="/login" element={<Login />} />
+            <Route path="/newhome" element={<NewHome />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="aboutus1" element={<AboutUs />} />
@@ -84,7 +88,10 @@ const App: React.FC = () => {
 
             <Route element={<AdminProtectedRoutes />}>
               <Route path="/adminDashboard" element={<AdminDashboard />} />
-              <Route path="/adminDashboard/:page" element={<AdminDashboard />} />
+              <Route
+                path="/adminDashboard/:page"
+                element={<AdminDashboard />}
+              />
               <Route path="/UserProfile/:id" element={<UserProfile />} />
               <Route path="/VendorProfile/:id" element={<VendorProfile />} />
               <Route path="/VendorProfile/:id" element={<VendorProfile />} />
@@ -94,7 +101,10 @@ const App: React.FC = () => {
             </Route>
 
             <Route element={<VendorProtectedRoutes />}>
-              <Route path="/vendorProfilePage" element={<VendorProfilePage />} />
+              <Route
+                path="/vendorProfilePage"
+                element={<VendorProfilePage />}
+              />
             </Route>
 
             <Route element={<VenueProtectedRoutes />}>

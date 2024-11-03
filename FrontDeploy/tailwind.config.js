@@ -12,10 +12,16 @@ export default {
       colors: {
         majenta: "#87255B",
         pink: {
-          600: "#6b2049",
-          500: "#B370B0",
-          300: "#BBA0CA",
-          100: "#d4b4c4",
+          100: "#d4b4c4", // existing light pink
+          300: "#BBA0CA", // existing mid pink
+          500: "#B370B0", // existing dark pink
+          600: "#6b2049", // existing darker pink
+
+          // New shades
+          200: "#e363aa", // light pink
+          400: "#d54194", // mid pink
+          700: "#c9217e", // dark pink
+
           "100-a": "#d4b4c470",
         },
         lightpink: "#D1C8E1",
@@ -71,7 +77,7 @@ export default {
         none: "none",
       },
       textShadow: {
-        sm : "0px 5px 4px black"
+        sm: "0px 5px 4px black",
       },
       fontSize: {
         xs: "0.75rem",
@@ -109,8 +115,8 @@ export default {
   plugins: [
     function ({ addUtilities }) {
       addUtilities({
-        '.text-shadow-sm': {
-          textShadow: '0px 5px 4px black',
+        ".text-shadow-sm": {
+          textShadow: "0px 5px 4px black",
         },
       });
     },
