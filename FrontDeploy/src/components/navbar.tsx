@@ -148,11 +148,12 @@
 // Import necessary modules and define the component
 // Import necessary modules and define the component
 import "./navbar.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaUser, FaBell, FaBars, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { FaEnvelope, FaPhone } from 'react-icons/fa';
 
 import Logo from "/weddingz_venue_logo.png";
 
@@ -170,6 +171,22 @@ const NavBar: React.FC = () => {
   if (role === "user") url = "/userProfilePage";
   if (role === "admin") url = "/adminDashboard";
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (currentPath === '/') {
+        if (window.scrollY > 50 && window.scrollY < 750) { // desired scroll threshold
+          setOpacity(0.9); // Set to full opacity after scrolling
+        } else {
+          setOpacity(1); // Default opacity
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [currentPath]);
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -178,10 +195,20 @@ const NavBar: React.FC = () => {
     currentPath === path ? "active-link" : "";
 
   return (
-    <nav className="bg-majenta py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 " style={{ opacity }}>
-      <div className='!bg-pink-50'>
-        hello
+    <nav className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 " style={{ opacity }}>
+      <div className="bg-[#e363aa] text-gray-800 pl-2 pr-4 flex justify-center items-center border border-1 border-black">
+        <div className="flex space-x-6">
+          <a href="mailto:Weddingzvenue.in@gmail.com" className="flex items-center space-x-2">
+            <FaEnvelope />
+            <span>Weddingzvenue.in@gmail.com</span>
+          </a>
+          <a href="tel:+918076207112" className="flex items-center space-x-2">
+            <FaPhone />
+            <span>+91 8076207112</span>
+          </a>
+        </div>
       </div>
+
       <div className="container mx-0 flex md:justify-between justify-between items-center">
         <Link to="/" className="flex items-center">
           <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0" />

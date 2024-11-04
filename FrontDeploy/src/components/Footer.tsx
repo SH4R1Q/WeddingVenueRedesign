@@ -1,40 +1,93 @@
+// import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+
+// const Footer = () => {
+//   return (
+//     <footer className="bg-black text-white py-10">
+//       <div className="container mx-auto px-8 lg:px-20 flex flex-col lg:flex-row justify-between items-center space-y-8 lg:space-y-0">
+//         <div className="text-center lg:text-left">
+//           <h2 className="text-2xl font-bold mb-4">Stay Connected</h2>
+//           <div className="flex justify-center lg:justify-start items-center space-x-6">
+//             <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+//               <FaFacebook className="text-3xl hover:text-red-500 transition duration-300 ease-in-out" />
+//             </a>
+//             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+//               <FaTwitter className="text-3xl hover:text-red-500 transition duration-300 ease-in-out" />
+//             </a>
+//             <a href="https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr" target="_blank" rel="noopener noreferrer">
+//               <FaInstagram className="text-3xl hover:text-red-500 transition duration-300 ease-in-out" />
+//             </a>
+//           </div>
+//         </div>
+//         <div className="text-center lg:text-left">
+//           <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
+//           <p className="mb-2">Shakti Khand 2, Indirapuram</p>
+//           <p className="mb-2">Ghaziabad, 201014</p>
+//           <p className="mb-2">Phone: <a href="tel:+918076207112" className="hover:underline text-[#D6BF5E]">+91 8076207112</a></p>
+//           <p>Email: <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-[#D6BF5E]">Weddingzvenue.in@gmail.com</a></p>
+//         </div>
+//       </div>
+//       <div className="mt-8 border-t border-gray-700 pt-6 text-center">
+//         <p>&copy; {new Date().getFullYear()} Weddingz Venue. All rights reserved.</p>
+//         <p className="mt-2">
+//           Designed by{' '}
+//           <a 
+//             href="https://binarama.com/" 
+//             target="_blank" 
+//             rel="noopener noreferrer" 
+//             className="text-[#D6BF5E] hover:underline"
+//           >
+//             BINARAMA
+//           </a>
+//         </p>
+//       </div>
+//     </footer>
+//   );
+// };
+
+// export default Footer;
+
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-10">
+    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-300 py-8">
       <div className="container mx-auto px-8 lg:px-20 flex flex-col lg:flex-row justify-between items-center space-y-8 lg:space-y-0">
+        {/* Social Section */}
         <div className="text-center lg:text-left">
-          <h2 className="text-2xl font-bold mb-4">Stay Connected</h2>
-          <div className="flex justify-center lg:justify-start items-center space-x-6">
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebook className="text-3xl hover:text-red-500 transition duration-300 ease-in-out" />
+          <h2 className="text-xl font-semibold text-[#D6BF5E] mb-3">Stay Connected</h2>
+          <div className="flex justify-center lg:justify-start items-center space-x-4">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#D6BF5E] transition duration-300">
+              <FaFacebook className="text-2xl" />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter className="text-3xl hover:text-red-500 transition duration-300 ease-in-out" />
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#D6BF5E] transition duration-300">
+              <FaTwitter className="text-2xl" />
             </a>
-            <a href="https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr" target="_blank" rel="noopener noreferrer">
-              <FaInstagram className="text-3xl hover:text-red-500 transition duration-300 ease-in-out" />
+            <a href="https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr" target="_blank" rel="noopener noreferrer" className="hover:text-[#D6BF5E] transition duration-300">
+              <FaInstagram className="text-2xl" />
             </a>
           </div>
         </div>
+
+        {/* Contact Section */}
         <div className="text-center lg:text-left">
-          <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
-          <p className="mb-2">Shakti Khand 2, Indirapuram</p>
-          <p className="mb-2">Ghaziabad, 201014</p>
-          <p className="mb-2">Phone: <a href="tel:+918076207112" className="hover:underline text-[#D6BF5E]">+91 8076207112</a></p>
-          <p>Email: <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-[#D6BF5E]">Weddingzvenue.in@gmail.com</a></p>
+          <h2 className="text-xl font-semibold text-[#D6BF5E] mb-3">Contact Us</h2>
+          <p className="text-sm mb-1">Shakti Khand 2, Indirapuram</p>
+          <p className="text-sm mb-1">Ghaziabad, 201014</p>
+          <p className="text-sm mb-1">Phone: <a href="tel:+918076207112" className="hover:underline text-[#D6BF5E]">+91 8076207112</a></p>
+          <p className="text-sm">Email: <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-[#D6BF5E]">Weddingzvenue.in@gmail.com</a></p>
         </div>
       </div>
-      <div className="mt-8 border-t border-gray-700 pt-6 text-center">
-        <p>&copy; {new Date().getFullYear()} Weddingz Venue. All rights reserved.</p>
-        <p className="mt-2">
+
+      {/* Divider Line */}
+      <div className="mt-8 border-t border-gray-700 pt-4 text-center">
+        <p className="text-xs">&copy; {new Date().getFullYear()} <span className="font-semibold text-[#D6BF5E]">Weddingz Venue</span>. All rights reserved.</p>
+        <p className="mt-1 text-xs">
           Designed by{' '}
           <a 
             href="https://binarama.com/" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-[#D6BF5E] hover:underline"
+            className="text-[#D6BF5E] hover:underline font-medium"
           >
             BINARAMA
           </a>
@@ -45,3 +98,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
