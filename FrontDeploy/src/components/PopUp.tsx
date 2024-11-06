@@ -111,8 +111,8 @@ const PopUp = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-      <h1 className='text-2xl font-bold text-[#173445] mb-4 text-center'>Welcome to WeddingzVenue.in</h1>
-      <h2 className='text-lg font-semibold text-[#173445] mb-6 text-center'>Please fill the enquiry form</h2>
+      <h1 className='text-2xl font-bold text-[#173445] mb-2 font-marcellus text-center'>Welcome to Weddingz Venue</h1>
+      <h2 className='text-base font-semibold text-[#173445] mb-8 text-center'>Please fill the enquiry form</h2>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -184,19 +184,6 @@ const PopUp = () => {
         </div>
 
         <div>
-          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div>
           <label htmlFor="typeOfEvent" className="block text-sm font-medium text-gray-700 mb-1">Type of Event</label>
           <input
             type="text"
@@ -207,6 +194,19 @@ const PopUp = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
+        </div>
+
+        <div className="md:col-span-2">
+          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+          <textarea
+            id="address"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            rows={2}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          ></textarea>
         </div>
 
         <div className="md:col-span-2">
