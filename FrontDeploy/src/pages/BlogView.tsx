@@ -1,61 +1,49 @@
-
 import { useParams } from 'react-router-dom';
 import { useGetBlogByIdQuery } from '../redux/api/blog';
 import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
 
-
 const BlogView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data: blogData, error, isLoading } = useGetBlogByIdQuery(id || '');
- 
- 
-
- 
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl">Loading...</div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="text-xl font-semibold text-gray-600">Loading...</div>
       </div>
     );
   }
 
   if (error || !blogData?.data) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl">Blog post not found</div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="text-xl font-semibold text-red-600">Blog post not found</div>
       </div>
     );
   }
 
   const blog = blogData?.data.blog;
-  
- 
+
   return (
     <>
       <NavBar />
-      <div className="container mx-auto p-8 font-roboto">
-  
-          <>
-            <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">
-              {blog?.title}
-            </h1>
-            {blog?.images && blog?.images[0] && (
-              <div className="flex justify-center mb-8">
-                <img
-                  src={blog?.images[0]}
-                  alt={blog?.title}
-                  className="w-full md:w-2/3 lg:w-1/2 h-80 object-cover rounded-lg shadow-md transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-            )}
-            <div className="prose max-w-none mx-auto text-gray-700 leading-loose">
-              {blog?.content}
+      <div className="container mx-auto p-6 md:p-10 font-roboto">
+        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 lg:p-16 max-w-3xl mx-auto">
+          <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800">{blog?.title}</h1>
+          {blog?.images && blog?.images[0] && (
+            <div className="flex justify-center mb-8">
+              <img
+                src={blog?.images[0]}
+                alt={blog?.title}
+                className="w-full h-80 object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+              />
             </div>
-  
-          </>
-       
+          )}
+          <div className="prose max-w-none mx-auto text-gray-700 leading-relaxed text-lg">
+            {blog?.content}
+          </div>
+        </div>
       </div>
       <Footer />
     </>

@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
 import NavBar from "../components/navbar";
+import FAQSection from '../components/FaqSection';
 
 const AboutUs: React.FC = () => {
   const teamMembers = [
@@ -191,7 +192,9 @@ const AboutUs: React.FC = () => {
           </section>
         </div>
       </div>
-
+      <div>
+        <FAQSection/>
+      </div>
       <Footer />
     </div>
   );

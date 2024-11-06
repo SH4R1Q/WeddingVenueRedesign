@@ -196,15 +196,15 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 " style={{ opacity }}>
-      <div className="bg-[#e363aa] text-gray-800 pl-2 pr-4 flex justify-center items-center border border-1 border-black">
-        <div className="flex space-x-6">
-          <a href="mailto:Weddingzvenue.in@gmail.com" className="flex items-center space-x-2">
-            <FaEnvelope />
-            <span>Weddingzvenue.in@gmail.com</span>
+      <div className="bg-gradient-to-r from-[#e363aa] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center border border-black rounded-md shadow-lg">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-8 text-center">
+          <a href="mailto:Weddingzvenue.in@gmail.com" className="flex items-center space-x-2 hover:text-gray-100 transition-colors duration-200">
+            <FaEnvelope className="text-white text-lg" />
+            <span className="text-sm font-medium sm:text-base">Weddingzvenue.in@gmail.com</span>
           </a>
-          <a href="tel:+918076207112" className="flex items-center space-x-2">
-            <FaPhone />
-            <span>+91 8076207112</span>
+          <a href="tel:+918076207112" className="flex items-center space-x-2 hover:text-gray-100 transition-colors duration-200">
+            <FaPhone className="text-white text-lg" />
+            <span className="text-sm font-medium sm:text-base">+91 8076207112</span>
           </a>
         </div>
       </div>

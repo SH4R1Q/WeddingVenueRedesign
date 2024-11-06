@@ -1,25 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import {  logout } from '../redux/reducer/auth';
+import { logout } from '../redux/reducer/auth';
 import { useDispatch } from 'react-redux';
-import {  AppDispatch } from '../redux/store';
+import { AppDispatch } from '../redux/store';
 
 interface Props {
   yourName: string | undefined;
   email: string | undefined;
   phone: string | undefined;
-  password?: string | undefined;
   profile?: string | undefined;
   id?: string | undefined;
 }
 
 const UserSidebar: React.FC<Props> = ({ yourName, profile, phone, email }) => {
-
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
- 
 
   const handleTabClick = (tabName: string) => {
     switch (tabName) {
@@ -33,10 +28,8 @@ const UserSidebar: React.FC<Props> = ({ yourName, profile, phone, email }) => {
         navigate('/list-service');
         break;
       case 'Logout':
-         // Perform logout logic here
-         dispatch(logout());
-         navigate('/');
- 
+        dispatch(logout());
+        navigate('/');
         break;
       default:
         break;
@@ -44,32 +37,34 @@ const UserSidebar: React.FC<Props> = ({ yourName, profile, phone, email }) => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <div className="bg-blue-900 w-80 p-6 flex flex-col items-center">
-        <div className="mt-8 w-24 h-24 rounded-full overflow-hidden border-4 border-gray-300">
+    <div className="flex md:h-screen bg-gray-100">
+      <div className="bg-blue-900 w-64 sm:w-80 p-6 flex flex-col items-center rounded-lg shadow-lg md:shadow-none md:rounded-none">
+        
+        {/* Profile Picture */}
+        <div className="w-28 h-28 mt-6 mb-4 rounded-full overflow-hidden border-2 border-white shadow-lg">
           <img src={profile} alt="Profile" className="w-full h-full object-cover" />
         </div>
-        <div className="mt-4 text-center">
-           
-            <>
-              <h3 className="text-4xl font-semibold my-2 text-white">{yourName}</h3>
-              <p className="text-gray-300">{email}</p>
-              <p className="text-gray-300">{phone}</p>
-              
-            </>
-          
+
+        {/* User Information */}
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-semibold text-white">{yourName}</h3>
+          <p className="text-gray-200">{email}</p>
+          <p className="text-gray-200">{phone}</p>
         </div>
-        <div className=" text-xl mt-auto mb-[30%] w-full">
-          {['Logout'].map(tab => (
-            <div
+
+        {/* Navigation Links */}
+        <nav className="mt-8 w-full flex flex-col space-y-4">
+          {['My venues', 'My services', 'List a new service', 'Logout'].map(tab => (
+            <button
               key={tab}
-              className="flex justify-center cursor-pointer text-white my-4 py-2 px-4 rounded-md border border-transparent hover:bg-blue-500 hover:text-white hover:border-[#110069] transition-colors"
+              className="text-lg font-medium text-gray-200 w-full py-3 rounded-lg bg-blue-800 hover:bg-blue-700 hover:text-white transition-colors duration-300"
               onClick={() => handleTabClick(tab)}
             >
               {tab}
-            </div>
+            </button>
           ))}
-        </div>
+        </nav>
+
       </div>
     </div>
   );

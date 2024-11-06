@@ -1,7 +1,5 @@
 import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
-// import { useUpdateVendorMutation } from '../redux/api/vendor';
-// import { useGetVenueByIdQuery } from '../redux/api/venue';
 import UserSidebar from '../components/UserSidebar';
 import UserTabView from '../components/UserTabView';
 
@@ -9,43 +7,37 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useGetUserQuery } from '../redux/api/user';
 
-
-
-
 const VenueProfilePage = () => {
-
     const userId = useSelector((state: RootState) => state?.auth?.user?._id);
-   // console.log("user" , userId)
-
-
-  const { data: user} = useGetUserQuery(userId || "");
-  //console.log("checking the data",user)
-    
+    const { data: user } = useGetUserQuery(userId || "");
     const userData = user?.data?.user;
-  //  console.log(userData);
-
-
 
     return (
         <>
             <NavBar />
-            <div className='flex '>
-            <div className=" flex-col-1 justify-start border-2 border-white">
-                    <div className="w-80">
+            <main className="flex flex-col items-center bg-gray-100 min-h-screen py-8">
+                <div className="w-full max-w-7xl grid grid-cols-12 gap-6 px-6">
+                    
+                    {/* Sidebar */}
+                    <aside className="col-span-3 bg-white rounded-lg shadow-lg p-6">
                         <UserSidebar
                             yourName={userData?.fullName}
                             phone={userData?.phone}
                             email={userData?.email}
                             id={userId}
+                            profile={userData?.avatarUrl || '/userAvatar.jpg'}
                         />
-                    </div>
-                </div>
+                    </aside>
 
-                <div className="flex-col-1 justify-center text-white bg-blue-900 p-4 w-full border-2 border-white ">
-                    <UserTabView />
+                    {/* Main Content */}
+                    <section className="col-span-9 bg-white rounded-lg shadow-lg p-8">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                            Your Profile
+                        </h2>
+                        <UserTabView />
+                    </section>
                 </div>
-
-            </div>
+            </main>
             <Footer />
         </>
     );

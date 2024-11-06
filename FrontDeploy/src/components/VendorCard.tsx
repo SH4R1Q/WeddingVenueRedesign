@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface VendorCardProps {
+  vendorId: string;
   imageUrl: string;
   name?: string;
   redirectUrl?: string;
