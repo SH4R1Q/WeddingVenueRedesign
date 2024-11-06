@@ -153,7 +153,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaUser, FaBell, FaBars, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaEnvelope, FaPhone } from "react-icons/fa";
 
 import Logo from "/weddingz_venue_logo.png";
 
@@ -173,17 +173,18 @@ const NavBar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (currentPath === '/') {
-        if (window.scrollY > 50 && window.scrollY < 750) { // desired scroll threshold
+      if (currentPath === "/") {
+        if (window.scrollY > 50 && window.scrollY < 750) {
+          // desired scroll threshold
           setOpacity(0.9); // Set to full opacity after scrolling
         } else {
           setOpacity(1); // Default opacity
         }
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [currentPath]);
 
@@ -195,10 +196,16 @@ const NavBar: React.FC = () => {
     currentPath === path ? "active-link" : "";
 
   return (
-    <nav className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 " style={{ opacity }}>
+    <nav
+      className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 "
+      style={{ opacity }}
+    >
       <div className="bg-[#e363aa] text-gray-800 pl-2 pr-4 flex justify-center items-center border border-1 border-black">
         <div className="flex space-x-6">
-          <a href="mailto:Weddingzvenue.in@gmail.com" className="flex items-center space-x-2">
+          <a
+            href="mailto:Weddingzvenue.in@gmail.com"
+            className="flex items-center space-x-2"
+          >
             <FaEnvelope />
             <span>Weddingzvenue.in@gmail.com</span>
           </a>
@@ -267,7 +274,7 @@ const NavBar: React.FC = () => {
             <li>
               <Link
                 to="/newhome"
-                className={`${getActiveClass("/NewHome")} link-effect`}
+                className={`${getActiveClass("/newhome")} link-effect`}
               >
                 New Home
               </Link>
