@@ -4,24 +4,6 @@ import NavBar from "../components/navbar";
 import FAQSection from '../components/FaqSection';
 
 const AboutUs: React.FC = () => {
-  const teamMembers = [
-    {
-      name: "ABDUL KAREEM",
-      role: "Founder & CEO",
-      imageUrl: "/founderandCEO.jpg",
-    },
-    // {
-    //   name: 'Raziya Kareem',
-    //   role: 'Senior Event Consultant',
-    //   imageUrl: '/SeniorEventConsultant.jpg',
-    // },
-    // {
-    //   name: 'Azra Akram ali khan',
-    //   role: 'Senior Event Director',
-    //   imageUrl: '/SeniorEventDirector.jpg',
-    // },
-  ];
-
   const localVideos = [
     "/aboutus1.mp4", // Update these paths to your actual video file paths
     "/aboutus2.mp4",

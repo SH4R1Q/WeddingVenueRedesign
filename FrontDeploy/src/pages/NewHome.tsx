@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../components/navbar";
-
-const aboutImage = "/wv_cover2.jpg";
+import { useRankedVenuesQuery } from "../redux/api/venue";
+import { useGetAllBlogsQuery } from "../redux/api/blog";
+import { useGetAllRealWeddingsQuery } from "../redux/api/realWeddings";
+import { useGetAllCitiesQuery } from "../redux/api/user";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
+import { cityStatus } from "../redux/reducer/auth";
+import Universal from "../components/skeleton/Universal";
+import VenueCardNew from "../components/VenueCardNew";
+import { Link } from "react-router-dom";
+import SkeletonBlogCard from "../components/skeleton/Blog";
+import BlogCard from "../components/BlogCard";
 
 const images = [
   "/public/home1.jpg",
@@ -12,19 +22,71 @@ const images = [
 
 const NewHome: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedCity, setSelectedCity] = useState("");
-  const cities = ["Delhi", "Mumbai", "Bangalore", "Chennai", "Hyderabad"];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+  const [selectedCity, setSelectedCity] = useState<string>("");
+  const venuesRef = useRef<HTMLDivElement>(null);
 
-    return () => clearInterval(interval);
-  }, []);
+  const {
+    data: venuesData,
+    isLoading: isLoadingVenues,
+    error: venuesError,
+  } = useRankedVenuesQuery();
+  const {
+    data: blogData,
+    isLoading: isLoadingBlogs,
+    error: blogsError,
+  } = useGetAllBlogsQuery("");
+  const {
+    data: realWeddingsData,
+    isLoading: isLoadingRealWeddings,
+    error: realWeddingsError,
+  } = useGetAllRealWeddingsQuery();
+  const { data: cityData } = useGetAllCitiesQuery();
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  // setAllvenue(ven)
+  // console.log(sumit)
+
+  const venues = venuesData?.data || [];
+  const blogs = blogData?.data.blog || [];
+  const realWeddings = realWeddingsData?.data.realWeddings || [];
+  const cities = cityData?.cities || [];
+
+  const city = useSelector((state: RootState) => state?.auth?.city);
+  console.log("data", city);
+  // console.log("sokhi" , venues)
+
+  // Handle error appropriately based on its type
+  const errorMessageVenues = venuesError
+    ? "status" in venuesError
+      ? `Error: ${venuesError.status} - ${JSON.stringify(venuesError.data)}`
+      : venuesError.message
+    : null;
+
+  const errorMessageBlogs = blogsError
+    ? "status" in blogsError
+      ? `Error: ${blogsError.status} - ${JSON.stringify(blogsError.data)}`
+      : blogsError.message
+    : null;
+
+  const errorMessageRealWeddings = realWeddingsError
+    ? "status" in realWeddingsError
+      ? `Error: ${realWeddingsError.status} - ${JSON.stringify(
+          realWeddingsError.data
+        )}`
+      : realWeddingsError.message
+    : null;
 
   const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(event.target.value);
+    const cityValue = event.target.value;
+    setSelectedCity(cityValue);
+    dispatch(cityStatus(cityValue));
+
+    // Scroll to the venues section
+    if (cityValue && venuesRef.current) {
+      venuesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -93,41 +155,88 @@ const NewHome: React.FC = () => {
         </div>
       </section>
 
-      <section id="aboutUs" className="py-16 bg-gray-50">
-        <h2 className="text-5xl font-marcellus text-gray-800 mb-6 font-semibold text-center">
-          About Us
-        </h2>
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-center">
-          <div className="md:w-1/2 text-left mb-8 md:mb-0 flex flex-col items-start">
-            <p className="text-lg text-gray-600 mb-4">
-              Welcome to India’s largest wedding planning platform! We connect
-              you with top vendors to make your wedding planning enjoyable and
-              seamless. With thousands of trusted reviews, you can choose the
-              perfect vendors to match your vision. Join us to create an
-              unforgettable celebration that reflects your unique love story!
-            </p>
-            <button className="bg-yellow-400 text-black px-6 py-2 rounded-lg font-semibold transition duration-300 hover:bg-yellow-500">
-              Contact Us
-            </button>
-          </div>
-          <div className="md:w-1/2 flex justify-center items-start relative">
-            {/* First Image */}
-            <img
-              src={aboutImage}
-              alt="Wedding Planning"
-              className="w-64 h-64 rounded-lg shadow-lg object-cover z-10"
-            />
-            {/* Second Image (Overlap) */}
-            <img
-              src={aboutImage} // Use a different image URL for the second image if needed
-              alt="Wedding Planning Overlay"
-              className="w-48 h-48 rounded-lg shadow-lg object-cover absolute top-16 left-16 z-0" // Adjust the position as needed
-            />
+      <section id="topRatedVenues">
+        <div className="pt-12 bg-white-500" ref={venuesRef}>
+          {venues.filter((venue: any) =>
+            selectedCity
+              ? venue.city.toLowerCase() === selectedCity.toLowerCase()
+              : true
+          ) && (
+            <h2 className="text-4xl text-gray-900 font-bold font-marcellus text-center mb-8">
+              Top Rated Venues
+            </h2>
+          )}
+          {isLoadingVenues ? (
+            <Universal />
+          ) : venuesError ? (
+            <div>{errorMessageVenues}</div>
+          ) : (
+            <div className="flex justify-center items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 scale-90 gap-16">
+                {venues
+                  .filter((venue: any) =>
+                    selectedCity
+                      ? venue.city.toLowerCase() === selectedCity.toLowerCase()
+                      : true
+                  )
+                  .map((venue: any, index: any) => (
+                    <VenueCardNew
+                      key={index}
+                      venue={{
+                        name: venue.businessName,
+                        location: venue.city,
+                        maxGuests: venue.guestCapacity,
+                        contact: venue.phone,
+                        description: venue.summary,
+                        vegPrice: venue.foodPackages,
+                        images: venue.images,
+                        id: venue._id,
+                      }}
+                    />
+                  ))}
+              </div>
+            </div>
+          )}
+          <div className="flex justify-center">
+            <Link to={{ pathname: "/venuelist" }}>
+              <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
+                View More
+              </button>
+            </Link>
           </div>
         </div>
       </section>
 
-      <section></section>
+      <section>
+        <div className="bg-pink-50">
+          <div className="!w-100 mx-auto">
+            <div>
+              <h2 className="text-4xl mt-8 text-gray-900 font-bold font-marcellus text-center mb-8">
+                Akshit Balodhi
+              </h2>
+            </div>
+            <div>
+              {isLoadingBlogs ? (
+                <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <SkeletonBlogCard key={index} />
+                  ))}
+                </div>
+              ) : blogsError ? (
+                <div>{errorMessageBlogs}</div>
+              ) : blogs.length > 0 ? (
+                <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+                  {blogs.slice(0, 4).map((blog) => (
+                    <BlogCard key={blog._id} blog={blog} />
+                  ))}
+                </div>
+              ) : (
+                <p>No blogs available</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
