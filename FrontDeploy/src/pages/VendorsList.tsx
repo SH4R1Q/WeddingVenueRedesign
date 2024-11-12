@@ -78,9 +78,9 @@ const VendorsList: React.FC<VendorsListProps> = ({
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-  if (error) {
-    return <h1>Error while loading data</h1>;
-  }
+  // if (error) {
+  //   return <h1>Error while loading data</h1>;
+  // }
 
   // console.log("heloo", filteredVendors.length, totalPages, currentPage, vendorsPerPage, currentVendors)
 

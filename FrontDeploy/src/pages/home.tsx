@@ -1,4 +1,4 @@
-import React, { useRef, useState , useEffect} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/navbar";
 import InformationBanner from "../components/InformationBanner";
@@ -16,8 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 // import { cityStatus } from "../redux/reducer/auth";
 import Universal from "../components/skeleton/Universal";
-
-const aboutImage = "/wv_cover2.jpg";
+import WeddingCategoriesShort from "../components/WeddingCategShort";
 
 const images = [
   "/public/home1.jpg",
@@ -27,11 +26,9 @@ const images = [
 ];
 
 const Home: React.FC = () => {
-  // const [selectedCity, setSelectedCity] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<string>("");
   const venuesRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedCity, setSelectedCity] = useState("");
-  const cities = ["Delhi", "Mumbai", "Bangalore", "Chennai", "Hyderabad"];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,9 +38,6 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCity(event.target.value);
-  };
 
   const {
     data: venuesData,
@@ -70,7 +64,7 @@ const Home: React.FC = () => {
   const venues = venuesData?.data || [];
   const blogs = blogData?.data.blog || [];
   const realWeddings = realWeddingsData?.data.realWeddings || [];
-  // const cities = cityData?.cities || [];
+  const cities = cityData?.cities || [];
 
   const city = useSelector((state: RootState) => state?.auth?.city);
   console.log("data", city);
@@ -92,81 +86,35 @@ const Home: React.FC = () => {
   const errorMessageRealWeddings = realWeddingsError
     ? "status" in realWeddingsError
       ? `Error: ${realWeddingsError.status} - ${JSON.stringify(
-          realWeddingsError.data
-        )}`
+        realWeddingsError.data
+      )}`
       : realWeddingsError.message
     : null;
 
-  // const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const cityValue = event.target.value;
-  //   setSelectedCity(cityValue);
-  //   dispatch(cityStatus(cityValue));
+  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const cityValue = event.target.value;
+    setSelectedCity(cityValue);
+    dispatch(cityStatus(cityValue));
 
-  //   // Scroll to the venues section
-  //   if (cityValue && venuesRef.current) {
-  //     venuesRef.current.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
-  // console.log("cityy: ", selectedCity);
+    // Scroll to the venues section
+    if (cityValue && venuesRef.current) {
+      venuesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  console.log("cityy: ", selectedCity);
 
   return (
     <div>
       <NavBar />
-      {/* <div className="relative">
-        <div
-          className="bg-cover bg-center h-[95vh]"
-          style={{
-            backgroundImage: `url(${imageUrl})`,
-          }}
-        >
-          <div className="absolute bg-pink-100-a rounded-xl top-[6rem] left-1/2 mt-4 transform -translate-x-1/2 -translate-y-24 w-[50%]">
-            <h1
-              className="text-4xl font-bold text-center mb-4 text-white font-marcellus pt-4"
-              style={{
-                textShadow: "1px 1px 10px black, 0 0 4em black, 0 0 2em white",
-              }}
-            >
-              Weddingz Venue
-            </h1>
-            <h2
-              className="text-2xl font-bold text-center mb-4 text-white font-roboto"
-              style={{
-                textShadow: "1px 1px 10px black, 0 0 4em black, 0 0 2em white",
-              }}
-            >
-              The Best Place To Plan Your Wedding
-            </h2>
-
-            <div className="relative flex justify-center mb-4">
-              <select
-                value={selectedCity}
-                onChange={handleCityChange}
-                className="w-1/2 px-1 py-2 sm:px-10 sm:py-3 border border-gray-300 opacity-80
-                 rounded-xl bg-white bg-opacity-90 text-gray-900 
-                  focus:ring focus:ring-indigo-300 focus:outline-none transition duration-300"
-              >
-                <option value="">Select City</option>
-                {cities.map((city: any) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      
       <section id="heroSection">
         {/* Carousel Section */}
-        <div className="relative w-screen h-screen overflow-hidden">
+        <div className="relative w-full h-screen overflow-hidden">
           <div className="absolute inset-0 w-full h-full">
             {images.map((image, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 bg-cover bg-center w-full h-full transition-opacity duration-1000 ${
-                  index === currentIndex ? "opacity-100" : "opacity-0"
-                }`}
+                className={`absolute inset-0 bg-cover bg-center w-full h-full transition-opacity duration-1000 ${index === currentIndex ? "opacity-100" : "opacity-0"
+                  }`}
                 style={{ backgroundImage: `url(${image})` }}
               ></div>
             ))}
@@ -174,7 +122,7 @@ const Home: React.FC = () => {
 
           {/* Content Container */}
           <div className="relative flex items-center justify-center w-full h-full bg-black bg-opacity-50">
-            <div className="w-[1200px] text-center transform -translate-y-24">
+            <div className="w-[1200px] text-center transform translate-y-24">
               <h1
                 className="text-5xl font-bold font-marcellus text-white"
                 style={{
@@ -219,38 +167,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section id="aboutUs" className="py-16 bg-pink-50">
-        <h2 className="text-5xl font-marcellus text-gray-800 mb-6 font-semibold text-center">
-          About Us
-        </h2>
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-center">
-          <div className="md:w-1/2 text-left mb-8 md:mb-0 flex flex-col items-start">
-            <p className="text-lg text-gray-600 mb-4">
-              Welcome to India’s largest wedding planning platform! We connect
-              you with top vendors to make your wedding planning enjoyable and
-              seamless. With thousands of trusted reviews, you can choose the
-              perfect vendors to match your vision. Join us to create an
-              unforgettable celebration that reflects your unique love story!
-            </p>
-            <button className="bg-yellow-400 text-black px-6 py-2 rounded-lg font-semibold transition duration-300 hover:bg-yellow-500">
-              Contact Us
-            </button>
-          </div>
-          <div className="md:w-1/2 flex justify-center items-start relative">
-            {/* First Image */}
-            <img
-              src={aboutImage}
-              alt="Wedding Planning"
-              className="w-64 h-64 rounded-lg shadow-lg object-cover"
-            />
-            {/* Second Image (Overlap) */}
-            <img
-              src={aboutImage} // Use a different image URL for the second image if needed
-              alt="Wedding Planning Overlay"
-              className="w-48 h-48 rounded-lg shadow-lg object-cover absolute top-16 left-16 z-0" // Adjust the position as needed
-            />
-          </div>
-        </div>
+      <section id="weddingCategories" className="py-16 bg-white">
+        <WeddingCategoriesShort />
+        <Link to="/vendor/AllVendors" className="text-pink-600 flex justify-center hover:underline font-semibold">
+          View all Categories
+        </Link>
       </section>
 
       <div className="pt-12 bg-pink-50" ref={venuesRef}>
@@ -259,10 +180,10 @@ const Home: React.FC = () => {
             ? venue.city.toLowerCase() === selectedCity.toLowerCase()
             : true
         ) && (
-          <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-8">
-            Top Rated Venues
-          </h2>
-        )}
+            <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-8">
+              Top Rated Venues
+            </h2>
+          )}
         {isLoadingVenues ? (
           <Universal />
         ) : venuesError ? (
