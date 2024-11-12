@@ -223,60 +223,63 @@ const NavBar: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-0 flex md:justify-between justify-between items-center">
-        <Link to="/" className="flex items-center">
-          <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0" />
-        </Link>
+      <div className="container mx-0 flex md:justify-left justify-between items-center">
+        <div className="nav-links mx-0 flex md:justify-left justify-between items-center ">
 
-        <div className="options">
-          <ul className="hidden md:flex justify-center items-center space-x-8 flex-grow static top-0">
-            <li className="relative">
-              <Link to="/" className={`${getActiveClass("/")} link-effect`}>
-                Home
-              </Link>
-            </li>
-            <li className="relative">
-              <Link
-                to="/venuelist"
-                className={`${getActiveClass("/venuelist")} link-effect`}
-              >
-                Venues
-              </Link>
-            </li>
-            <li className="relative">
-              <Link
-                to="/vendor/AllVendors"
-                className={`${getActiveClass(
-                  "/vendor/AllVendors"
-                )} link-effect`}
-              >
-                Vendors
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/blogs"
-                className={`${getActiveClass("/blogs")} link-effect`}
-              >
-                Blogs
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/realWedding"
-                className={`${getActiveClass("/realWedding")} link-effect`}
-              >
-                Real Weddings
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/aboutus1"
-                className={`${getActiveClass("/aboutus1")} link-effect`}
-              >
-                Why Us
-              </Link>
-            </li>
+
+          <Link to="/" className="flex items-center">
+            <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0" />
+          </Link>
+
+          <div className="options ">
+            <ul className="hidden md:flex justify-center items-center space-x-8 flex-grow static top-0 ml-9">
+              <li className="relative">
+                <Link to="/" className={`${getActiveClass("/")} link-effect`}>
+                  Home
+                </Link>
+              </li>
+              <li className="relative">
+                <Link
+                  to="/venuelist"
+                  className={`${getActiveClass("/venuelist")} link-effect`}
+                >
+                  Venues
+                </Link>
+              </li>
+              <li className="relative">
+                <Link
+                  to="/vendor/AllVendors"
+                  className={`${getActiveClass(
+                    "/vendor/AllVendors"
+                  )} link-effect`}
+                >
+                  Vendors
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/blogs"
+                  className={`${getActiveClass("/blogs")} link-effect`}
+                >
+                  Blogs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/realWedding"
+                  className={`${getActiveClass("/realWedding")} link-effect`}
+                >
+                  Real Weddings
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/aboutus1"
+                  className={`${getActiveClass("/aboutus1")} link-effect`}
+                >
+                  Why Us
+                </Link>
+              </li>
 
             {/* <li>
               <Link
@@ -302,9 +305,11 @@ const NavBar: React.FC = () => {
             )}
           </ul>
 
-          <ul className="flex items-center space-x-4">
+        </div>
+        <div className="icons flex space-x-4">
+          <ul className="flex justify-right items-center space-x-4">
             {!isLoggedIn && (
-              <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4">
+              <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4 ">
                 <Link
                   to="/login"
                   className="text-light-blue hover:text-gray-200"
@@ -322,7 +327,6 @@ const NavBar: React.FC = () => {
             )}
           </ul>
         </div>
-
         <div className="md:hidden">
           <button onClick={toggleMobileMenu} className="text-light-blue">
             {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
