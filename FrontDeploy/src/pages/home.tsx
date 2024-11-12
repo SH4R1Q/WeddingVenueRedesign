@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState , useEffect} from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/navbar";
 import InformationBanner from "../components/InformationBanner";
@@ -14,14 +14,36 @@ import { Blog, RealWeddings } from "../types/types";
 import { useGetAllCitiesQuery } from "../redux/api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { cityStatus } from "../redux/reducer/auth";
+// import { cityStatus } from "../redux/reducer/auth";
 import Universal from "../components/skeleton/Universal";
 
-const imageUrl = "/wv_cover2.jpg";
+const aboutImage = "/wv_cover2.jpg";
+
+const images = [
+  "/public/home1.jpg",
+  "/public/home2.jpg",
+  "/public/home3.jpg",
+  "/public/home4.jpg",
+];
 
 const Home: React.FC = () => {
-  const [selectedCity, setSelectedCity] = useState<string>("");
+  // const [selectedCity, setSelectedCity] = useState<string>("");
   const venuesRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedCity, setSelectedCity] = useState("");
+  const cities = ["Delhi", "Mumbai", "Bangalore", "Chennai", "Hyderabad"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCity(event.target.value);
+  };
 
   const {
     data: venuesData,
@@ -48,7 +70,7 @@ const Home: React.FC = () => {
   const venues = venuesData?.data || [];
   const blogs = blogData?.data.blog || [];
   const realWeddings = realWeddingsData?.data.realWeddings || [];
-  const cities = cityData?.cities || [];
+  // const cities = cityData?.cities || [];
 
   const city = useSelector((state: RootState) => state?.auth?.city);
   console.log("data", city);
@@ -75,22 +97,22 @@ const Home: React.FC = () => {
       : realWeddingsError.message
     : null;
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const cityValue = event.target.value;
-    setSelectedCity(cityValue);
-    dispatch(cityStatus(cityValue));
+  // const handleCityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const cityValue = event.target.value;
+  //   setSelectedCity(cityValue);
+  //   dispatch(cityStatus(cityValue));
 
-    // Scroll to the venues section
-    if (cityValue && venuesRef.current) {
-      venuesRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  //   // Scroll to the venues section
+  //   if (cityValue && venuesRef.current) {
+  //     venuesRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
   // console.log("cityy: ", selectedCity);
 
   return (
     <div>
       <NavBar />
-      <div className="relative">
+      {/* <div className="relative">
         <div
           className="bg-cover bg-center h-[95vh]"
           style={{
@@ -130,15 +152,107 @@ const Home: React.FC = () => {
                   </option>
                 ))}
               </select>
-              {/* <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-800" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-              </div> */}
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      
+      <section id="heroSection">
+        {/* Carousel Section */}
+        <div className="relative w-screen h-screen overflow-hidden">
+          <div className="absolute inset-0 w-full h-full">
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 bg-cover bg-center w-full h-full transition-opacity duration-1000 ${
+                  index === currentIndex ? "opacity-100" : "opacity-0"
+                }`}
+                style={{ backgroundImage: `url(${image})` }}
+              ></div>
+            ))}
+          </div>
+
+          {/* Content Container */}
+          <div className="relative flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+            <div className="w-[1200px] text-center transform -translate-y-24">
+              <h1
+                className="text-5xl font-bold font-marcellus text-white"
+                style={{
+                  textShadow:
+                    "1px 1px 10px black, 0 0 4em black, 0 0 2em white",
+                }}
+              >
+                India's Largest Wedding
+                <span className="text-pink-200"> Planning Platform</span>
+              </h1>
+              <h2
+                className="text-2xl font-light font-roboto text-white mt-4"
+                style={{
+                  textShadow:
+                    "1px 1px 10px black, 0 0 4em black, 0 0 2em white",
+                }}
+              >
+                Find the best wedding vendors with thousands of trusted reviews
+              </h2>
+
+              {/* City Selector and Search Button */}
+              <div className="flex justify-center items-center space-x-0 mt-8">
+                <select
+                  value={selectedCity}
+                  onChange={handleCityChange}
+                  className="w-1/2 md:w-1/3 px-4 py-2 border border-gray-300 bg-white bg-opacity-90 text-gray-900 focus:ring focus:ring-indigo-300 focus:outline-none transition duration-300"
+                >
+                  <option value="">Select City</option>
+                  {cities.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+
+                <button className="px-6 py-2 bg-pink-200 text-black border-0">
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="aboutUs" className="py-16 bg-pink-50">
+        <h2 className="text-5xl font-marcellus text-gray-800 mb-6 font-semibold text-center">
+          About Us
+        </h2>
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-center">
+          <div className="md:w-1/2 text-left mb-8 md:mb-0 flex flex-col items-start">
+            <p className="text-lg text-gray-600 mb-4">
+              Welcome to India’s largest wedding planning platform! We connect
+              you with top vendors to make your wedding planning enjoyable and
+              seamless. With thousands of trusted reviews, you can choose the
+              perfect vendors to match your vision. Join us to create an
+              unforgettable celebration that reflects your unique love story!
+            </p>
+            <button className="bg-yellow-400 text-black px-6 py-2 rounded-lg font-semibold transition duration-300 hover:bg-yellow-500">
+              Contact Us
+            </button>
+          </div>
+          <div className="md:w-1/2 flex justify-center items-start relative">
+            {/* First Image */}
+            <img
+              src={aboutImage}
+              alt="Wedding Planning"
+              className="w-64 h-64 rounded-lg shadow-lg object-cover"
+            />
+            {/* Second Image (Overlap) */}
+            <img
+              src={aboutImage} // Use a different image URL for the second image if needed
+              alt="Wedding Planning Overlay"
+              className="w-48 h-48 rounded-lg shadow-lg object-cover absolute top-16 left-16 z-0" // Adjust the position as needed
+            />
+          </div>
+        </div>
+      </section>
+
       <div className="pt-12 bg-pink-50" ref={venuesRef}>
         {venues.filter((venue: any) =>
           selectedCity

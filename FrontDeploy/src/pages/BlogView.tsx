@@ -28,8 +28,8 @@ const BlogView: React.FC = () => {
   return (
     <>
       <NavBar />
-      <div className="container mx-auto p-6 md:p-10 font-roboto">
-        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 lg:p-16 max-w-3xl mx-auto">
+      <div className="container mx-auto p-6 md:p-10 font-roboto bg-pink-50">
+        <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-lg p-8 md:p-12 lg:p-16 max-w-3xl mx-auto">
           <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800">{blog?.title}</h1>
           {blog?.images && blog?.images[0] && (
             <div className="flex justify-center mb-8">

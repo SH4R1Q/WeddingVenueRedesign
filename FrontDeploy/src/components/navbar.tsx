@@ -264,14 +264,14 @@ const NavBar: React.FC = () => {
               </Link>
             </li>
 
-            <li>
+            {/* <li>
               <Link
                 to="/newhome"
                 className={`${getActiveClass("/NewHome")} link-effect`}
               >
                 New Home
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="icons flex space-x-4">

@@ -21,32 +21,75 @@ const RealWeddingsList: React.FC = () => {
   return (
     <>
       <NavBar />
-      <div className="container mx-auto p-8 font-roboto">
-        <h1 className="text-4xl font-bold mb-8 text-center">Real Weddings</h1>
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {isLoading ? (
-            Array.from({ length: 8 }).map((_, index) => (
+      <div className="pb-12 px-12 bg-pink-50">
+        <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-12">
+          Real Wedding Highlights
+        </h2>
+        {isLoading ? (
+          <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+            {Array.from({ length: 4 }).map((_, index) => (
               <SkeletonWeddingCard key={index} />
-            ))
-          ) : realWeddings.length > 0 ? (
-            realWeddings.map((wedding: RealWeddings) => (
-              <div key={wedding._id} className="border rounded-lg overflow-hidden shadow-lg">
-                {wedding.images && wedding.images.length > 0 && (
-                  <img src={wedding.images[0]} alt={wedding.title ?? 'Untitled'} className="w-full h-48 object-cover" />
-                )}
-                <div className="p-4">
-                  <h2 className="text-xl font-bold mb-2">{wedding.title ?? 'Untitled'}</h2>
-                  <p className="text-gray-700">{wedding.content ? wedding.content.substring(0, 100) + '...' : 'No content available'}</p>
-                  <Link to={`/realWedding/${wedding._id}`} className="text-blue-500 hover:underline mt-2 block">
-                    Read More
-                  </Link>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center text-red-500">
+            {'Error while loading data'}
+          </div>
+        ) : realWeddings.length > 0 ? (
+          <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+            {realWeddings.slice(0, 4).map((wedding: RealWeddings) => {
+              const imageUrl =
+                wedding.images && wedding.images.length > 0
+                  ? wedding.images[0]
+                  : "/default-image.jpg";
+              const contentPreview = wedding.content
+                ? wedding.content.substring(0, 190)
+                : "Details coming soon!";
+              return (
+                <div
+                  key={wedding._id}
+                  className="bg-white border border-2 !border-pink-100 shadow-xl overflow-hidden relative group"
+                >
+                  <img
+                    src={imageUrl}
+                    alt={wedding.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end justify-center p-5">
+                    <h2 className="text-xl font-bold font-marcellus text-white group-hover:opacity-0">
+                      {wedding.title}
+                    </h2>
+                  </div>
+                  {/* <div className="absolute bottom-0 w-full p-5 bg-white bg-opacity-90 transform 
+                            transition-transform duration-300 group-hover:-translate-y-2/3"
+            > */}
+                  .
+                  <div
+                    className="absolute inset-0 p-5 bg-white-500-a transform 
+                transition-all duration-300 translate-y-full group-hover:translate-y-0 flex flex-col justify-start"
+                  >
+                    <h2 className="text-xl font-bold font-marcellus text-gray-800 mb-4">
+                      {wedding.title}
+                    </h2>
+                    <p className="text-lg font-semibold text-gray-700 mt-2">
+                      {contentPreview}...
+                    </p>
+                    <Link
+                      to={`/realWedding/${wedding._id}`}
+                      className="text-pink-600 hover:underline mt-3 inline-block"
+                    >
+                      Discover More
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p>No real weddings available</p>
-          )}
-        </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-center text-gray-700">
+            Currently no weddings available. Stay tuned for updates!
+          </p>
+        )}
       </div>
       <Footer />
     </>
