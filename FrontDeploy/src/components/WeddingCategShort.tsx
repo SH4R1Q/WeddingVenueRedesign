@@ -48,11 +48,11 @@ const WeddingCategoriesShort: React.FC = () => {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-12 py-8">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold">Wedding Categories</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 {categories.map((category, index) => (
                     <div
                         key={index}
