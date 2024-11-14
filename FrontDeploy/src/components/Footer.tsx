@@ -1,5 +1,5 @@
 // import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
-
+import { Link } from "react-router-dom";
 // const Footer = () => {
 //   return (
 //     <footer className="bg-black text-white py-10">
@@ -56,58 +56,58 @@ const Footer = () => {
         <div className="text-left">
           <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2 items-start">Start Planning</h2>
           <div className="footer-links flex flex-col justify-left">
-            <h3 className="text-l mb-2">Search By Vendor</h3>
-            <h3 className="text-l mb-2">Search By City</h3>
-            <h3 className="text-l mb-2">Download Our App</h3>
-            <h3 className="text-l mb-2">Top Rated Vendors</h3>
-            <h3 className="text-l mb-2">Destination Wedding</h3>
+            <Link to="#" className="text-l mb-2">Search By Vendor</Link>
+            <Link to="#" className="text-l mb-2">Search By City</Link>
+            <Link to="#" className="text-l mb-2">Download Our App</Link>
+            <Link to="#" className="text-l mb-2">Top Rated Vendors</Link>
+            <Link to="#" className="text-l mb-2">Destination Wedding</Link>
           </div>
 
           </div>
           <div className="text-left">
             <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2 items-start">Wedding Ideas</h2>
             <div className="footer-links flex flex-col justify-left">
-              <h3 className="text-l mb-2">Wedding Blog</h3>
-              <h3 className="text-l mb-2">Wedding Inspiration Gallery</h3>
-              <h3 className="text-l mb-2">Real Wedding</h3>
-              <h3 className="text-l mb-2">Submit Wedding</h3>
+              <Link to="#" className="text-l mb-2">Wedding Blog</Link>
+              <Link to="#" className="text-l mb-2">Wedding Inspiration Gallery</Link>
+              <Link to="#" className="text-l mb-2">Real Wedding</Link>
+              <Link to="#" className="text-l mb-2">Submit Wedding</Link>
             </div>
         </div>
 
         <div className="text-left">
           <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2 items-start">Photo Gallery</h2>
           <div className="footer-links flex flex-col justify-left">
-            <h3 className="text-l mb-2">Bridal Wear</h3>
-            <h3 className="text-l mb-2">Wedding Jewellery</h3>
-            <h3 className="text-l mb-2">Bridal Makeup & Hair</h3>
-            <h3 className="text-l mb-2">Wedding Decor</h3>
-            <h3 className="text-l mb-2">Wedding Photography</h3>
-            <h3 className="text-l mb-2">Groom Wear</h3>
-            <h3 className="text-l mb-2">Invitations & Favors</h3>
-            <h3 className="text-l mb-2">Wedding Accessories</h3>
-            <h3 className="text-l mb-2">Mehendi Designs</h3>
+            <Link to="#" className="text-l mb-2">Bridal Wear</Link>
+            <Link to="#" className="text-l mb-2">Wedding Jewellery</Link>
+            <Link to="#" className="text-l mb-2">Bridal Makeup & Hair</Link>
+            <Link to="#" className="text-l mb-2">Wedding Decor</Link>
+            <Link to="#" className="text-l mb-2">Wedding Photography</Link>
+            <Link to="#" className="text-l mb-2">Groom Wear</Link>
+            <Link to="#" className="text-l mb-2">Invitations & Favors</Link>
+            <Link to="#" className="text-l mb-2">Wedding Accessories</Link>
+            <Link to="#" className="text-l mb-2">Mehendi Designs</Link>
           </div>
 
           </div>
           <div className="text-left">
             <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2 items-start">Home</h2>
             <div className="footer-links flex flex-col justify-left">
-              <h3 className="text-l mb-2">About WedMeGood</h3>
-              <h3 className="text-l mb-2">Careers</h3>
-              <h3 className="text-l mb-2">Contact Us</h3>
-              <h3 className="text-l mb-2">Site Map</h3>
-              <h3 className="text-l mb-2">Terms & Conditions</h3>
-              <h3 className="text-l mb-2">Privacy Policy</h3>
-              <h3 className="text-l mb-2">Cancellation Policy</h3>
+              <Link to="#" className="text-l mb-2">About WeddingzVenue</Link>
+              <Link to="#" className="text-l mb-2">Careers</Link>
+              <Link to="#" className="text-l mb-2">Contact Us</Link>
+              <Link to="#" className="text-l mb-2">Site Map</Link>
+              <Link to="#" className="text-l mb-2">Terms & Conditions</Link>
+              <Link to="#" className="text-l mb-2">Privacy Policy</Link>
+              <Link to="#" className="text-l mb-2">Cancellation Policy</Link>
             </div>
         </div>
 
         <div className="text-left">
             <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2 items-start">Wedding Invitation Maker</h2>
             <div className="footer-links flex flex-col justify-left">
-              <h3 className="text-l mb-2">Wedding Card Designs</h3>
-              <h3 className="text-l mb-2">Save the Date Templates</h3>
-              <h3 className="text-l mb-2">Invitation Video Templates</h3>
+              <Link to="#" className="text-l mb-2">Wedding Card Designs</Link>
+              <Link to="#" className="text-l mb-2">Save the Date Templates</Link>
+              <Link to="#" className="text-l mb-2">Invitation Video Templates</Link>
             </div>
         </div>
 
@@ -133,7 +133,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="text-[#D6BF5E] hover:underline font-medium"
           >
-            BINARAMA
+            AMONG US COMMUNITY
           </a>
         </p>
       </div>
