@@ -20,7 +20,6 @@ import React, { Suspense } from "react";
 
 import AdminDashboard from "./pages/admin/adminDashboard";
 import Home from "./pages/home";
-import NewHome from "./pages/NewHome";
 
 import UserRegister from "./pages/userRegister";
 import VendorsList from "./pages/VendorsList";
@@ -66,7 +65,6 @@ const App: React.FC = () => {
             {/* <Route path="/popup" element={<PopUp />} /> */}
 
             <Route path="/login" element={<Login />} />
-            <Route path="/newhome" element={<NewHome />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="aboutus1" element={<AboutUs />} />

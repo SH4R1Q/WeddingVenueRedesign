@@ -106,6 +106,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <NavBar />
+
       <section id="heroSection">
         {/* Carousel Section */}
         <div className="relative w-full h-screen overflow-hidden">
@@ -167,6 +168,62 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      <section id='topVenues'>
+        <div className="pt-12 px-12 bg-white" ref={venuesRef}>
+          {venues.filter((venue: any) =>
+            selectedCity
+              ? venue.city.toLowerCase() === selectedCity.toLowerCase()
+              : true
+          ) && (
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-semibold">Top Rated Venues</h2>
+              </div>
+            )}
+          {isLoadingVenues ? (
+            <Universal />
+          ) : venuesError ? (
+            <div>{errorMessageVenues}</div>
+          ) : (
+            <div className="flex justify-center items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-32">
+                {venues
+                  .filter((venue: any) =>
+                    selectedCity
+                      ? venue.city.toLowerCase() === selectedCity.toLowerCase()
+                      : true
+                  )
+                  .map((venue: any, index: any) => (
+                    <VenueCard
+                      key={index}
+                      venue={{
+                        name: venue.businessName,
+                        location: venue.city,
+                        maxGuests: venue.guestCapacity,
+                        images: venue.images,
+                        id: venue._id,
+                      }}
+                    />
+                  ))}
+              </div>
+            </div>
+          )}
+          <div className="flex justify-center mt-8">
+            <Link
+              to="/venuelist"
+              className="text-pink-600 hover:underline font-semibold"
+            >
+              View More Venues
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* <section id='popularSearches'>
+        <div className="flex justify-between items-center mb-6 px-12">
+          <h2 className="text-2xl font-semibold">Popular Searches</h2>
+        </div>
+      </section> */}
+
       <section id="weddingCategories" className="py-16 bg-white">
         <WeddingCategoriesShort />
         <Link to="/vendor/AllVendors" className="text-pink-600 flex justify-center hover:underline font-semibold">
@@ -174,202 +231,163 @@ const Home: React.FC = () => {
         </Link>
       </section>
 
-      <div className="pt-12 bg-pink-50" ref={venuesRef}>
-        {venues.filter((venue: any) =>
-          selectedCity
-            ? venue.city.toLowerCase() === selectedCity.toLowerCase()
-            : true
-        ) && (
-            <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-8">
-              Top Rated Venues
-            </h2>
-          )}
-        {isLoadingVenues ? (
-          <Universal />
-        ) : venuesError ? (
-          <div>{errorMessageVenues}</div>
-        ) : (
-          <div className="flex justify-center items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 scale-90">
-              {venues
-                .filter((venue: any) =>
-                  selectedCity
-                    ? venue.city.toLowerCase() === selectedCity.toLowerCase()
-                    : true
-                )
-                .map((venue: any, index: any) => (
-                  <VenueCard
-                    key={index}
-                    venue={{
-                      name: venue.businessName,
-                      location: venue.city,
-                      maxGuests: venue.guestCapacity,
-                      contact: venue.phone,
-                      description: venue.summary,
-                      vegPrice: venue.foodPackages,
-                      images: venue.images,
-                      id: venue._id,
-                    }}
-                  />
-                ))}
+      <section id='InfoBanner'>
+        <div>
+          <InformationBanner />
+        </div>
+      </section>
+
+      <section id='realWeddings'>
+        <div className="py-12 px-12 bg-white">
+          <div className="flex justify-between items-center my-6">
+            <h2 className="text-2xl font-semibold">Real Wedding Highlights</h2>
+          </div>
+          {isLoadingRealWeddings ? (
+            <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <SkeletonRealWeddingCard key={index} />
+              ))}
             </div>
-          </div>
-        )}
-        <div className="flex justify-center">
-          <Link to={{ pathname: "/venuelist" }}>
-            <button className="bg-transparent hover:!bg-[#bd87a5] mb-12 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
-              View More
-            </button>
-          </Link>
-        </div>
-      </div>
-
-      <div className="pb-12 px-12 bg-pink-50">
-        <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-20">
-          Latest Blog Posts
-        </h2>
-        {isLoadingBlogs ? (
-          <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <SkeletonBlogCard key={index} />
-            ))}
-          </div>
-        ) : blogsError ? (
-          <div>{errorMessageBlogs}</div>
-        ) : blogs.length > 0 ? (
-          <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {blogs.slice(0, 4).map((blog: Blog) => {
-              const imageUrl = Array.isArray(blog.images)
-                ? blog.images[0]
-                : blog.images || "/default-image.jpg";
-              const contentPreview = blog.content
-                ? blog.content.substring(0, 200)
-                : "No content available";
-              return (
-                <div
-                  key={blog._id}
-                  className="group border border-2 rounded-lg overflow-hidden !shadow-lg 
-                transition-transform transform hover:scale-105 relative !h-50 "
-                >
-                  <img
-                    src={imageUrl}
-                    alt={blog.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
-                    <h2 className="text-white text-shadow-sm text-2xl font-bold px-4 text-center">
-                      {blog.title}
-                    </h2>
-                  </div>
-                  <div className="absolute inset-0 p-4 bg-white-500-a transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="font-semibold text-gray-600">
-                      {contentPreview}...
-                    </p>
-                    <Link
-                      to={`/blogs/${blog._id}`}
-                      className="text-pink-600 hover:underline mt-2 block"
-                    >
-                      Read More
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <p>No blogs available</p>
-        )}
-        <div className="flex justify-center mt-8">
-          <Link to={{ pathname: "/blogs" }}>
-            <button className="bg-transparent hover:!bg-[#bd87a5] mb-8 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
-              View More
-            </button>
-          </Link>
-        </div>
-      </div>
-
-      <div className="pb-12 px-12 bg-pink-50">
-        <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-12">
-          Real Wedding Highlights
-        </h2>
-        {isLoadingRealWeddings ? (
-          <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <SkeletonRealWeddingCard key={index} />
-            ))}
-          </div>
-        ) : realWeddingsError ? (
-          <div className="text-center text-red-500">
-            {errorMessageRealWeddings}
-          </div>
-        ) : realWeddings.length > 0 ? (
-          <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {realWeddings.slice(0, 4).map((wedding: RealWeddings) => {
-              const imageUrl =
-                wedding.images && wedding.images.length > 0
-                  ? wedding.images[0]
-                  : "/default-image.jpg";
-              const contentPreview = wedding.content
-                ? wedding.content.substring(0, 190)
-                : "Details coming soon!";
-              return (
-                <div
-                  key={wedding._id}
-                  className="bg-white border border-2 !border-pink-100 shadow-xl overflow-hidden relative group"
-                >
-                  <img
-                    src={imageUrl}
-                    alt={wedding.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end justify-center p-5">
-                    <h2 className="text-xl font-bold font-marcellus text-white group-hover:opacity-0">
-                      {wedding.title}
-                    </h2>
-                  </div>
-                  {/* <div className="absolute bottom-0 w-full p-5 bg-white bg-opacity-90 transform 
+          ) : realWeddingsError ? (
+            <div className="text-center text-red-500">
+              {errorMessageRealWeddings}
+            </div>
+          ) : realWeddings.length > 0 ? (
+            <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {realWeddings.slice(0, 4).map((wedding: RealWeddings) => {
+                const imageUrl =
+                  wedding.images && wedding.images.length > 0
+                    ? wedding.images[0]
+                    : "/default-image.jpg";
+                const contentPreview = wedding.content
+                  ? wedding.content.substring(0, 190)
+                  : "Details coming soon!";
+                return (
+                  <div
+                    key={wedding._id}
+                    className="bg-white border border-2 !border-pink-100 shadow-xl overflow-hidden relative group"
+                  >
+                    <img
+                      src={imageUrl}
+                      alt={wedding.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end justify-center p-5">
+                      <h2 className="text-xl font-bold font-marcellus text-white group-hover:opacity-0">
+                        {wedding.title}
+                      </h2>
+                    </div>
+                    {/* <div className="absolute bottom-0 w-full p-5 bg-white bg-opacity-90 transform 
                             transition-transform duration-300 group-hover:-translate-y-2/3"
             > */}
-                  .
-                  <div
-                    className="absolute inset-0 p-5 bg-white-500-a transform 
+                    .
+                    <div
+                      className="absolute inset-0 p-5 bg-white-500-a transform 
                 transition-all duration-300 translate-y-full group-hover:translate-y-0 flex flex-col justify-start"
-                  >
-                    <h2 className="text-xl font-bold font-marcellus text-gray-800 mb-4">
-                      {wedding.title}
-                    </h2>
-                    <p className="text-lg font-semibold text-gray-700 mt-2">
-                      {contentPreview}...
-                    </p>
-                    <Link
-                      to={`/realWedding/${wedding._id}`}
-                      className="text-pink-600 hover:underline mt-3 inline-block"
                     >
-                      Discover More
-                    </Link>
+                      <h2 className="text-xl font-bold font-marcellus text-gray-800 mb-4">
+                        {wedding.title}
+                      </h2>
+                      <p className="text-lg font-semibold text-gray-700 mt-2">
+                        {contentPreview}...
+                      </p>
+                      <Link
+                        to={`/realWedding/${wedding._id}`}
+                        className="text-pink-600 hover:underline mt-3 inline-block"
+                      >
+                        Discover More
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          ) : (
+            <p className="text-center text-gray-700">
+              Currently no weddings available. Stay tuned for updates!
+            </p>
+          )}
+          <div className="flex justify-center mt-12">
+            <Link to="/realWedding" className="text-pink-600 flex justify-center hover:underline font-semibold">
+              View More Stories
+            </Link>
           </div>
-        ) : (
-          <p className="text-center text-gray-700">
-            Currently no weddings available. Stay tuned for updates!
-          </p>
-        )}
-        <div className="flex justify-center mt-12">
-          <Link to={{ pathname: "/realWedding" }}>
-            <button className="bg-transparent hover:!bg-[#bd87a5] mb-8 text-pink-600 border-2 border-solid border-[#92396a] font-bold py-2 px-4 rounded-full focus:outline-none text-sm md:text-lg">
-              View More
-            </button>
-          </Link>
         </div>
-      </div>
+      </section>
 
-      <div>
-        <InformationBanner />
-      </div>
-      <Footer />
+      {/* <section id="gallery">
+        <div className="flex justify-between items-center mb-6 px-12">
+          <h2 className="text-2xl font-semibold">Gallery</h2>
+        </div>
+      </section> */}
+
+      <section id="latestBlogs">
+        <div className="py-12 px-12 bg-white">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-semibold">Latest Blogs</h2>
+          </div>
+          {isLoadingBlogs ? (
+            <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <SkeletonBlogCard key={index} />
+              ))}
+            </div>
+          ) : blogsError ? (
+            <div>{errorMessageBlogs}</div>
+          ) : blogs.length > 0 ? (
+            <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              {blogs.slice(0, 4).map((blog: Blog) => {
+                const imageUrl = Array.isArray(blog.images)
+                  ? blog.images[0]
+                  : blog.images || "/default-image.jpg";
+                const contentPreview = blog.content
+                  ? blog.content.substring(0, 200)
+                  : "No content available";
+                return (
+                  <div
+                    key={blog._id}
+                    className="group border border-2 rounded-lg overflow-hidden !shadow-lg 
+                transition-transform transform hover:scale-105 relative !h-50 "
+                  >
+                    <img
+                      src={imageUrl}
+                      alt={blog.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
+                      <h2 className="text-white text-shadow-sm text-2xl font-bold px-4 text-center">
+                        {blog.title}
+                      </h2>
+                    </div>
+                    <div className="absolute inset-0 p-4 bg-white-500-a transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="font-semibold text-gray-600">
+                        {contentPreview}...
+                      </p>
+                      <Link
+                        to={`/blogs/${blog._id}`}
+                        className="text-pink-600 hover:underline mt-2 block"
+                      >
+                        Read More
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p>No blogs available</p>
+          )}
+          <div className="flex justify-center mt-8">
+            <Link to="/blogs" className="text-pink-600 flex justify-center hover:underline font-semibold">
+              View More Blogs
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="footer">
+        <Footer />
+      </section>
     </div>
   );
 };
