@@ -66,41 +66,12 @@ function VenueList() {
   return (
     <div className="flex flex-col min-h-screen  bg-pink-50">
       <NavBar />
-      <div className="w-full mt-4">
+      <div className="mt-4">
         <FilterBar onFilterChange={handleFilterChange} />
       </div>
-      {/* <div className="container mx-auto px-4 mt-12">
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="w-full md:w-3/4">
-            <div className="grid grid-cols-1 gap-4">
-              {allowedVenues.length > 0 ? (
-                allowedVenues.map((venue, index) => (
-
-                  <VenueCard
-                    key={index}
-                    venue={{
-                      name: venue?.businessName,
-                      location: venue.city,
-                      maxGuests: venue.guestCapacity,
-                      contact: venue.phone,
-                      description: venue.summary,
-                      vegPrice: venue.foodPackages,
-                      nonVegPrice: 30,
-                      images: venue.images,
-                      id: venue._id,
-                    }}
-                  />)
-                )
-              ) : (
-                <div>No Venue found</div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div> */}
-
+     
       <div className="container mx-auto px-4 mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 grid-rows-2 gap-6">
           {allowedVenues.length > 0 ? (
             allowedVenues.map((venue, index) => (
               <div
