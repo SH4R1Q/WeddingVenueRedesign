@@ -150,11 +150,11 @@ const WeddingCategories: React.FC = () => {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-12 py-8">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold">Wedding Categories</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {categories.map((category, index) => (
                     <div
                         key={index}
@@ -178,7 +178,7 @@ const WeddingCategories: React.FC = () => {
                         {expandedIndex === index && (
                             <div className="mt-2 text-sm text-gray-700">
                                 <p>Explore our wide range of services for {category.title}.</p>
-                                <Link to={`/vendor/${category.title.toLowerCase().replace(/ /g, "-")}`} className="text-pink-600 hover:underline">
+                                <Link to={`/vendor/${category.title.replace(/ /g, "")}`} className="text-pink-600 hover:underline">
                                     Learn More
                                 </Link>
                             </div>

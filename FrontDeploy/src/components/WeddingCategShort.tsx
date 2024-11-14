@@ -76,7 +76,7 @@ const WeddingCategoriesShort: React.FC = () => {
                         {expandedIndex === index && (
                             <div className="mt-2 text-sm text-gray-700">
                                 <p>Explore our wide range of services for {category.title}.</p>
-                                <Link to={`/vendor/${category.title.toLowerCase().replace(/ /g, "-")}`} className="text-pink-600 hover:underline">
+                                <Link to={`/vendor/${category.title.replace(/ /g, "")}`} className="text-pink-600 hover:underline">
                                     Learn More
                                 </Link>
                             </div>
