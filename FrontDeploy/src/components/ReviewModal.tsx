@@ -16,7 +16,7 @@ const ReviewModal = ({ onClose }: { onClose: () => void }) => {
   const handleStarClick = (value: number) => setRating(value);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-sm z-100">
+    <div className="fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-sm z-50">
       <div className="bg-white p-8 rounded-lg w-full max-w-lg shadow-2xl relative">
         {/* Close Button */}
         <button
