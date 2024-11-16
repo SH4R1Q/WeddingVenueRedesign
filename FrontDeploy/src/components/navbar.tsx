@@ -123,6 +123,14 @@ const NavBar: React.FC = () => {
               </li>
               <li>
                 <Link
+                  to="/photos"
+                  className={`${getActiveClass("/photos")} link-effect`}
+                >
+                  Photos
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/blogs"
                   className={`${getActiveClass("/blogs")} link-effect`}
                 >

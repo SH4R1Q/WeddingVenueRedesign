@@ -46,6 +46,7 @@ import {
 import VenueProfile from "./pages/admin/components/profile/venue/VenueProfilePage";
 import EnquiryNotif from "./pages/notification/enquirynotif";
 import ScrollToTop from "./components/ScrollToTop";
+import PhotosPage from "./pages/PhotoGallery";
 // import UpdateVenueComponent from "./pages/Test";
 
 import PopUp from "./components/PopUp";
@@ -75,6 +76,7 @@ const App: React.FC = () => {
             <Route path="/vendor/:type/:_id" element={<VendorServicePage />} />
             <Route path="/venuelist/:id" element={<VenueServicePage />} />
             <Route path="/blogs" element={<BlogList />} />
+            <Route path="/photos" element={<PhotosPage />} />
             {/* <Route path="/blog/:id" element={<BlogPost />} /> */}
             {/* <Route path="/blog/new" element={<NewBlog />} /> */}
             <Route path="/realWeddings/new" element={<NewRealWedding />} />
