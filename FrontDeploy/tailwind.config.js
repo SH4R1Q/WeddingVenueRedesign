@@ -3,20 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      animation: {
-        "fade-in": "fade-in 0.5s ease forwards",
-      },
-      keyframes: {
-        "fade-in": {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
         marcellus: ["Marcellus", "sans-serif"],
+        playfair: ['"Playfair Display"', 'serif'],
+        merriweather: ['"Merriweather"', 'serif'],
+
       },
       // added colors as per theme
       colors: {
@@ -105,6 +98,10 @@ export default {
         "bg-gradient-to-b": "linear-gradient(180deg, black, transparent)",
       },
       keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
         gradient: {
           "0%": {
             background: "linear-gradient(45deg, #FAFAFA, #D6D6D6)",
@@ -119,6 +116,7 @@ export default {
       },
       animation: {
         gradient: "gradient 15s ease infinite",
+        "fade-in": "fade-in 0.5s ease forwards",
       },
     },
   },

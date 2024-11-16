@@ -116,15 +116,16 @@ export interface Blog{
   category?: string;
 }
 
-export interface RealWeddings{
-  _id:string
-  title?: string;
+export interface RealWeddings {
+  _id: string;
+  title: string;
   images?: string[];
   content?: string;
   author?: string;
-  category?: string;
   organizerName?: string;
-  createdAt?: any;
+  eventDate?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface Notification{

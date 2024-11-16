@@ -1,17 +1,13 @@
-// src/pages/RealWeddingsList.tsx
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import NavBar from '../components/navbar';
-
 import { RealWeddings } from '../types/types';
 import { useGetAllRealWeddingsQuery } from '../redux/api/realWeddings';
 import SkeletonWeddingCard from '../components/skeleton/RealWedding';
 
 const RealWeddingsList: React.FC = () => {
-  const { data: realWeddingsData, isLoading , error } = useGetAllRealWeddingsQuery();
-  console.log("real data",realWeddingsData);
+  const { data: realWeddingsData, isLoading, error } = useGetAllRealWeddingsQuery();
   const realWeddings: RealWeddings[] = realWeddingsData?.data.realWeddings || [];
 
   if (error) {
@@ -21,62 +17,60 @@ const RealWeddingsList: React.FC = () => {
   return (
     <>
       <NavBar />
-      <div className="pb-12 px-12 bg-pink-50">
-        <h2 className="text-3xl text-gray-900 font-bold font-marcellus text-center mb-12">
-          Real Wedding Highlights
-        </h2>
+      {/* Hero Section */}
+      <section className="relative w-full h-[400px] bg-cover bg-center" style={{ backgroundImage: `url('/ap2.jpg')` }}>
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center p-5">
+          <h1 className="text-4xl font-bold text-white mb-4">Discover Real Wedding Stories</h1>
+          <p className="text-lg text-white mb-6">
+            Explore beautiful moments, inspiring locations, and unforgettable celebrations curated just for you.
+          </p>
+        </div>
+      </section>
+
+      <div className="pb-12 px-12 bg-white">
         {isLoading ? (
-          <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {Array.from({ length: 4 }).map((_, index) => (
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 mt-12">
+            {Array.from({ length: 6 }).map((_, index) => (
               <SkeletonWeddingCard key={index} />
             ))}
           </div>
-        ) : error ? (
-          <div className="text-center text-red-500">
-            {'Error while loading data'}
-          </div>
         ) : realWeddings.length > 0 ? (
-          <div className="grid gap-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            {realWeddings.slice(0, 4).map((wedding: RealWeddings) => {
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 mt-12">
+            {realWeddings.slice(0, 6).map((wedding: RealWeddings) => {
               const imageUrl =
                 wedding.images && wedding.images.length > 0
                   ? wedding.images[0]
                   : "/default-image.jpg";
               const contentPreview = wedding.content
-                ? wedding.content.substring(0, 190)
+                ? wedding.content.substring(0, 80)
                 : "Details coming soon!";
+              const eventDate = wedding.eventDate
+                ? new Date(wedding.eventDate).toLocaleDateString()
+                : "Date not available";
+
               return (
                 <div
                   key={wedding._id}
-                  className="bg-white border border-2 !border-pink-100 shadow-xl overflow-hidden relative group"
+                  className="bg-white border border-pink-100 shadow-md rounded-lg overflow-hidden relative group"
                 >
-                  <img
-                    src={imageUrl}
-                    alt={wedding.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end justify-center p-5">
-                    <h2 className="text-xl font-bold font-marcellus text-white group-hover:opacity-0">
-                      {wedding.title}
-                    </h2>
+                  <div className="relative">
+                    <img
+                      src={imageUrl}
+                      alt={wedding.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end p-3">
+                      <h2 className="text-lg font-bold text-white">{wedding.title}</h2>
+                    </div>
                   </div>
-                  {/* <div className="absolute bottom-0 w-full p-5 bg-white bg-opacity-90 transform 
-                            transition-transform duration-300 group-hover:-translate-y-2/3"
-            > */}
-                  .
-                  <div
-                    className="absolute inset-0 p-5 bg-white-500-a transform 
-                transition-all duration-300 translate-y-full group-hover:translate-y-0 flex flex-col justify-start"
-                  >
-                    <h2 className="text-xl font-bold font-marcellus text-gray-800 mb-4">
-                      {wedding.title}
-                    </h2>
-                    <p className="text-lg font-semibold text-gray-700 mt-2">
-                      {contentPreview}...
+                  <div className="p-3">
+                    <p className="text-sm text-gray-700 mb-1">{contentPreview}...</p>
+                    <p className="text-xs text-gray-500 mb-1">
+                      <span className="font-semibold">Event Date:</span> {eventDate}
                     </p>
                     <Link
                       to={`/realWedding/${wedding._id}`}
-                      className="text-pink-600 hover:underline mt-3 inline-block"
+                      className="text-pink-600 hover:underline text-sm font-semibold"
                     >
                       Discover More
                     </Link>

@@ -327,7 +327,7 @@ const Home: React.FC = () => {
             <h2 className="text-2xl font-semibold">Latest Blogs</h2>
           </div>
           {isLoadingBlogs ? (
-            <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+            <div className="grid gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 4 }).map((_, index) => (
                 <SkeletonBlogCard key={index} />
               ))}
@@ -335,39 +335,42 @@ const Home: React.FC = () => {
           ) : blogsError ? (
             <div>{errorMessageBlogs}</div>
           ) : blogs.length > 0 ? (
-            <div className="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+            <div className="grid gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {blogs.slice(0, 4).map((blog: Blog) => {
                 const imageUrl = Array.isArray(blog.images)
                   ? blog.images[0]
                   : blog.images || "/default-image.jpg";
                 const contentPreview = blog.content
-                  ? blog.content.substring(0, 200)
+                  ? blog.content.substring(0, 150)
                   : "No content available";
+
                 return (
                   <div
                     key={blog._id}
-                    className="group border border-2 rounded-lg overflow-hidden !shadow-lg 
-                transition-transform transform hover:scale-105 relative !h-50 "
+                    className="border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200 bg-white overflow-hidden"
                   >
-                    <img
-                      src={imageUrl}
-                      alt={blog.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0">
-                      <h2 className="text-white text-shadow-sm text-2xl font-bold px-4 text-center">
+                    {/* Image Section */}
+                    <div className="relative h-44">
+                      <img
+                        src={imageUrl}
+                        alt={blog.title}
+                        className="w-full h-full object-cover rounded-t-lg"
+                      />
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="p-4">
+                      <h2 className="text-lg font-semibold text-gray-800 truncate mb-2">
                         {blog.title}
                       </h2>
-                    </div>
-                    <div className="absolute inset-0 p-4 bg-white-500-a transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="font-semibold text-gray-600">
+                      <p className="text-sm text-gray-600 line-clamp-3">
                         {contentPreview}...
                       </p>
                       <Link
                         to={`/blogs/${blog._id}`}
-                        className="text-pink-600 hover:underline mt-2 block"
+                        className="text-sm font-medium text-blue-600 hover:text-blue-800 mt-4 inline-block"
                       >
-                        Read More
+                        Read More →
                       </Link>
                     </div>
                   </div>
@@ -377,6 +380,7 @@ const Home: React.FC = () => {
           ) : (
             <p>No blogs available</p>
           )}
+
           <div className="flex justify-center mt-8">
             <Link to="/blogs" className="text-pink-600 flex justify-center hover:underline font-semibold">
               View More Blogs
