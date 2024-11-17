@@ -491,7 +491,7 @@ const UserTabView: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between md:flex-row  p-6" style={{ backgroundColor: 'rgb(254,234,232)' }}>
+    <div className="flex justify-between md:flex-row p-6" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '18px' }}>
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="w-60 h-60">
@@ -507,7 +507,10 @@ const UserTabView: React.FC = () => {
             <Wishlist userId={userId} />
           )}
       </main>
-      
+     
+     <main className='w-10'>
+
+     </main>
       
     </div>
   );
@@ -519,16 +522,16 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => (
-  <nav className="md:w-1/4 p-2 mt-4 text-gray-700" style={{ backgroundColor: 'rgb(254,234,232)' }}>
+  <nav className="md:w-1/4 p-3 text-gray-700 rounded-lg bg-white-500-a">
     {['Profile', 'Wishlist'].map(tab => (
       <button
         key={tab}
         onClick={() => setActiveTab(tab)}
-        className={`p-3 mb-4 w-full text-center text-lg font-semibold transition-colors rounded ${
+        className={`p-3 mb-2 w-full text-left text-lg font-semibold transition-colors rounded ${
           activeTab === tab ? 'bg-pink-400 text-white-500' : 'hover:bg-pink-400 text-gray-500'
         }`} 
       >
-        <FontAwesomeIcon icon={tab === 'Profile' ? faHome : faHeart} className="mr-2" />
+        <FontAwesomeIcon icon={tab === 'Profile' ? faHome : faHeart} className="mr-5" />
         {tab}
       </button>
     ))}
@@ -579,7 +582,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
       name={field}
       value={profileData[field as keyof ProfileData] || ''}
       onChange={onChange}
-      placeholder={`Enter ${field}`} // Placeholder for empty fields
+      placeholder={`Enter ${field}`}
       className={`w-full p-2 border-b-2 ${
         profileData[field as keyof ProfileData] === '' ? 'border-red-300' : 'border-gray-300'
       } focus:outline-none focus:ring-blue-300 focus:border-blue-500`}

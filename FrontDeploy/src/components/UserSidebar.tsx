@@ -38,7 +38,7 @@ const UserSidebar: React.FC<Props> = () => {
 
   return (
     <div className="flex md:h-screen"  >
-      <div className=" w-64 sm:w-80 p-6  rounded-lg shadow-lg md:shadow-none md:rounded-none" style={{ backgroundColor: 'rgb(254,234,232)' }}>
+      <div className=" w-64 rounded-lg  md:rounded-none">
         
         {/* Profile Picture
         <div className="w-28 h-28 mt-6 mb-4 rounded-full overflow-hidden border-2 border-white shadow-lg">

@@ -55,7 +55,7 @@ const NavBar: React.FC = () => {
       className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 "
       style={{ opacity }}
     >
-      <div className="bg-gradient-to-r from-[#e363aa] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center border border-black rounded-md shadow-lg">
+      <div className="bg-gradient-to-r from-[#e363aa] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center pt-2 pb-2 rounded-md shadow-sm">
         {/* Contact Details (Left-aligned) */}
         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-8">
           <a
@@ -89,7 +89,7 @@ const NavBar: React.FC = () => {
       </div>
 
       <div className="container mx-0 flex md:justify-left justify-between items-center">
-        <div className="nav-links mx-0 flex md:justify-left justify-between items-center ">
+        <div className="nav-links mx-0 pt-1 flex md:justify-left justify-between items-center ">
 
 
           <Link to="/" className="flex items-center">
@@ -167,7 +167,7 @@ const NavBar: React.FC = () => {
         </div>
         <div className="icons flex space-x-4">
           <ul className="space-x-4 hidden md:block">
-            {isLoggedIn && (
+            {isLoggedIn && role != 'user' && (
               <li className="relative">
                 <Link
                   to="/notification"
