@@ -5,126 +5,128 @@ interface FilterBarProps {
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
-  const [businessName, setBusinessName] = useState('');
-  const [city, setCity] = useState('');
-  const [minGuests, setMinGuests] = useState('');
-  const [maxGuests, setMaxGuests] = useState('');
-  const [foodPackage, setFoodPackage] = useState('');
-  const [facilities, setFacilities] = useState('');
-  const [venueTypes, setVenueTypes] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [filters, setFilters] = useState<any>({});
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  const handleFilterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const filters = {
-      businessName: businessName || undefined,
-      city: city || undefined,
-      minGuests: minGuests || undefined,
-      maxGuests: maxGuests || undefined,
-      foodPackage: foodPackage || undefined,
-      facilities: facilities || undefined,
-      venueTypes: venueTypes || undefined,
-    };
+  const handleFilterChange = (category: string, value: string) => {
+    setFilters((prev: any) => {
+      const updatedValues = prev[category]?.includes(value)
+        ? prev[category].filter((item: string) => item !== value)
+        : [...(prev[category] || []), value];
+      return { ...prev, [category]: updatedValues };
+    });
+  };
+
+  const handleDropdownClick = (category: string) => {
+    setActiveDropdown((prev) => (prev === category ? null : category));
+  };
+
+  const handleApply = () => {
     onFilterChange(filters);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsOpen(!isOpen);
+    setActiveDropdown(null);
+  };
+
+  const handleReset = () => {
+    setFilters({});
+    onFilterChange({});
+    setActiveDropdown(null);
+  };
+
+  const renderOptions = (category: string, options: string[]) => (
+    <div className="absolute bg-white shadow-lg rounded-lg p-4 mt-2 z-10 w-48">
+      {options.map((option) => (
+        <label key={option} className="block mb-2">
+          <input
+            type="checkbox"
+            className="mr-2"
+            checked={filters[category]?.includes(option) || false}
+            onChange={() => handleFilterChange(category, option)}
+          />
+          {option}
+        </label>
+      ))}
+    </div>
+  );
+
+  const renderHeader = (label: string, category: string) => {
+    const isOpen = activeDropdown === category;
+    return (
+      <button
+        className="font-semibold flex items-center"
+        onClick={() => handleDropdownClick(category)}
+      >
+        {label}
+        <span className="ml-2">{isOpen ? '▲' : '▼'}</span>
+      </button>
+    );
   };
 
   return (
-    <div>
-      <div className="rounded-full border-2 border-solid border-[#92396a] fixed top-15 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 
-                      h-10 bg-[#ffffff87] shadow-lg2 flex items-center justify-between px-4 hover:!bg-[#bd87a5]">
-        <button
-          className="text-pink-600 text-semibold font-roboto focus:outline-none"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ?"Close" : "Open Filters"}
-        </button>
+    <div className="fixed top-21 left-0 right-0 bg-white shadow-lg p-2 z-10 flex justify-around">
+      {/* No. of Guests */}
+      <div className="relative">
+        {renderHeader("No. of Guests", "guests")}
+        {activeDropdown === "guests" &&
+          renderOptions("guests", ["<100", "100-250", "250-500", "500-1000", ">1000"])}
       </div>
-      {isOpen && (
-        <form
-          onSubmit={handleFilterSubmit}
-          className="fixed top-15 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-300 bg-[#ffffffbf] bg-opacity-80 backdrop-blur-md shadow-lg rounded-2xl
-                      w-3/5 mx-auto mt-12 flex flex-wrap items-center justify-center gap-4 border-2 border-solid border-[#92396a] p-4"
 
-        >
-          <input
-            className="px-3 py-1 text-gray-700 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150 ease-in-out"
-            type="text"
-            placeholder="Venue Name"
-            value={businessName}
-            onChange={(e) => setBusinessName(e.target.value)}
-          />
-          <input
-            className="px-3 py-1 text-gray-700 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150 ease-in-out"
-            type="text"
-            placeholder="City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <input
-            className="px-3 py-1 text-gray-700 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150 ease-in-out"
-            type="number"
-            placeholder="Min Guests"
-            value={minGuests}
-            onChange={(e) => setMinGuests(e.target.value)}
-          />
-          <input
-            className="px-3 py-1 text-gray-700 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150 ease-in-out"
-            type="number"
-            placeholder="Max Guests"
-            value={maxGuests}
-            onChange={(e) => setMaxGuests(e.target.value)}
-          />
-          <input
-            className="px-3 py-1 text-gray-700 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150 ease-in-out"
-            type="text"
-            placeholder="Food Package"
-            value={foodPackage}
-            onChange={(e) => setFoodPackage(e.target.value)}
-          />
-          <input
-            className="px-3 py-1 text-gray-700 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150 ease-in-out"
-            type="text"
-            placeholder="Facilities"
-            value={facilities}
-            onChange={(e) => setFacilities(e.target.value)}
-          />
-          <input
-            className="px-3 py-1 text-gray-700 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150 ease-in-out"
-            type="text"
-            placeholder="Venue Types"
-            value={venueTypes}
-            onChange={(e) => setVenueTypes(e.target.value)}
-          />
-          <div>
-            <button
-              className="bg-indigo-500 text-white font-medium text-sm py-1 px-5 rounded-full hover:bg-indigo-600 transition duration-200 ease-in-out"
-              type="submit"
-            >
-              Apply
-            </button>
-            <button
-              className="bg-gray-300 text-gray-700 font-medium text-sm py-1 px-5 rounded-full hover:bg-gray-400 transition duration-200 ease-in-out ml-2"
-              type="button"
-              onClick={() => {
-                setBusinessName('');
-                setCity('');
-                setMinGuests('');
-                setMaxGuests('');
-                setFoodPackage('');
-                setFacilities('');
-                setVenueTypes('');
-                onFilterChange({});
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setIsOpen(!isOpen);
-              }}
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-      )}
+      {/* Room Count */}
+      <div className="relative">
+        {renderHeader("Room Count", "roomCount")}
+        {activeDropdown === "roomCount" &&
+          renderOptions("roomCount", ["<30", "30-60", "61-100", "100-200", "200-1000"])}
+      </div>
+
+      {/* Price per Plate */}
+      <div className="relative">
+        {renderHeader("Price per Plate (₹)", "pricePerPlate")}
+        {activeDropdown === "pricePerPlate" &&
+          renderOptions("pricePerPlate", ["< ₹1,000", "₹1,000 - ₹1,500", "₹1,500 - ₹2,000", "₹2,000 - ₹3,000", "> ₹3,000"])}
+      </div>
+
+      {/* Rental Cost */}
+      <div className="relative">
+        {renderHeader("Rental Cost", "rentalCost")}
+        {activeDropdown === "rentalCost" &&
+          renderOptions("rentalCost", ["< ₹1 Lakh", "₹1-2 Lakh", "₹2-4 Lakh", "₹4-6 Lakh", "> ₹6 Lakh"])}
+      </div>
+
+      {/* Venue Type */}
+      <div className="relative">
+        {renderHeader("Venue Type", "venueType")}
+        {activeDropdown === "venueType" &&
+          renderOptions("venueType", ["4 Star & Above", "Banquet Halls", "Marriage Garden", "3 Star Hotels", "Country/Golf Club"])}
+      </div>
+
+      {/* Space Type */}
+      <div className="relative">
+        {renderHeader("Space", "space")}
+        {activeDropdown === "space" &&
+          renderOptions("space", ["Indoor", "Outdoor", "Poolside", "Terrace/Rooftop"])}
+      </div>
+
+      {/* Rating */}
+      <div className="relative">
+        {renderHeader("Rating", "rating")}
+        {activeDropdown === "rating" &&
+          renderOptions("rating", ["All Ratings", "Rated <4", "Rated 4+", "Rated 4.5+", "Rated 4.8+"])}
+      </div>
+
+      {/* Apply and Reset Buttons */}
+        <div className="flex items-center gap-4">
+          <button
+            className="bg-indigo-500 text-white py-1 px-4 rounded-full"
+            onClick={handleApply}
+          >
+            Apply
+          </button>
+          <button
+            className="bg-gray-300 text-gray-700 py-1 px-4 rounded-full"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
     </div>
   );
 };
