@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { FaChevronUp, FaChevronDown } from "react-icons/fa";
-import { Link, To } from "react-router-dom";
-import {
-  MdContacts,
-  MdDinnerDining,
-  MdLocationPin,
-  MdPeople,
-} from "react-icons/md";
+import { MdLocationPin } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 interface VenueProps {
   venue: {
     name: string | undefined;
-    location: string | undefined;
+    state: string | undefined;
+    city: string | undefined;
     maxGuests: string | undefined;
     contact: string | undefined;
     description: string | undefined;
@@ -23,111 +18,58 @@ interface VenueProps {
 }
 
 const VenueCardMain: React.FC<VenueProps> = ({ venue }) => {
-  const [showFullDescription, setShowFullDescription] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [fade, setFade] = useState(true);
 
   useEffect(() => {
+    if (!venue?.images || venue.images.length === 0) return;
+
     const interval = setInterval(() => {
-      handleNextImage();
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [currentImageIndex]);
-
-  const toggleDescription = () => {
-    setShowFullDescription((prevState) => !prevState);
-  };
-
-  const truncatedDescription = venue.description
-    ? `${venue.description.slice(0, 80)}...`
-    : "";
-
-  const handleNextImage = () => {
-    setFade(false);
-    setTimeout(() => {
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === (venue?.images?.length ?? 0) - 1 ? 0 : prevIndex + 1
+        prevIndex === venue.images.length - 1 ? 0 : prevIndex + 1
       );
-      setFade(true);
-    }, 200);
-  };
+    }, 3000);
 
-  if (!venue?.images || venue.images.length === 0) {
-    return null;
-  }
+    return () => clearInterval(interval);
+  }, [venue?.images?.length]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 mx-4 my-4">
-      {/* Image Carousel */}
-      <div className="relative h-48">
-        <div
-          className={`w-full h-full transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-80"}`}
-        >
+    <Link to={`/venuelist/${venue.id}`} className="block">
+      <div className="relative bg-white rounded-lg overflow-hidden hover:shadow-md transition-transform transform mx-2 my-2 cursor-pointer">
+        {/* Image Section */}
+        <div className="h-48 p-2">
           <img
-            src={venue?.images[currentImageIndex]}
-            alt={`Venue ${currentImageIndex}`}
-            className="w-full h-full object-cover rounded-t-lg"
+            src={venue.images[currentImageIndex]}
+            alt="Venue Image"
+            className="w-full h-full object-cover rounded-lg"
           />
         </div>
-        <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
-          {venue?.images.map((_, index) => (
-            <span
-              key={index}
-              className={`w-2 h-2 rounded-full bg-white ${index === currentImageIndex ? "bg-gray-800" : "opacity-50"}`}
-              onClick={() => setCurrentImageIndex(index)}
-            />
-          ))}
+
+        {/* Venue Details */}
+        <div className="p-3">
+          <h2 className="text-base text-lg font-semibold mb-4 truncate">{venue.name}</h2>
+
+          <div className="flex items-center font-md text-gray-500 mb-2">
+            <MdLocationPin className="mr-0" />
+            <span className="truncate">{venue.state}{venue.city}</span>
+          </div>
+
+          <div className="flex items-left justify-between text-sm text-gray-500 mb-0">
+            <span>Veg</span>
+            <span>Non-Veg</span>
+          </div>
+          <div className="flex items-left justify-between text-lg font-semibold text-base mb-2">
+            <span>₹{venue.vegPrice?.slice(0, 5)} <span className="text-sm text-gray-900 font-normal">per plate</span></span>
+            <span>₹{venue.nonVegPrice} <span className="text-sm text-gray-900 font-normal">per plate</span></span>
+          </div>
+
+          <div className="flex items-center text-sm text-base font-semibold mb-2">
+            <span className="bg-gray-200 px-1 py-0.5 rounded-sm border border-gray-300">
+              {venue.maxGuests} pax
+            </span>
+          </div>
         </div>
       </div>
-
-      {/* Venue Details */}
-      <div className="p-4">
-        <h2 className="text-lg font-bold mb-2">{venue.name}</h2>
-        <div className="flex items-center text-semibold text-gray-600 mb-2">
-          <MdLocationPin size={18} className="mr-4" />
-          <span>{venue.location?.substring(0, 20)}</span>
-        </div>
-
-        <div className="flex items-center text-semibold text-gray-600 mb-2">
-          <MdPeople size={18} className="mr-4" />
-          <span>Max Guests: {venue.maxGuests}</span>
-        </div>
-
-        <div className="flex items-center text-semibold text-gray-600 mb-2">
-          <MdContacts size={18} className="mr-4" />
-          <span>Contact: {venue.contact}</span>
-        </div>
-
-        <div className="flex items-center text-semibold text-gray-600 mb-4">
-          <MdDinnerDining size={18} className="mr-4" />
-          <span>Price Per Plate: {venue.vegPrice?.substring(0, 5)} Onwards</span>
-        </div>
-
-        <div className="text-semibold text-gray-700 mb-2">
-          {venue.description && (
-            <>
-              {showFullDescription ? venue.description : truncatedDescription}
-              {venue.description.length > 80 && (
-                <button
-                  onClick={toggleDescription}
-                  className="text-blue-500 hover:text-blue-700 ml-1"
-                >
-                  {showFullDescription ? "Read Less" : "Read More"}
-                  {showFullDescription ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
-                </button>
-              )}
-            </>
-          )}
-        </div>
-
-        <Link to={{ pathname: `/venuelist/${venue?.id}`, state: { venue } } as To}>
-          <button className="w-full bg-pink-600 text-white py-2 rounded-md 
-          font-semibold hover:!bg-transparent hover:!text-black border border-black">
-            View Venue
-          </button>
-        </Link>
-      </div>
-    </div>
+    </Link>
   );
 };
 

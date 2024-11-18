@@ -566,11 +566,11 @@ const VendorsList: React.FC<VendorsListProps> = ({
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-  // if (error) {
-  //   return <h1>Error while loading data</h1>;
-  // }
+  if (error) {
+    return <h1>Error while loading data</h1>;
+  }
 
-  // console.log("heloo", filteredVendors.length, totalPages, currentPage, vendorsPerPage, currentVendors)
+  console.log(filteredVendors.length, totalPages, currentPage, vendorsPerPage, currentVendors)
 
   return (
     <>
@@ -650,8 +650,12 @@ const VendorsList: React.FC<VendorsListProps> = ({
                       _id={vendor._id}
                       key={index}
                       businessName={vendor.name ?? "No name provided"}
+                      type_of_business={vendor.type_Of_Business}
                       city={vendor.city}
+                      state={vendor.state}
                       packagePrice={vendor.packages?.price}
+                      experience={vendor.experience}
+                      event_completed={vendor.event_completed}
                       summary={vendor.summary}
                       image={vendor.portfolio ? vendor.portfolio[0] : ""}
                     />
@@ -662,8 +666,12 @@ const VendorsList: React.FC<VendorsListProps> = ({
                       _id={vendor._id}
                       key={index}
                       businessName={vendor.name ?? "No name provided"}
+                      type_of_business={vendor.type_Of_Business}
                       city={vendor.city}
+                      state={vendor.state}
                       packagePrice={vendor.packages?.price}
+                      experience={vendor.experience}
+                      event_completed={vendor.event_completed}
                       summary={vendor.summary}
                       image={vendor.portfolio ? vendor.portfolio[0] : ""}
                     />

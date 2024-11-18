@@ -38,7 +38,8 @@ export default {
       spacing: {
         px: "1px",
         0: "0",
-        1: "0.5 rem",
+        1: "0.5rem",
+        2: "0.80rem",
         4: "1rem",
         8: "2rem",
         12: "3rem",

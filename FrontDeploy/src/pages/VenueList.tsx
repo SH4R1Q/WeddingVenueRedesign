@@ -328,13 +328,13 @@ function VenueList() {
 
 
   return (
-    <div className="flex flex-col min-h-screen  bg-pink-50">
+    <div className="flex flex-col min-h-screen  bg-white">
       <NavBar />
       <div className="w-full mt-4">
         <FilterBar onFilterChange={handleFilterChange} />
       </div>
           <div className="container mx-auto px-4 mt-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
               {allowedVenues.length > 0 ? (
                 allowedVenues.map((venue, index) => (
@@ -342,7 +342,8 @@ function VenueList() {
                     key={index}
                     venue={{
                       name: venue?.businessName,
-                      location: venue.city,
+                      state: venue.state,
+                      city: venue.city,
                       maxGuests: venue.guestCapacity,
                       contact: venue.phone,
                       description: venue.summary,
