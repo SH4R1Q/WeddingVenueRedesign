@@ -15,29 +15,25 @@ const VenueProfilePage = () => {
     return (
         <>
             <NavBar />
-            <main className="flex flex-col items-center bg-gray-100 min-h-screen py-8">
-                <div className="w-full max-w-7xl grid grid-cols-12 gap-6 px-6">
-                    
+            <main className="flex flex-col items-center min-h-screen py-8"
+            >
+                <div className="w-full flex flex-col lg:flex-row px-6 space-y-6 lg:space-y-0 lg:space-x-6 " >
                     {/* Sidebar */}
-                    <aside className="col-span-3 bg-white rounded-lg shadow-lg p-6">
-                        <UserSidebar
-                            yourName={userData?.fullName}
-                            phone={userData?.phone}
-                            email={userData?.email}
-                            id={userId}
-                            profile={userData?.avatarUrl || '/userAvatar.jpg'}
-                        />
-                    </aside>
+                    
 
                     {/* Main Content */}
-                    <section className="col-span-9 bg-white rounded-lg shadow-lg p-8">
+                    <section className="flex-1">
                         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                            Your Profile
+                            My Dashboard
                         </h2>
                         <UserTabView />
                     </section>
+                    <aside className="flex-shrink-0 lg:w-1/4 p-6" >
+                       
+                    </aside>
                 </div>
             </main>
+
             <Footer />
         </>
     );

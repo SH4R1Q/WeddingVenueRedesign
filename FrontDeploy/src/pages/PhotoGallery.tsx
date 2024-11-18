@@ -14,14 +14,25 @@ const PhotosPage: React.FC = () => {
     // Placeholder image URLs
     const photos = Array(12).fill('/public/ap1.jpg');// for test purpose
 
+    const imageStyle = {
+        width: "100%",
+        height: "auto",
+        borderRadius: "8px", // Add rounded corners if needed
+      };
+    
+
     return (
         <>
             <NavBar />
 
             {/* Hero Section */}
-            <div className="bg-pink-100 py-20 text-center">
-                <h1 className="text-5xl font-playfair font-bold text-[#1A202C]">Wedding Photo Gallery</h1>
-                <p className="text-lg text-gray-600 mt-4">Discover beautiful moments from real weddings.</p>
+            <div className="relative h-[350px] bg-repeat bg-contain py-20 text-center" style={{ backgroundImage: `url('/weddingImg.jpg')` }}>
+                <div
+                    className="absolute inset-0 bg-black opacity-50"
+                    style={{ zIndex: 1 }}
+                ></div>
+                <h1 className="text-5xl font-playfair font-bold text-[#ffffff]" style={{ position: "relative", zIndex: 2 }}>Wedding Photo Gallery</h1>
+                <p className="text-lg text-white-500 mt-4" style={{ position: "relative", zIndex: 2 }}>Discover beautiful moments from real weddings.</p>
             </div>
 
             {/* Filter Section */}
@@ -69,9 +80,11 @@ const PhotosPage: React.FC = () => {
                             className="relative overflow-hidden rounded-lg shadow-md group"
                         >
                             <img
+                                // src="https://picsum.photos/200"
                                 src={photo}
                                 alt={`Wedding Photo ${index + 1}`}
-                                className="w-full h-[300px] object-cover rounded-lg transition-opacity duration-300"
+                                className="object-cover rounded-lg transition-opacity duration-300"
+                                style={imageStyle}
                             />
                             <a
                                 href={`https://www.pinterest.com/pin/create/button/?url=${window.location.href}&media=${photo}`}

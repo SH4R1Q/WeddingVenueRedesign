@@ -20,7 +20,7 @@ const RealWeddingsList: React.FC = () => {
       {/* Hero Section */}
       <section className="relative w-full h-[400px] bg-cover bg-center" style={{ backgroundImage: `url('/ap2.jpg')` }}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center p-5">
-          <h1 className="text-4xl font-bold text-white mb-4">Discover Real Wedding Stories</h1>
+          <h1 className="text-5xl font-playfair font-bold text-white mb-4">Discover Real Wedding Stories</h1>
           <p className="text-lg text-white mb-6">
             Explore beautiful moments, inspiring locations, and unforgettable celebrations curated just for you.
           </p>

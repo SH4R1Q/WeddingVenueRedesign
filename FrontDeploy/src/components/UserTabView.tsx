@@ -491,21 +491,27 @@ const UserTabView: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+    <div className="flex justify-between md:flex-row p-6" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '18px' }}>
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <main className="flex-1 bg-gradient-to-r from-blue-800 via-blue-500 to-indigo-500 p-6 overflow-auto">
-        {activeTab === 'Profile' ? (
-          <ProfileSection
-            profileData={profileData}
-            isEditing={isEditing}
-            onEditClick={handleEditClick}
-            onSaveClick={handleSaveClick}
-            onChange={handleChange}
-          />
-        ) : (
-          <Wishlist userId={userId} />
-        )}
+
+      <main className="w-60 h-60">
+      {activeTab === 'Profile' ? (
+            <ProfileSection
+              profileData={profileData}
+              isEditing={isEditing}
+              onEditClick={handleEditClick}
+              onSaveClick={handleSaveClick}
+              onChange={handleChange}
+            />
+          ) : (
+            <Wishlist userId={userId} />
+          )}
       </main>
+     
+     <main className='w-10'>
+
+     </main>
+      
     </div>
   );
 };
@@ -516,16 +522,16 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => (
-  <nav className="md:w-1/4 bg-blue-800 p-4 text-white">
+  <nav className="md:w-1/4 p-3 text-gray-700 rounded-lg bg-white-500-a">
     {['Profile', 'Wishlist'].map(tab => (
       <button
         key={tab}
         onClick={() => setActiveTab(tab)}
-        className={`p-3 mb-4 w-full text-center text-lg font-semibold transition-colors rounded ${
-          activeTab === tab ? 'bg-blue-700' : 'hover:bg-blue-600'
-        }`}
+        className={`p-3 mb-2 w-full text-left text-lg font-semibold transition-colors rounded ${
+          activeTab === tab ? 'bg-pink-400 text-white-500' : 'hover:bg-pink-400 text-gray-500'
+        }`} 
       >
-        <FontAwesomeIcon icon={tab === 'Profile' ? faHome : faHeart} className="mr-2" />
+        <FontAwesomeIcon icon={tab === 'Profile' ? faHome : faHeart} className="mr-5" />
         {tab}
       </button>
     ))}
@@ -547,15 +553,15 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   onSaveClick,
   onChange,
 }) => (
-<div className="bg-white p-10 shadow-md rounded-xl w-full md:w-3/4 lg:w-1/2 mx-auto ">
-  <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Profile</h2>
+<div className="flex flex-col bg-white p-4 shadow-md rounded-xl w-auto h-auto md:w-3/4 lg:w-1/2 mx-auto ">
+  {/* <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">My Profile</h2> */}
   
-  <div className="flex flex-col items-center mb-8">
+  <div className="flex flex-col items-center mb-4 ">
     <div className="relative">
       <img
         src={profileData.avatarUrl}
         alt="User Avatar"
-        className="w-24 h-24 rounded-full border-4 border-blue-500"
+        className="w-40 h-36 border-gray-500"
       />
       <button
         onClick={onEditClick}
@@ -564,23 +570,26 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
         <FontAwesomeIcon icon={isEditing ? faTimes : faEdit} />
       </button>
     </div>
-    <p className="text-lg font-semibold mt-4">{profileData.name}</p>
+    {/* <p className="text-lg font-semibold mt-2">{profileData.name}</p> */}
   </div>
 
   {isEditing ? (
     <form onSubmit={onSaveClick} className="space-y-5">
-      {['name', 'phoneNumber', 'address', 'email'].map(field => (
-        <div key={field}>
-          <label className="block text-gray-600 font-medium mb-2 capitalize">{field}</label>
-          <input
-            type="text"
-            name={field}
-            value={profileData[field as keyof ProfileData]}
-            onChange={onChange}
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-          />
-        </div>
-      ))}
+     {['name', 'phoneNumber', 'address', 'email'].map((field) => (
+  <div key={field} className="mb-4">
+    <input
+      type="text"
+      name={field}
+      value={profileData[field as keyof ProfileData] || ''}
+      onChange={onChange}
+      placeholder={`Enter ${field}`}
+      className={`w-full p-2 border-b-2 ${
+        profileData[field as keyof ProfileData] === '' ? 'border-red-300' : 'border-gray-300'
+      } focus:outline-none focus:ring-blue-300 focus:border-blue-500`}
+    />
+  </div>
+))}
+
       <div className="flex justify-end mt-6 space-x-4">
         <button type="button" onClick={onEditClick} className="text-gray-500 hover:text-gray-700">
           Cancel
@@ -594,8 +603,8 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
     <div className="space-y-5">
       {Object.entries(profileData).map(([label, value]) => (
         label !== 'avatarUrl' && (
-          <div key={label} className="flex justify-between items-center bg-gray-100 p-3 rounded-lg shadow">
-            <span className="font-medium text-gray-600 capitalize">{label}</span>
+          <div key={label} className="flex items-center mt-2">
+            <span className="font-medium text-gray-600 capitalize"></span>
             <span className="text-gray-700">{value}</span>
           </div>
         )
