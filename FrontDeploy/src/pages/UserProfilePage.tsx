@@ -18,12 +18,12 @@ const VenueProfilePage = () => {
             <main className="flex flex-col items-center min-h-screen py-8"
             >
                 <div className="w-full flex flex-col lg:flex-row px-6 space-y-6 lg:space-y-0 lg:space-x-6 " >
-                    {/* Sidebar */}
+                   
                     
 
                     {/* Main Content */}
-                    <section className="flex-1">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+                    <section className="flex flex-col ">
+                        <h2 className="text-3xl font-semibold text-gray-800 mb-3 ml-2">
                             My Dashboard
                         </h2>
                         <UserTabView />

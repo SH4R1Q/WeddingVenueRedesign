@@ -491,7 +491,7 @@ const UserTabView: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between md:flex-row p-6" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '18px' }}>
+    <div className="flex justify-between md:flex-row p-6 h-auto bg-pink-400" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}>
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="w-60 h-60">
@@ -508,7 +508,7 @@ const UserTabView: React.FC = () => {
           )}
       </main>
      
-     <main className='w-10'>
+     <main className='w-30'>
 
      </main>
       
@@ -522,7 +522,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => (
-  <nav className="md:w-1/4 p-3 text-gray-700 rounded-lg bg-white-500-a">
+  <nav className="md:w-1/4 p-3 text-gray-700 rounded-sm bg-white-500-a h-auto">
     {['Profile', 'Wishlist'].map(tab => (
       <button
         key={tab}
