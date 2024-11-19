@@ -287,10 +287,19 @@ function VenueList() {
 
 
   const [filters, setFilters] = useState({});
+  // const queryString = new URLSearchParams(
+  //   Object.entries(filters).filter(([, v]) => v !== undefined) as [string, string][]
+  // ).toString();
   const queryString = new URLSearchParams(
-    Object.entries(filters).filter(([, v]) => v !== undefined) as [string, string][]
-  ).toString();
-  const { data, error, isLoading } = useAllVenueQuery(queryString);
+    Object.entries(filters)
+        .filter(([, v]) => v !== undefined && v !== null && v !== '') // Remove undefined, null, empty string
+        .map(([key, value]) => [
+            key,
+            Array.isArray(value) ? value.join(',') : String(value), // Convert arrays to comma-separated strings
+        ])
+).toString();
+
+  const { data, error, isLoading } = useAllVenueQuery(filters);
   const [allVenues, setAllVenues] = useState<Venue[]>([]);
   // console.log('helod', data)
   const updateVenues = useCallback(() => {
@@ -316,6 +325,7 @@ function VenueList() {
       Object.entries(newFilters).filter(([, v]) => v != null && v !== '')
     );
     setFilters(cleanFilters);
+    console.log(queryString);
   };
 
   if (error) {

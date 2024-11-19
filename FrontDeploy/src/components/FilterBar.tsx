@@ -24,6 +24,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
   const handleApply = () => {
     onFilterChange(filters);
     setActiveDropdown(null);
+    console.log(filters);
   };
 
   const handleReset = () => {
@@ -61,8 +62,17 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
     );
   };
 
+  // city,
+  //           minGuests,
+  //           maxGuests,
+  //           foodPackage,
+  //           facilities,
+  //           venueTypes,
+  //           rating,
+  //           guests,
+
   return (
-    <div className="fixed top-21 left-0 right-0 bg-white shadow-lg p-2 z-10 flex justify-around">
+    <div className="fixed top-21 left-0 right-0 bg-white p-2 z-10 flex justify-around">
       {/* No. of Guests */}
       <div className="relative">
         {renderHeader("No. of Guests", "guests")}
@@ -71,39 +81,39 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
       </div>
 
       {/* Room Count */}
-      <div className="relative">
+      {/* <div className="relative">
         {renderHeader("Room Count", "roomCount")}
         {activeDropdown === "roomCount" &&
           renderOptions("roomCount", ["<30", "30-60", "61-100", "100-200", "200-1000"])}
-      </div>
+      </div> */}
 
       {/* Price per Plate */}
       <div className="relative">
-        {renderHeader("Price per Plate (₹)", "pricePerPlate")}
-        {activeDropdown === "pricePerPlate" &&
-          renderOptions("pricePerPlate", ["< ₹1,000", "₹1,000 - ₹1,500", "₹1,500 - ₹2,000", "₹2,000 - ₹3,000", "> ₹3,000"])}
+        {renderHeader("Price per Plate (₹)", "foodPackage")}
+        {activeDropdown === "foodPackage" &&
+          renderOptions("foodPackage", ["< 1,000", "1,000 - 1,500", "1,500 - 2,000", "2,000 - 3,000", "> 3,000"])}
       </div>
 
       {/* Rental Cost */}
-      <div className="relative">
+      {/* <div className="relative">
         {renderHeader("Rental Cost", "rentalCost")}
         {activeDropdown === "rentalCost" &&
           renderOptions("rentalCost", ["< ₹1 Lakh", "₹1-2 Lakh", "₹2-4 Lakh", "₹4-6 Lakh", "> ₹6 Lakh"])}
-      </div>
+      </div> */}
 
       {/* Venue Type */}
       <div className="relative">
-        {renderHeader("Venue Type", "venueType")}
-        {activeDropdown === "venueType" &&
-          renderOptions("venueType", ["4 Star & Above", "Banquet Halls", "Marriage Garden", "3 Star Hotels", "Country/Golf Club"])}
+        {renderHeader("Venue Type", "venueTypes")}
+        {activeDropdown === "venueTypes" &&
+          renderOptions("venueTypes", ["4 Star & Above", "Banquet Halls", "Marriage Garden", "3 Star Hotels", "Country/Golf Club"])}
       </div>
 
       {/* Space Type */}
-      <div className="relative">
+      {/* <div className="relative">
         {renderHeader("Space", "space")}
         {activeDropdown === "space" &&
           renderOptions("space", ["Indoor", "Outdoor", "Poolside", "Terrace/Rooftop"])}
-      </div>
+      </div> */}
 
       {/* Rating */}
       <div className="relative">

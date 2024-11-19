@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AllVenuesResponse, MessageResponse, VenueResponse, LoggdInVenueResponse , AllTopVenueResponse } from "../../types/api-types";
+import { AllVenuesResponse, MessageResponse, VenueResponse, LoggdInVenueResponse, AllTopVenueResponse } from "../../types/api-types";
 import { Venue } from "../../types/types";
 
 // Ensure VITE_API_Server is properly defined in your environment
@@ -12,14 +12,38 @@ export const VenueAPI = createApi({
   }),
   tagTypes: ["venues"], // Define tag types for caching
 
+  // endpoints: (builder) => ({
+  //   allVenue: builder.query<AllVenuesResponse, string>({
+  //     query: (filters) => {
+  //       const queryString = new URLSearchParams(
+  //         Object.entries(filters)
+  //             .filter(([, v]) => v !== undefined && v !== null && v !== '')
+  //             .map(([key, value]) => [key, String(value)])
+  //     ).toString();
+
+  //       return `all?${queryString}`;
+  //     },
+  //     providesTags: ["venues"], // Tags for caching
+  //   }),
+
   endpoints: (builder) => ({
-    allVenue: builder.query<AllVenuesResponse, string>({
-      query: (filters) => {
-        const queryString = new URLSearchParams(filters).toString();
-        return `all?${queryString}`
-      },
-      providesTags: ["venues"], // Tags for caching
+    allVenue: builder.query<AllVenuesResponse, Record<string, any>>({
+        query: (filters) => {
+            const queryString = new URLSearchParams(
+                Object.entries(filters)
+                    .filter(([, v]) => v !== undefined && v !== null && v !== '')
+                    .map(([key, value]) => [
+                        key,
+                        Array.isArray(value) ? value.join(',') : String(value),
+                    ])
+            ).toString();
+
+            return `all?${queryString}`;
+        },
+        providesTags: ["venues"], // Tags for caching
     }),
+
+
 
     signupVenue: builder.mutation<MessageResponse, Venue>({
       query: (venue) => ({
@@ -53,8 +77,8 @@ export const VenueAPI = createApi({
       invalidatesTags: ["venues"], // Invalidate venues tag after update
     }),
 
-    deleteVenueById: builder.mutation<VenueResponse, {id:string , user:string}>({
-      query: ({id , user}) => ({
+    deleteVenueById: builder.mutation<VenueResponse, { id: string, user: string }>({
+      query: ({ id, user }) => ({
         url: `${id}`,
         method: "DELETE",
         body: user

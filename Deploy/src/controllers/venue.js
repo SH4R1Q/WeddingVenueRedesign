@@ -97,50 +97,166 @@ export const DeleteVenueById = asyncHandler(async (req, res) => {
     const respose = await Venue.findByIdAndDelete(id);
     return res.status(200).json(new ApiResponse(200, { respose }, "Vendor Deleted Successfully "));
 });
+
+
 // Function to get all venues with optional filters
 export const filterVenues = async (req, res) => {
     try {
-        // Extract filter criteria from query parameters
-        const { city, minGuests, maxGuests, foodPackage, facilities, venueTypes } = req.query;
-        console.log(city, minGuests, maxGuests, foodPackage, facilities, venueTypes);
-        // Build the filter criteria object
+        const { city, minGuests, maxGuests, foodPackage, facilities, venueTypes, guests } = req.query;
+
         const filterCriteria = {};
+
+        // City filter
         if (city) {
             filterCriteria.city = city;
         }
-        if (minGuests || maxGuests) {
+
+        // Guest capacity filter
+        if (minGuests || maxGuests || guests) {
             filterCriteria.guestCapacity = {};
-            if (minGuests)
+
+            // Handle guest capacity range
+            if (minGuests && maxGuests) {
                 filterCriteria.guestCapacity.$gte = Number(minGuests);
-            if (maxGuests)
                 filterCriteria.guestCapacity.$lte = Number(maxGuests);
+            }
+
+            // Handle guests query like "<100", ">200", or a single value
+            if (guests) {
+                if (guests.includes('-')) {
+                    // If guestCapacity is provided as a range, e.g., "500-700"
+                    const [min, max] = guests.split('-').map(Number);
+                    filterCriteria.guestCapacity.$gte = min;
+                    filterCriteria.guestCapacity.$lte = max;
+                } else if (guests.startsWith('<')) {
+                    filterCriteria.guestCapacity.$lt = Number(guests.replace('<', ''));
+                } else if (guests.startsWith('>')) {
+                    filterCriteria.guestCapacity.$gt = Number(guests.replace('>', ''));
+                } else {
+                    // Exact value match (e.g., guests=300)
+                    filterCriteria.guestCapacity.$eq = Number(guests);
+                }
+            }
         }
+
+        // Food package filter
         if (foodPackage) {
             filterCriteria.foodPackages = foodPackage;
         }
+
+        // Facilities filter
         if (facilities) {
             filterCriteria.facilities = { $all: facilities.split(',') };
         }
+
+        // Venue types filter
         if (venueTypes) {
             filterCriteria.venueType = { $in: venueTypes.split(',') };
         }
+
         // Perform the query
         const venues = await Venue.find(filterCriteria);
-        // Return the filtered venues
+
         res.status(200).json({
             success: true,
-            data: venues
+            data: venues,
         });
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Error fetching venues:', error);
         res.status(500).json({
             success: false,
             message: 'An error occurred while fetching venues',
-            error: error.message
+            error: error.message,
         });
     }
 };
+
+// export const filterVenues = async (req, res) => {
+//     try {
+//         // Extract filter criteria from query parameters
+//         const {
+//             city,
+//             minGuests,
+//             maxGuests,
+//             foodPackage,
+//             facilities,
+//             venueTypes,
+//             rating,
+//             guests,
+//         } = req.query;
+
+//         console.log(city, minGuests, maxGuests, foodPackage, facilities, venueTypes, rating, guests);
+
+//         // Build the filter criteria object
+//         const filterCriteria = {};
+
+//         // City filter
+//         if (city) {
+//             filterCriteria.city = city;
+//         }
+
+//         // Guest capacity filter
+//         if (minGuests || maxGuests) {
+//             filterCriteria.guestCapacity = {};
+//             if (minGuests) filterCriteria.guestCapacity.$gte = Number(minGuests);
+//             if (maxGuests) filterCriteria.guestCapacity.$lte = Number(maxGuests);
+//         }
+
+//         // Food package filter
+//         if (foodPackage) {
+//             filterCriteria.foodPackages = foodPackage;
+//         }
+
+//         // Facilities filter (expects a comma-separated list)
+//         if (facilities) {
+//             filterCriteria.facilities = { $all: facilities.split(',') };
+//         }
+
+//         // Venue types filter (expects a comma-separated list)
+//         if (venueTypes) {
+//             filterCriteria.venueType = { $in: venueTypes.split(',') };
+//         }
+
+//         // Rating filter (expects a comma-separated list)
+//         if (rating) {
+//             const ratingValues = rating.split(',').map(Number);
+//             filterCriteria.rating = { $in: ratingValues };
+//         }
+
+//         // Guests filter (expects a comma-separated list of ranges)
+//         if (guests) {
+//             const guestValues = guests.split(',').map((value) => {
+//                 if (value.includes('<')) {
+//                     return { $lt: Number(value.replace('<', '')) };
+//                 }
+//                 if (value.includes('>')) {
+//                     return { $gt: Number(value.replace('>', '')) };
+//                 }
+//                 return Number(value);
+//             });
+//             filterCriteria.guestCapacity = { $in: guestValues };
+//         }
+
+//         // Perform the query
+//         const venues = await Venue.find(filterCriteria);
+//         // console.log("hi");
+
+//         // Return the filtered venues
+//         res.status(200).json({
+//             success: true,
+//             data: venues,
+//         });
+//     } catch (error) {
+//         console.error('Error fetching venues:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'An error occurred while fetching venues',
+//             error: error.message,
+//         });
+//     }
+// };
+
+
 // search by the city
 export const searchvenuesByCity = async (req, res) => {
     const { city } = req.params; // Get the city query parameter from the request
