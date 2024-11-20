@@ -11,11 +11,22 @@ import FilterBar from '../components/FilterBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useLocation } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 
 function VenueList() {
 
   const { pathname, search } = useLocation();
-
+  const [filters, setFilters] = useState({});
+  const { data, error, isLoading } = useAllVenueQuery(filters);
+  const [allVenues, setAllVenues] = useState<Venue[]>([]);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
+  const updateVenues = useCallback(() => {
+    if (data && Array.isArray(data.data)) {
+      setAllVenues(data.data);
+    }
+  }, [data]);
+  const city = useSelector((state: RootState) => state?.auth?.city)
+  console.log("data", city,)
   // const venues = [
   //   {
   //     yourName: "John Doe",
@@ -279,37 +290,19 @@ function VenueList() {
   //   },
   // ];
 
-
   useEffect(() => {
     console.log('ScrollToTop: Route changed to', pathname, search);
     window.scrollTo(0, 0);
   },);
 
-
-  const [filters, setFilters] = useState({});
-  // const queryString = new URLSearchParams(
-  //   Object.entries(filters).filter(([, v]) => v !== undefined) as [string, string][]
-  // ).toString();
   const queryString = new URLSearchParams(
     Object.entries(filters)
-        .filter(([, v]) => v !== undefined && v !== null && v !== '') // Remove undefined, null, empty string
-        .map(([key, value]) => [
-            key,
-            Array.isArray(value) ? value.join(',') : String(value), // Convert arrays to comma-separated strings
-        ])
-).toString();
-
-  const { data, error, isLoading } = useAllVenueQuery(filters);
-  const [allVenues, setAllVenues] = useState<Venue[]>([]);
-  // console.log('helod', data)
-  const updateVenues = useCallback(() => {
-    if (data && Array.isArray(data.data)) {
-      setAllVenues(data.data);
-    }
-  }, [data]);
-
-  const city = useSelector((state: RootState) => state?.auth?.city)
-  console.log("data", city,)
+      .filter(([, v]) => v !== undefined && v !== null && v !== '') // Remove undefined, null, empty string
+      .map(([key, value]) => [
+        key,
+        Array.isArray(value) ? value.join(',') : String(value), // Convert arrays to comma-separated strings
+      ])
+  ).toString();
 
   useEffect(() => {
     updateVenues();
@@ -318,6 +311,16 @@ function VenueList() {
   const allowedVenues = allVenues.filter(
     (venue) => venue.isVerified === "Approved"
   );
+
+  // Filter venues based on search query
+  const filteredVenues = allowedVenues.filter((venue) =>
+    [venue.businessName, venue.state, venue.city]
+      .filter(Boolean) // Remove undefined or null values from the array
+      .some((field) =>
+        field.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+  );
+
 
   const handleFilterChange = (newFilters: any) => {
     // Remove undefined values from filters
@@ -343,36 +346,49 @@ function VenueList() {
       <div className="w-full mt-4">
         <FilterBar onFilterChange={handleFilterChange} />
       </div>
-          <div className="container mx-auto px-4 mt-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
-              {allowedVenues.length > 0 ? (
-                allowedVenues.map((venue, index) => (
-                  <VenueCardMain
-                    key={index}
-                    venue={{
-                      name: venue?.businessName,
-                      state: venue.state,
-                      city: venue.city,
-                      maxGuests: venue.guestCapacity,
-                      contact: venue.phone,
-                      description: venue.summary,
-                      vegPrice: venue.foodPackages,
-                      nonVegPrice: 30,
-                      images: venue.images,
-                      id: venue._id,
-                    }}
-                  />
-                ))
-              ) : (
-                <div className="col-span-full text-center">No Venue found</div>
-              )}
-            </div>
-          </div>
-        <div className="mt-8">
-          <RelatedArticles />
+      {/* Search Bar */}
+      <div className="w-full container mx-auto px-4 mt-8">
+        <div className="relative w-full">
+          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by name, state, or city..."
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+          />
         </div>
-        <Footer />
+      </div>
+      <div className="container mx-auto px-4 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+          {filteredVenues.length > 0 ? (
+            filteredVenues.map((venue, index) => (
+              <VenueCardMain
+                key={index}
+                venue={{
+                  name: venue?.businessName,
+                  state: venue.state,
+                  city: venue.city,
+                  maxGuests: venue.guestCapacity,
+                  contact: venue.phone,
+                  description: venue.summary,
+                  vegPrice: venue.foodPackages,
+                  nonVegPrice: 1700,
+                  images: venue.images,
+                  id: venue._id,
+                }}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center">No Venue found</div>
+          )}
+        </div>
+      </div>
+      <div className="mt-8">
+        <RelatedArticles />
+      </div>
+      <Footer />
     </div>
   );
 }

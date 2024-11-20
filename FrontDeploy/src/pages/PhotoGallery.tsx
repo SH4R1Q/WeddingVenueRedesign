@@ -12,12 +12,24 @@ const PhotosPage: React.FC = () => {
     const [selectedTheme, setSelectedTheme] = useState('All Themes');
 
     // Placeholder image URLs
-    const photos = Array(12).fill('/public/ap1.jpg');// for test purpose
+    const photos = [
+        '/ap.jpg',
+        '/ap1.jpg',
+        '/ap2.jpg',
+        '/home1.jpg',
+        '/home2.jpg',
+        '/home3.jpg',
+        '/home4.jpg',
+        '/home5.jpg',
+        '/aboutusLeft.jpg',
+        '/aboutusRight.jpg',
+        '/aboutusMiddle.png',
+      ];
+      // for test purpose
 
     const imageStyle = {
         width: "100%",
-        height: "auto",
-        borderRadius: "8px", // Add rounded corners if needed
+        height: "100%",
       };
     
 
@@ -73,17 +85,17 @@ const PhotosPage: React.FC = () => {
 
             {/* Photo Grid Section */}
             <div className="container mx-auto px-4 py-10">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4">
+                <div className="columns-1 sm:columns-2 lg:columns-4 gap-2 space-y-2">
                     {photos.map((photo, index) => (
                         <div
                             key={index}
-                            className="relative overflow-hidden rounded-lg shadow-md group"
+                            className="relative overflow-hidden shadow-md group"
                         >
                             <img
                                 // src="https://picsum.photos/200"
                                 src={photo}
                                 alt={`Wedding Photo ${index + 1}`}
-                                className="object-cover rounded-lg transition-opacity duration-300"
+                                className="object-cover transition-opacity duration-300"
                                 style={imageStyle}
                             />
                             <a

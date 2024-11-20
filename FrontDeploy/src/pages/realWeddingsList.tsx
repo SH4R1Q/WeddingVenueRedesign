@@ -51,7 +51,7 @@ const RealWeddingsList: React.FC = () => {
               return (
                 <div
                   key={wedding._id}
-                  className="bg-white border border-pink-100 shadow-md rounded-lg overflow-hidden relative group"
+                  className="bg-white border border-pink-100 shadow-md rounded-sm overflow-hidden relative group"
                 >
                   <div className="relative">
                     <img

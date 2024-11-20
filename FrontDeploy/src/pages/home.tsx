@@ -19,10 +19,10 @@ import Universal from "../components/skeleton/Universal";
 import WeddingCategoriesShort from "../components/WeddingCategShort";
 
 const images = [
-  "/public/home1.jpg",
-  "/public/home2.jpg",
-  "/public/home3.jpg",
-  "/public/home4.jpg",
+  "/home1.jpg",
+  "/home2.jpg",
+  "/home3.jpg",
+  "/home4.jpg",
 ];
 
 const Home: React.FC = () => {
@@ -347,7 +347,7 @@ const Home: React.FC = () => {
                 return (
                   <div
                     key={blog._id}
-                    className="border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200 bg-white overflow-hidden"
+                    className="border border-gray-200 rounded-sm shadow-md hover:shadow-xl transition-shadow duration-200 bg-white overflow-hidden"
                   >
                     {/* Image Section */}
                     <div className="relative h-44">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface VenueSummaryProps {
   summary?: string;
@@ -12,18 +12,23 @@ const VenueSummary: React.FC<VenueSummaryProps> = ({ summary, maxCharacters = 15
     setExpanded(!expanded);
   };
 
-  const displaySummary = expanded ? summary : summary?.slice(0, maxCharacters) + '...';
+  const displaySummary = expanded ? summary : summary?.slice(0, maxCharacters) + "...";
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg m-8">
-      <h3 className="text-2xl font-bold mb-4">Venue Summary</h3>
-      <p>{displaySummary}</p>
-      {(summary?.length ?? 0) > maxCharacters &&  (
+    <div className="w-full max-w-3xl bg-white border border-gray-200 rounded-lg shadow-md p-6 space-y-4 mx-auto">
+      {/* Header */}
+      <h3 className="text-3xl font-semibold text-gray-800">Venue Summary</h3>
+
+      {/* Summary Content */}
+      <p className="text-base text-gray-700">{displaySummary}</p>
+
+      {/* Read More / Read Less Button */}
+      {(summary?.length ?? 0) > maxCharacters && (
         <button
           onClick={toggleExpanded}
-          className="text-indigo-600 hover:text-indigo-800 font-semibold mt-2 focus:outline-none"
+          className="text-indigo-600 hover:text-indigo-800 font-medium focus:outline-none transition-colors duration-300"
         >
-          {expanded ? 'Read Less' : 'Read More'}
+          {expanded ? "Read Less" : "Read More"}
         </button>
       )}
     </div>

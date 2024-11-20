@@ -63,7 +63,7 @@ const BlogView: React.FC = () => {
                 <img
                   src={blog?.images[0]}
                   alt={blog?.title}
-                  className="w-full h-[500px] object-cover rounded-lg shadow-md"
+                  className="w-full h-[500px] object-cover rounded-sm shadow-md"
                 />
               </div>
             )}

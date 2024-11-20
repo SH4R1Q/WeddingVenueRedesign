@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MdDinnerDining } from "react-icons/md";
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { useDeleteWishlistMutation, useGetWishlistQuery, useAddWishlistMutation } from '../redux/api/wishlist';
-import EnquiryFormModal from './EnquiryFormModal';
-import { useAddBookingEnquiryMutation, useGetBookingByUserAndVenueQuery } from '../redux/api/booking';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import {
+  useDeleteWishlistMutation,
+  useGetWishlistQuery,
+  useAddWishlistMutation,
+} from "../redux/api/wishlist";
+import EnquiryFormModal from "./EnquiryFormModal";
+import { useAddBookingEnquiryMutation, useGetBookingByUserAndVenueQuery } from "../redux/api/booking";
 
 interface VenuePriceCardProps {
   name?: string;
   vegPrice?: string | undefined;
-  nonVegPrice?: number;
+  nonVegPrice?: string;
   contact?: string;
 }
 
@@ -18,12 +21,12 @@ const OtpPopup: React.FC<{ otp: string | undefined }> = ({ otp }) => (
   <div className="fixed inset-0 flex items-center justify-center z-50">
     <div className="bg-white p-4 rounded-lg shadow-lg">
       <h3 className="text-lg text-gray-800 font-semibold mb-2">Your OTP</h3>
-      <p className="text-xl text-black font-bold">{otp || 'N/A'}</p>
+      <p className="text-xl text-black font-bold">{otp || "N/A"}</p>
     </div>
   </div>
 );
 
-const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice }) => {
+const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice, nonVegPrice }) => {
   const userId = useSelector((state: RootState) => state?.auth?.user?._id);
   const { id: venueId } = useParams<{ id: string }>();
   const [isWishlistSelected, setIsWishlistSelected] = useState(false);
@@ -34,11 +37,12 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice }) => {
   const [addWishlist] = useAddWishlistMutation();
   const [deleteWishlist] = useDeleteWishlistMutation();
   const [sendEnquiry] = useAddBookingEnquiryMutation();
-  
-  const { data: wishlistData, refetch } = useGetWishlistQuery(userId ?? "");
-  const { data: bookingData } = useGetBookingByUserAndVenueQuery({ uId: userId ?? "", vId: venueId as string });
 
-  console.log("Booking data received:", bookingData?.bookingId);
+  const { data: wishlistData, refetch } = useGetWishlistQuery(userId ?? "");
+  const { data: bookingData } = useGetBookingByUserAndVenueQuery({
+    uId: userId ?? "",
+    vId: venueId as string,
+  });
 
   const otp = bookingData?.bookingId;
 
@@ -47,7 +51,8 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice }) => {
 
   useEffect(() => {
     if (wishlistData) {
-      const isWishlisted = wishlistData?.wishlist?.items?.some(item => item.itemId === itemId) ?? false;
+      const isWishlisted =
+        wishlistData?.wishlist?.items?.some((item) => item.itemId === itemId) ?? false;
       setIsWishlistSelected(isWishlisted);
     }
   }, [wishlistData, itemId]);
@@ -64,14 +69,14 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice }) => {
         if (userId && itemId && itemType) {
           await deleteWishlist({ userId, itemId, itemType }).unwrap();
         } else {
-          console.error('userId, itemId, or itemType is undefined!');
+          console.error("userId, itemId, or itemType is undefined!");
         }
         console.log("Item removed from wishlist");
       } else {
         if (userId && itemId && itemType) {
           await addWishlist({ userId, itemId, itemType }).unwrap();
         } else {
-          console.error('userId, itemId, or itemType is undefined!');
+          console.error("userId, itemId, or itemType is undefined!");
         }
         console.log("Item added to wishlist");
       }
@@ -103,29 +108,39 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice }) => {
   };
 
   return (
-    <div className="w-full h-fit rounded-lg shadow-lg overflow-hidden flex flex-col justify-between p-4 bg-gradient-to-r from-[#110069] to-indigo-600 text-white">
+    <div className="w-full max-w-lg rounded-lg shadow-xl overflow-hidden bg-gradient-to-r from-indigo-600 to-indigo-800 p-6 flex flex-col justify-between">
+      {/* Title & Price */}
       <div>
-        <h2 className="text-3xl font-bold mb-4">{name}</h2>
-        <div className="mb-4 flex flex-col justify-between">
-          <div className="flex items-center mb-2">
-            <MdDinnerDining className="mr-2 text-xl" />
-            <span className="mr-2 text-xl">Package / Plate:</span>
-            <span className="font-extrabold text-2xl">₹{vegPrice}</span>
-          </div>
+        <h2 className="text-3xl font-bold text-white mb-4">{name}</h2>
+        <div className="flex items-center mb-0">
+          <span className="text-xl font-semibold text-white">Veg Price:</span>
+          <span className="font-bold text-2xl text-yellow-300 ml-2"> ₹{vegPrice}</span>
+        </div>
+        <div className="flex items-center mb-4">
+          <span className="text-xl font-semibold text-white">Non-Veg Price:</span>
+          <span className="font-bold text-2xl text-yellow-300 ml-2"> ₹{nonVegPrice}</span>
         </div>
       </div>
+
+      {/* Wishlist Button */}
       <button
-        className={`${isWishlistSelected ? "bg-green-500 text-white" : "bg-gray-200 text-gray-700"} py-3 px-6 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 mb-4 w-full`}
+        className={`${
+          isWishlistSelected ? "bg-green-500 text-white" : "bg-gray-300 text-gray-700"
+        } py-3 px-6 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 mb-6 w-full`}
         onClick={handleWishlistClick}
       >
         {isWishlistSelected ? "Added to Wishlist" : "Add to Wishlist"}
       </button>
+
+      {/* Enquiry Button */}
       <button
         onClick={hasSentEnquiry ? handleEnquirySentClick : () => setIsModalOpen(true)}
-        className="bg-white text-indigo-600 hover:text-indigo-800 font-extrabold py-2 px-4 rounded transition duration-300 ease-in-out focus:outline-none"
+        className="bg-white text-indigo-700 hover:text-indigo-800 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out focus:outline-none"
       >
         {hasSentEnquiry ? "Enquiry Sent" : "Send Enquiry"}
       </button>
+
+      {/* Enquiry Modal */}
       {!hasSentEnquiry && (
         <EnquiryFormModal
           isOpen={isModalOpen}
@@ -133,6 +148,8 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice }) => {
           onSubmit={handleEnquirySubmit}
         />
       )}
+
+      {/* OTP Popup */}
       {showOtpPopup && <OtpPopup otp={otp} />}
     </div>
   );

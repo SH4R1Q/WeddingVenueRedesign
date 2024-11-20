@@ -38,7 +38,7 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
       }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+    <div className="bg-white rounded-sm shadow-lg overflow-hidden transition-transform transform hover:scale-105">
       <div className="relative h-48">
       <div className={`w-full h-full transition-opacity duration-300 ${fade ? "opacity-100" : "opacity-80"}`}>
         <img
@@ -72,7 +72,7 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
           <span>Max Guests: {venue.maxGuests}</span>
         </div>
         <Link
-          to={{ pathname: `/venuelist/${venue.id}`, state: { venue } } as To}
+          to={{ pathname: `/venuelist/${venue.id}`,state: { venue } } as To}
         >
           <button className="w-full border border-2 border-black bg-black text-white py-2 rounded-lg font-semibold hover:!bg-transparent hover:!text-black">
             View Venue

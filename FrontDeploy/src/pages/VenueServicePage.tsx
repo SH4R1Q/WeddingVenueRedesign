@@ -3,9 +3,9 @@ import Carousel from '../components/Carousel';
 import VenuePriceCard from '../components/VenuePriceCard';
 import SlimVenueCard from '../components/SlimVenueCard';
 import VenueAboutCard from '../components/VenueAboutCard';
+// import VenueBooking from '../components/VenueBookings';
 import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
-import VenueImageCarousel from '../components/VenueImageCarousel';
 import RelatedArticles from '../components/RelatedArticles';
 import VenueSummary from '../components/VenueSummary';
 import FAQSection from '../components/FaqSection';
@@ -13,6 +13,7 @@ import FAQSection from '../components/FaqSection';
 import { useGetVenueByIdQuery } from '../redux/api/venue';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import VenueImageGallery from '../components/VenueImageGallery';
 
 const VenueServicePage = () => {
   const { pathname, search } = useLocation();
@@ -25,9 +26,6 @@ const VenueServicePage = () => {
   const { id } = useParams();
   const { data: venue } = useGetVenueByIdQuery(id ? id : "");
   const venueData = venue?.data.venue;
-
-  
-
 
 
   // const handleContactFormSubmit = (phoneNumber:string) => {
@@ -92,22 +90,21 @@ const VenueServicePage = () => {
   // };
 
   return (
-    <div className="bg-gray-100">
-     
+    <>
       <NavBar />
-      <div className="mb-8">
+      <div className="mb-4 mt-0">
         <Carousel images={venueData?.images} />
       </div>
       <div className="w-full flex flex-col lg:flex-row lg:space-x-4">
         <div className="w-full lg:w-3/4 space-y-4">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
+          <div className="bg-white m-4 p-4 rounded-lg shadow-lg">
             <SlimVenueCard name={venueData?.yourName} address={venueData?.address} />
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-lg">
+          <div className="bg-white p-4 m-4 rounded-lg shadow-lg">
             <VenueAboutCard about={venueData?.about} contactNumber={venueData?.phone} />
           </div>
           <div className="flex flex-col lg:flex-row lg:space-x-4">
-            <div className="w-full lg:w-1/2">
+            <div className="w-full m-4 lg:w-1/2">
               {/* <VenueBooking checkAvailability={checkAvailability} /> */}
               <VenueSummary summary={venueData?.summary} />
             </div>
@@ -124,11 +121,11 @@ const VenueServicePage = () => {
             </div> */}
           </div>
         </div>
-        <div className="w-full lg:w-1/4 h-fit flex justify-center items-center bg-white p-4 rounded-lg shadow-lg lg:sticky lg:top-0">
+        <div className="w-full lg:w-1/4 h-fit flex justify-center items-center bg-white p-4 m-4 rounded-lg shadow-lg lg:sticky lg:top-24">
           <VenuePriceCard
-            name="Grand Venue"
-            vegPrice={venue?.data.venue.foodPackages}
-           
+            name={venueData?.businessName}
+            vegPrice={venue?.data.venue.foodPackages?.slice(0,5)}
+            nonVegPrice= "1800"
             contact="+91 1234567890"
             // onContactClick={handleContactClick}
           />
@@ -142,8 +139,8 @@ const VenueServicePage = () => {
           <ScheduleVisit onScheduleVisit={handleScheduleVisit} />
         </div> */}
       </div>
-      <div className="mt-8 bg-white p-4 rounded-lg shadow-lg">
-        <VenueImageCarousel images={venueData?.images} />
+      <div className="mt-8 bg-white p-2 mx-4 rounded-lg shadow-lg">
+        <VenueImageGallery images={venueData?.images} />
       </div>
       {/* <div className="mt-8 bg-white p-4 rounded-lg shadow-lg">
         <VenuePolicies policies={venuePolicies} />
@@ -159,7 +156,7 @@ const VenueServicePage = () => {
         <FAQSection />
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

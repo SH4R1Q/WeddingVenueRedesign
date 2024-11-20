@@ -62,17 +62,8 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
     );
   };
 
-  // city,
-  //           minGuests,
-  //           maxGuests,
-  //           foodPackage,
-  //           facilities,
-  //           venueTypes,
-  //           rating,
-  //           guests,
-
   return (
-    <div className="fixed top-21 left-0 right-0 bg-white p-2 z-10 flex justify-around">
+    <div className="fixed top-21 left-0 right-0 bg-white p-2 z-10 flex justify-around border-b border-2 border-gray-200">
       {/* No. of Guests */}
       <div className="relative">
         {renderHeader("No. of Guests", "guests")}

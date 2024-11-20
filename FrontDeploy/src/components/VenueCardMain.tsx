@@ -33,7 +33,7 @@ const VenueCardMain: React.FC<VenueProps> = ({ venue }) => {
   }, [venue?.images?.length]);
 
   return (
-    <Link to={`/venuelist/${venue.id}`} className="block">
+    <Link to={`/venuelist/${venue.id}`} className="block" target="_blank">
       <div className="relative bg-white rounded-lg overflow-hidden hover:shadow-md transition-transform transform mx-2 my-2 cursor-pointer">
         {/* Image Section */}
         <div className="h-48 p-2">

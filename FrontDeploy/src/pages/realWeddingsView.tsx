@@ -68,7 +68,7 @@ const RealWeddingsView: React.FC = () => {
                   autoPlay
                   interval={5000}
                   transitionTime={500}
-                  className="shadow-lg rounded-lg"
+                  className="shadow-lg rounded-sm"
                 >
                   {realWedding.images.map((image: string, index: number) => (
                     <div key={index} className="w-full">
