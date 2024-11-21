@@ -1,163 +1,101 @@
-
-import Carousel from '../components/Carousel';
-import VenuePriceCard from '../components/VenuePriceCard';
-import SlimVenueCard from '../components/SlimVenueCard';
-import VenueAboutCard from '../components/VenueAboutCard';
-// import VenueBooking from '../components/VenueBookings';
-import NavBar from '../components/navbar';
-import Footer from '../components/Footer';
-import RelatedArticles from '../components/RelatedArticles';
-import VenueSummary from '../components/VenueSummary';
-import FAQSection from '../components/FaqSection';
-
-import { useGetVenueByIdQuery } from '../redux/api/venue';
-import { useLocation, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import VenueImageGallery from '../components/VenueImageGallery';
+import { useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import NavBar from "../components/navbar";
+import Footer from "../components/Footer";
+import VenueImageGallery from "../components/VenueImageGallery";
+import VenuePriceCard from "../components/VenuePriceCard";
+import VenueAboutCard from "../components/VenueAboutCard";
+// import Carousel from "../components/Carousel";
+import FAQSection from "../components/FaqSection";
+import RelatedArticles from "../components/RelatedArticles";
+import { useGetVenueByIdQuery } from "../redux/api/venue";
 
 const VenueServicePage = () => {
+  const { id } = useParams();
   const { pathname, search } = useLocation();
+  const { data: venue } = useGetVenueByIdQuery(id ? id : "");
+  const venueData = venue?.data?.venue;
+  const dummySummary= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut voluptate iste id magni ullam atque reprehenderit saepe ratione velit enim quidem eveniet tenetur aspernatur in, culpa, architecto tempore quod consequatur."
 
   useEffect(() => {
-    console.log('ScrollToTop: Route changed to', pathname, search);
-    window.scrollTo(0, 0);
-  },);
-
-  const { id } = useParams();
-  const { data: venue } = useGetVenueByIdQuery(id ? id : "");
-  const venueData = venue?.data.venue;
-
-
-  // const handleContactFormSubmit = (phoneNumber:string) => {
-  //   console.log('Phone number submitted:', phoneNumber);
-  // };
-
-  // const venuePolicies = {
-  //   timings: "11:00 PM",
-  //   morningSlot: "8:00 AM - 11:00 PM",
-  //   changingRoom: {
-  //     count: 2,
-  //     isAc: true,
-  //   },
-  //   advance: {
-  //     amount: 118000,
-  //     adjustmentPolicy: "6 months",
-  //   },
-  //   taxes: {
-  //     fnb: "18.00%",
-  //   },
-  //   parking: {
-  //     valet: false,
-  //     space: 100,
-  //   },
-  //   cancellation: "Non cancellable",
-  //   lodging: "No rooms available",
-  //   alcohol: {
-  //     allowed: true,
-  //     outsideAllowed: true,
-  //     corkageCost: true,
-  //   },
-  //   otherPolicies: [
-  //     "No Music allowed late",
-  //     "Halls are air conditioned",
-  //     "No ample parking",
-  //     "Baarat allowed",
-  //     "No fire crackers allowed",
-  //     "Hawan allowed",
-  //     "No overnight wedding allowed"
-  //   ],
-  //   food: [
-  //     "Food provided by the venue",
-  //     "No outside food/caterer allowed at the venue",
-  //     "Non-Veg allowed at the venue"
-  //   ],
-  //   decoration: [
-  //     "No Outside decorators allowed",
-  //     "Decor provided by the venue"
-  //   ]
-  // };
-
-  // const handleContactClick = () => {
-  //   alert('Contact button clicked!');
-  // };
-
-  // const checkAvailability = (date:any) => {
-  //   return date.getDay() % 2 === 0; // Example: available on even days
-  // };
-
-  // const handleScheduleVisit = (date:any, time:any) => {
-  //   alert(`Scheduled visit on ${date.toDateString()} at ${time}`);
-  // };
+    window.scrollTo(0, 0); // Scroll to top on route change
+  }, [pathname, search]);
 
   return (
     <>
       <NavBar />
-      <div className="mb-4 mt-0">
-        <Carousel images={venueData?.images} />
-      </div>
-      <div className="w-full flex flex-col lg:flex-row lg:space-x-4">
-        <div className="w-full lg:w-3/4 space-y-4">
-          <div className="bg-white m-4 p-4 rounded-lg shadow-lg">
-            <SlimVenueCard name={venueData?.yourName} address={venueData?.address} />
+      {/* Hero Section */}
+      <div className="container mx-auto px-28 mt-8">
+        {/* Venue Main Image */}
+        {venueData?.images?.[0] && (
+          <div className="w-full">
+            <img
+              src={venueData?.images[0]}
+              alt={`${venueData?.businessName} main`}
+              className="w-full object-cover h-[400px] sm:h-[500px] lg:h-[600px]"
+            />
+            {/* <Carousel images = {venueData.images}/> */}
           </div>
-          <div className="bg-white p-4 m-4 rounded-lg shadow-lg">
-            <VenueAboutCard about={venueData?.about} contactNumber={venueData?.phone} />
-          </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-4">
-            <div className="w-full m-4 lg:w-1/2">
-              {/* <VenueBooking checkAvailability={checkAvailability} /> */}
-              <VenueSummary summary={venueData?.summary} />
-            </div>
-            {/* <div className="w-full lg:w-1/2">
-              <RatingsAndReviews
-                overallRating={4.5}
-                reviews={[
-                  { rating: 5, comment: "Great venue!" },
-                  { rating: 4, comment: "Nice ambiance." },
-                  { rating: 4, comment: "Good service." },
-                  { rating: 3, comment: "Could be better." },
-                ]}
+        )}
+
+        {/* Content Section */}
+        <div className="container -mt-16 mx-auto flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6 px-4">
+          {/* Left Section */}
+          <div className="w-full lg:w-3/4 space-y-4">
+            {/* Venue About Card */}
+            <div className="bg-white shadow">
+              <VenueAboutCard
+                summary={dummySummary}
+                name={venueData?.businessName}
+                location={venueData?.city}
+                rating={venueData?.rank}
+                address={venueData?.address}
+                photosCount={venueData?.images?.length}
+                shareMessage={`Check out ${venueData?.businessName} in ${venueData?.city} – an exquisite venue perfect for weddings and celebrations with stunning architecture and top-notch facilities. See more details and photos here: https://www.wedmegood.com/"`}
               />
-            </div> */}
+            </div>
+          </div>
+
+          {/* Right Section */}
+          <div className="w-full lg:w-1/4 space-y-4 lg:sticky lg:top-20">
+            {/* Price Card */}
+            <div className="bg-white shadow">
+              <VenuePriceCard
+                name={venueData?.businessName}
+                vegPrice={venueData?.foodPackages?.slice(0, 5)}
+                nonVegPrice="1800"
+                contactNumber={venueData?.phone}
+                email={venueData?.email}
+                detailPackage={venueData?.foodPackages}
+              />
+            </div>
           </div>
         </div>
-        <div className="w-full lg:w-1/4 h-fit flex justify-center items-center bg-white p-4 m-4 rounded-lg shadow-lg lg:sticky lg:top-24">
-          <VenuePriceCard
-            name={venueData?.businessName}
-            vegPrice={venue?.data.venue.foodPackages?.slice(0,5)}
-            nonVegPrice= "1800"
-            contact="+91 1234567890"
-            // onContactClick={handleContactClick}
-          />
+      {/* Main Content */}
+      <div className="container mx-auto flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6 px-4">
+        {/* Left Section */}
+        <div className="w-full">
+          <div className="bg-white rounded-lg shadow p-2 mt-4">
+          <VenueImageGallery images={venueData?.images} />
+          </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row lg:justify-end lg:space-x-4">
-        {/* <div className="w-full lg:w-2/3 m-4">
-          <VenueLocation latitude={12.9716} longitude={77.5946} venueName="My Venue" />
-        </div> */}
-        {/* <div className="w-full lg:w-1/3 mt-4 lg:mt-20">
-          <ScheduleVisit onScheduleVisit={handleScheduleVisit} />
-        </div> */}
-      </div>
-      <div className="mt-8 bg-white p-2 mx-4 rounded-lg shadow-lg">
-        <VenueImageGallery images={venueData?.images} />
-      </div>
-      {/* <div className="mt-8 bg-white p-4 rounded-lg shadow-lg">
-        <VenuePolicies policies={venuePolicies} />
-      </div> */}
-      <div className="flex flex-col justify-center mt-8">
-        {/* <h2 className="text-2xl font-thin mb-4 tracking-widest flex justify-center">RELATED ARTICLES</h2> */}
+
+
+      {/* Related Articles */}
+      <div className="container mx-auto px-4 mt-4">
         <RelatedArticles />
       </div>
-      {/* <div>
-        <ContactForm onSubmit={handleContactFormSubmit} />
-      </div> */}
-      <div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="container mx-auto px-4 mt-8">
         <FAQSection />
       </div>
+      {/* Footer */}
       <Footer />
     </>
   );
-}
+};
 
 export default VenueServicePage;

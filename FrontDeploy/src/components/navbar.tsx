@@ -7,7 +7,7 @@ import { RootState } from "../redux/store";
 import { FaEnvelope, FaPhone, FaEdit } from "react-icons/fa";
 import ReviewModal from "./ReviewModal";
 
-import Logo from "/weddingz_venue_logo.png";
+import Logo from "/weddingz_venue_logo_transparent.png";
 
 const NavBar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -93,11 +93,11 @@ const NavBar: React.FC = () => {
 
 
           <Link to="/" className="flex items-center">
-            <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch my-0" />
+            <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch my-0" />
           </Link>
 
           <div className="options ">
-            <ul className="hidden md:flex justify-center items-center space-x-8 flex-grow static top-0 ml-9">
+            <ul className="hidden md:flex justify-center items-center space-x-8 flex-grow static top-0 ml-1">
               <li className="relative">
                 <Link to="/" className={`${getActiveClass("/")} link-effect`}>
                   Home
@@ -153,15 +153,6 @@ const NavBar: React.FC = () => {
                   Why Us
                 </Link>
               </li>
-
-              {/* <li>
-              <Link
-                to="/newhome"
-                className={`${getActiveClass("/newhome")} link-effect`}
-              >
-                New Home
-              </Link>
-            </li> */}
             </ul>
           </div>
         </div>
@@ -209,9 +200,9 @@ const NavBar: React.FC = () => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-majenta text-light-blue flex flex-col items-center justify-center space-y-4 z-10 transition-transform duration-300">
+        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-10 transition-transform duration-300">
           <div className="absolute top-8">
-            <img src={Logo} alt="Logo" className="w-32 h-12 items-stretch" />
+            <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch" />
           </div>
           <button
             onClick={toggleMobileMenu}

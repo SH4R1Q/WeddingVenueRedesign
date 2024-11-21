@@ -1,25 +1,111 @@
-import React from "react";
-import { FaPhoneAlt } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { FaHeart, FaEdit, FaShareAlt, FaMapMarkerAlt, FaStar } from "react-icons/fa";
+import { useDeleteWishlistMutation, useGetWishlistQuery, useAddWishlistMutation } from "../redux/api/wishlist";
+import ReviewModal from "./ReviewModal";
 
 interface VenueAboutCardProps {
-  about?: string;
-  contactNumber?: string;
+  name: string | undefined;
+  location: string | undefined;
+  rating: number | undefined;
+  address: string | undefined;
+  photosCount: number | undefined;
+  shareMessage: string;
+  summary: string | undefined;
 }
 
-const VenueAboutCard: React.FC<VenueAboutCardProps> = ({ about, contactNumber }) => {
-  return (
-    <div className="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden p-6">
-      {/* About Section */}
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-3">About This Venue</h2>
-        <p className="text-gray-600 text-base">{about}</p>
-      </div>
+const VenueAboutCard: React.FC<VenueAboutCardProps> = ({ 
+  name,
+  location,
+  rating,
+  address,
+  photosCount,
+  shareMessage,
+  summary,
+ }) => {
+  const userId = useSelector((state: RootState) => state?.auth?.user?._id);
+  const { id: venueId } = useParams<{ id: string }>();
+  const [isWishlistSelected, setIsWishlistSelected] = useState(false);
+  const [addWishlist] = useAddWishlistMutation();
+  const [deleteWishlist] = useDeleteWishlistMutation();
+  const { data: wishlistData, refetch } = useGetWishlistQuery(userId ?? "");
+  const itemId = venueId;
+  const itemType = "venue";
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
-      {/* Contact Info Section */}
-      <div className="flex items-center space-x-3">
-        <FaPhoneAlt className="text-lg text-indigo-600" />
-        <p className="text-lg font-semibold text-gray-700">{contactNumber}</p>
+  const handleShareOnWhatsApp = () => {
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
+    window.open(whatsappURL, "_blank")};
+
+  useEffect(() => {
+    if (wishlistData) {
+      const isWishlisted =
+        wishlistData?.wishlist?.items?.some((item) => item.itemId === itemId) ?? false;
+      setIsWishlistSelected(isWishlisted);
+    }
+  }, [wishlistData, itemId]);
+
+  const handleWishlistClick = async () => {
+    try {
+      if (isWishlistSelected) {
+        if (userId && itemId && itemType) {
+          await deleteWishlist({ userId, itemId, itemType }).unwrap();
+        } else {
+          console.error("userId, itemId, or itemType is undefined!");
+        }
+        console.log("Item removed from wishlist");
+      } else {
+        if (userId && itemId && itemType) {
+          await addWishlist({ userId, itemId, itemType }).unwrap();
+        } else {
+          console.error("userId, itemId, or itemType is undefined!");
+        }
+        console.log("Item added to wishlist");
+      }
+      refetch();
+      setIsWishlistSelected(!isWishlistSelected);
+    } catch (error) {
+      console.error("Failed to update wishlist:", error);
+    }
+  };
+
+
+  return (
+    <div className="bg-white shadow-md p-4">
+      <div className="flex justify-between items-center mb-2">
+          <h2 className="text-xl font-bold text-gray-800 mb-2">{name}</h2>
+        <div className="flex items-center text-green-600">
+          <span className="text-lg font-semibold">{rating}</span>
+          <FaStar className="ml-1" />
+        </div>
       </div>
+      <p className="text-gray-600 text-sm mb-1 flex items-center">
+        <FaMapMarkerAlt className="mr-1 text-blue-600" />
+        {location} 
+      </p>
+      <p className="text-gray-600 text-sm mb-4">{address}</p>
+      <div className="flex items-center justify-between text-gray-500 text-sm mt-4">
+        <span>{photosCount} Photos</span>
+        {userId && (
+          <button className="hover:text-black flex items-center" onClick={handleWishlistClick}>
+          <FaHeart className="mr-1" /> {isWishlistSelected ? "Added to Wishlist" : "Wishlist"}
+        </button>
+        )}
+        <button className="hover:text-black flex items-center" onClick={handleModalOpen}>
+          <FaEdit className="mr-1" /> Write a Review
+        </button>
+        <button className="hover:text-black flex items-center" onClick={handleShareOnWhatsApp}>
+          <FaShareAlt className="mr-1" /> Share
+        </button>
+      </div>
+      <div className="bg-white rounded-lg shadow-md mt-4 p-4 border border-1 border-gray-500">
+        {summary}
+      </div>
+      {isModalOpen && <ReviewModal onClose={handleModalClose} />}
     </div>
   );
 };

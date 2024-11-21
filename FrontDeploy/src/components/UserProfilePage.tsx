@@ -183,18 +183,34 @@ interface ProfileData {
   }
   
   const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
-    const { data: wishlistData } = useGetWishlistQuery(userId ?? "");
+    const { data: wishlistData, isLoading, error } = useGetWishlistQuery(userId ?? "");
     const wishlistItems = wishlistData?.wishlist?.items || [];
+  
+    if (isLoading) {
+      return <div>Loading your wishlist...</div>;
+    }
+  
+    if (error) {
+      return <div>Failed to load wishlist. Please try again later.</div>;
+    }
+  
+    if (wishlistItems.length === 0) {
+      return <div>Your wishlist is empty.</div>;
+    }
   
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {wishlistItems.map(item => (
-          item.itemType === 'venue' ? (
+        {wishlistItems.map((item) => {
+          return item.itemType === "venue" ? (
             <VenueCard key={item.itemId} venue={item.itemId} />
           ) : (
-            <VendorCard key={item.itemId} vendorId={item.itemId} imageUrl={item.imageUrl}/>
-          )
-        ))}
+            <VendorCard
+              key={item.itemId}
+              vendorId={item.itemId}
+              imageUrl={item.imageUrl}
+            />
+          );
+        })}
       </div>
     );
   };

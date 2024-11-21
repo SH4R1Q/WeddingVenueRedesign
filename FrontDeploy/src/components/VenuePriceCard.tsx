@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import {
-  useDeleteWishlistMutation,
-  useGetWishlistQuery,
-  useAddWishlistMutation,
-} from "../redux/api/wishlist";
+// import {
+//   useDeleteWishlistMutation,
+//   useGetWishlistQuery,
+//   useAddWishlistMutation,
+// } from "../redux/api/wishlist";
 import EnquiryFormModal from "./EnquiryFormModal";
 import { useAddBookingEnquiryMutation, useGetBookingByUserAndVenueQuery } from "../redux/api/booking";
-
+import VenueContactCard from "./VenueContactCard";
 interface VenuePriceCardProps {
-  name?: string;
+  name: string | undefined
   vegPrice?: string | undefined;
   nonVegPrice?: string;
-  contact?: string;
+  contactNumber?: string | undefined;
+  email?: string |undefined;
+  detailPackage?: string | undefined;
 }
 
 const OtpPopup: React.FC<{ otp: string | undefined }> = ({ otp }) => (
@@ -26,19 +28,25 @@ const OtpPopup: React.FC<{ otp: string | undefined }> = ({ otp }) => (
   </div>
 );
 
-const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice, nonVegPrice }) => {
+const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, contactNumber,email, vegPrice, nonVegPrice, detailPackage }) => {
   const userId = useSelector((state: RootState) => state?.auth?.user?._id);
   const { id: venueId } = useParams<{ id: string }>();
-  const [isWishlistSelected, setIsWishlistSelected] = useState(false);
+  const [isEnquirySelected, setIsEnquirySelected] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const togglePricingInfo = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  // const [isWishlistSelected, setIsWishlistSelected] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasSentEnquiry, setHasSentEnquiry] = useState(false);
   const [showOtpPopup, setShowOtpPopup] = useState(false);
 
-  const [addWishlist] = useAddWishlistMutation();
-  const [deleteWishlist] = useDeleteWishlistMutation();
+  // const [addWishlist] = useAddWishlistMutation();
+  // const [deleteWishlist] = useDeleteWishlistMutation();
   const [sendEnquiry] = useAddBookingEnquiryMutation();
 
-  const { data: wishlistData, refetch } = useGetWishlistQuery(userId ?? "");
+  // const { data: wishlistData, refetch } = useGetWishlistQuery(userId ?? "");
   const { data: bookingData } = useGetBookingByUserAndVenueQuery({
     uId: userId ?? "",
     vId: venueId as string,
@@ -47,15 +55,15 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice, nonVegP
   const otp = bookingData?.bookingId;
 
   const itemId = venueId;
-  const itemType = "venue";
+  // const itemType = "venue";
 
-  useEffect(() => {
-    if (wishlistData) {
-      const isWishlisted =
-        wishlistData?.wishlist?.items?.some((item) => item.itemId === itemId) ?? false;
-      setIsWishlistSelected(isWishlisted);
-    }
-  }, [wishlistData, itemId]);
+  // useEffect(() => {
+  //   if (wishlistData) {
+  //     const isWishlisted =
+  //       wishlistData?.wishlist?.items?.some((item) => item.itemId === itemId) ?? false;
+  //     setIsWishlistSelected(isWishlisted);
+  //   }
+  // }, [wishlistData, itemId]);
 
   useEffect(() => {
     if (bookingData?.message === "True") {
@@ -63,29 +71,9 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice, nonVegP
     }
   }, [bookingData]);
 
-  const handleWishlistClick = async () => {
-    try {
-      if (isWishlistSelected) {
-        if (userId && itemId && itemType) {
-          await deleteWishlist({ userId, itemId, itemType }).unwrap();
-        } else {
-          console.error("userId, itemId, or itemType is undefined!");
-        }
-        console.log("Item removed from wishlist");
-      } else {
-        if (userId && itemId && itemType) {
-          await addWishlist({ userId, itemId, itemType }).unwrap();
-        } else {
-          console.error("userId, itemId, or itemType is undefined!");
-        }
-        console.log("Item added to wishlist");
-      }
-      refetch();
-      setIsWishlistSelected(!isWishlistSelected);
-    } catch (error) {
-      console.error("Failed to update wishlist:", error);
-    }
-  };
+  const handleContactModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
 
   const handleEnquirySubmit = async (formData: any) => {
     try {
@@ -108,49 +96,61 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, vegPrice, nonVegP
   };
 
   return (
-    <div className="w-full max-w-lg rounded-lg shadow-xl overflow-hidden bg-gradient-to-r from-indigo-600 to-indigo-800 p-6 flex flex-col justify-between">
-      {/* Title & Price */}
-      <div>
-        <h2 className="text-3xl font-bold text-white mb-4">{name}</h2>
-        <div className="flex items-center mb-0">
-          <span className="text-xl font-semibold text-white">Veg Price:</span>
-          <span className="font-bold text-2xl text-yellow-300 ml-2"> ₹{vegPrice}</span>
-        </div>
-        <div className="flex items-center mb-4">
-          <span className="text-xl font-semibold text-white">Non-Veg Price:</span>
-          <span className="font-bold text-2xl text-yellow-300 ml-2"> ₹{nonVegPrice}</span>
-        </div>
+    <div className="bg-white shadow-md p-6">
+      <h3 className="text-lg font-bold text-gray-800">Starting Price</h3>
+      <div className="flex justify-between items-center mt-4">
+        <span className="text-gray-700">Veg Price</span>
+        <span className="text-gray-900 font-bold">₹ {vegPrice}</span>
       </div>
-
-      {/* Wishlist Button */}
+      <div className="flex justify-between items-center mt-2">
+        <span className="text-gray-700">Non-Veg Price</span>
+        <span className="text-gray-900 font-bold">₹ {nonVegPrice}</span>
+      </div>
       <button
-        className={`${
-          isWishlistSelected ? "bg-green-500 text-white" : "bg-gray-300 text-gray-700"
-        } py-3 px-6 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 mb-6 w-full`}
-        onClick={handleWishlistClick}
+        onClick={togglePricingInfo}
+        className="text-pink-600 text-sm mt-4 flex items-center"
       >
-        {isWishlistSelected ? "Added to Wishlist" : "Add to Wishlist"}
+        {isExpanded ? "Hide Pricing Info ▲" : "Pricing Info ▼"}
       </button>
-
-      {/* Enquiry Button */}
+      {isExpanded && (
+        <div className="mt-4 text-sm text-gray-600">
+          <p>- {detailPackage}</p>
+          <p>- Pricing may vary based on guest count and requirements.</p>
+        </div>
+      )}
       <button
-        onClick={hasSentEnquiry ? handleEnquirySentClick : () => setIsModalOpen(true)}
-        className="bg-white text-indigo-700 hover:text-indigo-800 font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out focus:outline-none"
+        className={`${hasSentEnquiry
+          ? "bg-pink-600"
+          : "bg-pink-700"
+          } text-white font-semibold py-2 px-4 w-full mt-6 rounded-md hover:bg-pink-600`}
+        onClick={hasSentEnquiry ? handleEnquirySentClick : () => setIsEnquirySelected(!isEnquirySelected)}
       >
         {hasSentEnquiry ? "Enquiry Sent" : "Send Enquiry"}
       </button>
+      <button
+        className="bg-green-600 text-white font-semibold py-2 px-4 w-full my-2 rounded-md hover:bg-green-700"
+        onClick={handleContactModal}
+      >
+        {isModalOpen ? "Hide Contact" : "View Contact"}
+      </button>
 
-      {/* Enquiry Modal */}
       {!hasSentEnquiry && (
         <EnquiryFormModal
-          isOpen={isModalOpen}
-          onRequestClose={() => setIsModalOpen(false)}
+          isOpen={isEnquirySelected}
+          onRequestClose={() => setIsEnquirySelected(false)}
           onSubmit={handleEnquirySubmit}
+          isLoggedIn={userId ? true : false}
         />
       )}
-
-      {/* OTP Popup */}
       {showOtpPopup && <OtpPopup otp={otp} />}
+      {isModalOpen && (
+        <VenueContactCard
+          venueName={name}
+          contactNumber={contactNumber}
+          email={email}
+          isLoggedIn={userId ? true : false}
+        />
+      )}
     </div>
   );
 };

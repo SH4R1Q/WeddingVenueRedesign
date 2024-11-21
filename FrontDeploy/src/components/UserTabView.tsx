@@ -79,7 +79,7 @@
 //         setIsEditing(true);
 //     };
 
-   
+
 //     const handleSaveClick = async (e: React.FormEvent<HTMLFormElement>) => {
 //         e.preventDefault();
 //         setIsEditing(false);
@@ -96,7 +96,7 @@
 //                     avatarUrl: profileData.avatarUrl,
 //                 }
 //             }).unwrap();
-            
+
 //             setProfileData({
 //                 name: updatedUser.fullName ?? "",
 //                 phoneNumber: updatedUser.phone ?? "",
@@ -315,7 +315,7 @@
 
 // const Wishlist = () => {
 //     const userId = useSelector((state: RootState) => state?.auth?.user?._id);
-    
+
 //     const { data: wishlistData, error: wishlistError, isLoading: wishlistLoading } = useGetWishlistQuery(userId ?? "");
 //     const { data: allVenuesData, error: venueError, isLoading: venueLoading } = useAllVenueQuery("");
 //     const { data: allVendorsData, error: vendorError, isLoading: vendorLoading } = useAllVendorQuery("");
@@ -375,7 +375,7 @@
 //         return <h1>Loading</h1>;
 //     }
 
-  
+
 
 //     if (!wishlistVenues.length && !wishlistVendors.length) {
 //         return <h1>Your wishlist is empty</h1>;
@@ -429,11 +429,15 @@
 
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faHeart, faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faHeart, faTimes, faEdit, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useGetWishlistQuery } from '../redux/api/wishlist';
 import { useGetUserQuery, useUpdateUserMutation } from '../redux/api/user';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../redux/reducer/auth';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
 import VenueCard from './VenueCard';
 import VendorCard from './VendorCard';
 
@@ -451,6 +455,8 @@ const UserTabView: React.FC = () => {
   const [updateUser] = useUpdateUserMutation();
   const [activeTab, setActiveTab] = useState<string>('Profile');
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const userData = user?.data?.user;
   const [profileData, setProfileData] = useState<ProfileData>({
@@ -486,6 +492,15 @@ const UserTabView: React.FC = () => {
     }
   };
 
+  const onClose = () => {
+    setActiveTab('Profile')
+  }
+
+  const onLogout = () => {
+    dispatch(logout());
+    navigate('/');
+  }
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
@@ -495,23 +510,44 @@ const UserTabView: React.FC = () => {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="w-60 h-60">
-      {activeTab === 'Profile' ? (
-            <ProfileSection
-              profileData={profileData}
-              isEditing={isEditing}
-              onEditClick={handleEditClick}
-              onSaveClick={handleSaveClick}
-              onChange={handleChange}
-            />
-          ) : (
-            <Wishlist userId={userId} />
-          )}
+        {activeTab === 'Profile' ? (
+          <ProfileSection
+            profileData={profileData}
+            isEditing={isEditing}
+            onEditClick={handleEditClick}
+            onSaveClick={handleSaveClick}
+            onChange={handleChange}
+          />
+        ) : activeTab === 'Wishlist' ? (
+          <Wishlist userId={userId} />
+        ) : (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white rounded-lg shadow-md p-6 max-w-sm w-full">
+              <h2 className="text-lg font-semibold mb-4">Confirm Logout</h2>
+              <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={onClose}
+                  className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onLogout}
+                  className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
-     
-     <main className='w-30'>
 
-     </main>
-      
+      <main className='w-30'>
+
+      </main>
+
     </div>
   );
 };
@@ -523,15 +559,14 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => (
   <nav className="md:w-1/4 p-3 text-gray-700 rounded-sm bg-white-500-a h-auto">
-    {['Profile', 'Wishlist'].map(tab => (
+    {['Profile', 'Wishlist', 'LogOut'].map(tab => (
       <button
         key={tab}
         onClick={() => setActiveTab(tab)}
-        className={`p-3 mb-2 w-full text-left text-lg font-semibold transition-colors rounded ${
-          activeTab === tab ? 'bg-pink-400 text-white-500' : 'hover:bg-pink-400 text-gray-500'
-        }`} 
+        className={`p-3 mb-2 w-full text-left text-lg font-semibold transition-colors rounded ${activeTab === tab ? 'bg-pink-400 text-white-500' : 'hover:bg-pink-400 text-gray-500'
+          }`}
       >
-        <FontAwesomeIcon icon={tab === 'Profile' ? faHome : faHeart} className="mr-5" />
+        <FontAwesomeIcon icon={tab === 'Profile' ? faHome : tab === 'Wishlist' ? faHeart : faUserAlt} className="mr-5" />
         {tab}
       </button>
     ))}
@@ -553,65 +588,64 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   onSaveClick,
   onChange,
 }) => (
-<div className="flex flex-col bg-white p-4 shadow-md rounded-xl w-auto h-auto md:w-3/4 lg:w-1/2 mx-auto ">
-  {/* <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">My Profile</h2> */}
-  
-  <div className="flex flex-col items-center mb-4 ">
-    <div className="relative">
-      <img
-        src={profileData.avatarUrl}
-        alt="User Avatar"
-        className="w-40 h-36 border-gray-500"
-      />
-      <button
-        onClick={onEditClick}
-        className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full shadow-md transform hover:scale-105 transition-all"
-      >
-        <FontAwesomeIcon icon={isEditing ? faTimes : faEdit} />
-      </button>
-    </div>
-    {/* <p className="text-lg font-semibold mt-2">{profileData.name}</p> */}
-  </div>
+  <div className="flex flex-col bg-white p-4 shadow-md rounded-xl w-auto h-auto md:w-3/4 lg:w-1/2 mx-auto ">
+    {/* <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">My Profile</h2> */}
 
-  {isEditing ? (
-    <form onSubmit={onSaveClick} className="space-y-5">
-     {['name', 'phoneNumber', 'address', 'email'].map((field) => (
-  <div key={field} className="mb-4">
-    <input
-      type="text"
-      name={field}
-      value={profileData[field as keyof ProfileData] || ''}
-      onChange={onChange}
-      placeholder={`Enter ${field}`}
-      className={`w-full p-2 border-b-2 ${
-        profileData[field as keyof ProfileData] === '' ? 'border-red-300' : 'border-gray-300'
-      } focus:outline-none focus:ring-blue-300 focus:border-blue-500`}
-    />
-  </div>
-))}
-
-      <div className="flex justify-end mt-6 space-x-4">
-        <button type="button" onClick={onEditClick} className="text-gray-500 hover:text-gray-700">
-          Cancel
-        </button>
-        <button type="submit" className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors">
-          Save
+    <div className="flex flex-col items-center mb-4 ">
+      <div className="relative">
+        <img
+          src={profileData.avatarUrl}
+          alt="User Avatar"
+          className="w-40 h-36 border-gray-500"
+        />
+        <button
+          onClick={onEditClick}
+          className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full shadow-md transform hover:scale-105 transition-all"
+        >
+          <FontAwesomeIcon icon={isEditing ? faTimes : faEdit} />
         </button>
       </div>
-    </form>
-  ) : (
-    <div className="space-y-5">
-      {Object.entries(profileData).map(([label, value]) => (
-        label !== 'avatarUrl' && (
-          <div key={label} className="flex items-center mt-2">
-            <span className="font-medium text-gray-600 capitalize"></span>
-            <span className="text-gray-700">{value}</span>
-          </div>
-        )
-      ))}
+      {/* <p className="text-lg font-semibold mt-2">{profileData.name}</p> */}
     </div>
-  )}
-</div>
+
+    {isEditing ? (
+      <form onSubmit={onSaveClick} className="space-y-5">
+        {['name', 'phoneNumber', 'address', 'email'].map((field) => (
+          <div key={field} className="mb-4">
+            <input
+              type="text"
+              name={field}
+              value={profileData[field as keyof ProfileData] || ''}
+              onChange={onChange}
+              placeholder={`Enter ${field}`}
+              className={`w-full p-2 border-b-2 ${profileData[field as keyof ProfileData] === '' ? 'border-red-300' : 'border-gray-300'
+                } focus:outline-none focus:ring-blue-300 focus:border-blue-500`}
+            />
+          </div>
+        ))}
+
+        <div className="flex justify-end mt-6 space-x-4">
+          <button type="button" onClick={onEditClick} className="text-gray-500 hover:text-gray-700">
+            Cancel
+          </button>
+          <button type="submit" className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors">
+            Save
+          </button>
+        </div>
+      </form>
+    ) : (
+      <div className="space-y-5">
+        {Object.entries(profileData).map(([label, value]) => (
+          label !== 'avatarUrl' && (
+            <div key={label} className="flex items-center mt-2">
+              <span className="font-medium text-gray-600 capitalize"></span>
+              <span className="text-gray-700">{value}</span>
+            </div>
+          )
+        ))}
+      </div>
+    )}
+  </div>
 
 );
 
@@ -620,18 +654,43 @@ interface WishlistProps {
 }
 
 const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
-  const { data: wishlistData } = useGetWishlistQuery(userId ?? "");
+  const { data: wishlistData, isLoading, error } = useGetWishlistQuery(userId ?? "");
   const wishlistItems = wishlistData?.wishlist?.items || [];
+  console.log(wishlistItems);
+
+  if (isLoading) {
+    return <div>Loading your wishlist...</div>;
+  }
+
+  if (error) {
+    return <div>Failed to load wishlist. Please try again later.</div>;
+  }
+
+  if (wishlistItems.length === 0) {
+    return <div>Your wishlist is empty.</div>;
+  }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {wishlistItems.map(item => (
-        item.itemType === 'venue' ? (
-          <VenueCard key={item.itemId} venue={item.itemId} />
-        ) : (
-          <VendorCard key={item.itemId} vendorId={item.itemId} imageUrl={item.imageUrl}/>
-        )
-      ))}
+    <div className="flex justify-center items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
+        {wishlistItems.map((item, index) => {
+          return item.itemType === "venue" ? (
+            <VenueCard key={index} venue={{
+              name: "",
+              location: "",
+              maxGuests: "",
+              images: [],
+              id: item.itemId
+            }} />
+          ) : (
+            <VendorCard
+              key={item.itemId}
+              vendorId={item.itemId}
+              imageUrl={item.imageUrl}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

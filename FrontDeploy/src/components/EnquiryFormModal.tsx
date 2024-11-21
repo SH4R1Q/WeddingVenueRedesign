@@ -7,9 +7,10 @@ interface EnquiryFormModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   onSubmit: (formData: any) => void;
+  isLoggedIn: boolean;
 }
 
-const EnquiryFormModal: React.FC<EnquiryFormModalProps> = ({ isOpen, onRequestClose, onSubmit }) => {
+const EnquiryFormModal: React.FC<EnquiryFormModalProps> = ({ isLoggedIn,isOpen, onRequestClose, onSubmit }) => {
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
@@ -62,7 +63,8 @@ const EnquiryFormModal: React.FC<EnquiryFormModalProps> = ({ isOpen, onRequestCl
         },
       }}
     >
-      <div className="bg-gradient-to-r from-[#e9c6e8] to-[#a56cc1] scrollbar text-gray-900 rounded-lg shadow-xl p-8 w-full max-w-4xl mx-auto max-h-[90vh] overflow-y-auto">
+      {isLoggedIn ? 
+      (<div className="bg-gradient-to-r from-[#e9c6e8] to-[#a56cc1] scrollbar text-gray-900 rounded-lg shadow-xl p-8 w-full max-w-4xl mx-auto max-h-[90vh] overflow-y-auto">
         <h2 className="text-3xl font-semibold mb-6 text-center text-black">Send Enquiry</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -185,7 +187,23 @@ const EnquiryFormModal: React.FC<EnquiryFormModalProps> = ({ isOpen, onRequestCl
             </button>
           </div>
         </form>
-      </div>
+      </div>)
+      : (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg shadow-md p-6 max-w-sm w-full">
+            <h2 className="text-lg font-semibold mb-4">Log In</h2>
+            <p className="text-gray-600 mb-4">
+              You must logged in to send an Enquiry
+            </p>
+            <button
+              onClick={onRequestClose}
+              className="bg-pink-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-pink-700"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
     </Modal>
 

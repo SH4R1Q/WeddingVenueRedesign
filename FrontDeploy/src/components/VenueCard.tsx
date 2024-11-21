@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, To } from "react-router-dom";
 import { MdLocationPin, MdPeople } from "react-icons/md";
+import { useGetVenueByIdQuery } from "../redux/api/venue";
 
 interface VenueProps {
   venue: {
-    name: string;
-    location: string;
-    maxGuests: string;
-    images: string[];
+    name: string | undefined;
+    location: string | undefined;
+    maxGuests: string | undefined;
+    images: string[] | undefined;
     id: string;
   };
 }
@@ -15,6 +16,16 @@ interface VenueProps {
 const VenueCard: React.FC<VenueProps> = ({ venue }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const {
+    data: venueData,
+  } = useGetVenueByIdQuery(venue.id);
+
+  if(venue.name==="" && venue.location === "" && venue.maxGuests === ""){
+    venue.name = venueData?.data.venue.businessName
+    venue.location = venueData?.data.venue.city
+    venue.maxGuests = venueData?.data.venue.guestCapacity
+    venue.images = venueData?.data.venue.images
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
