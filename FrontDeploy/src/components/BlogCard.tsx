@@ -32,13 +32,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         className="w-full h-48 object-cover"
       />
       <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800 group-hover:text-pink-600 transition-colors duration-300">
+        <h2 className="text-xl font-semibold text-gray-800 group-hover:text-pink-700 transition-colors duration-300">
           {title}
         </h2>
         <p className="mt-2 text-gray-600">{contentPreview}...</p>
         <Link
           to={`/blogs/${blog._id}`}
-          className="inline-block mt-4 bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600 transition-colors duration-300"
+          className="inline-block mt-4 bg-pink-400 text-white py-2 px-4 rounded hover:bg-pink-700 transition-colors duration-300"
         >
           Read More
         </Link>

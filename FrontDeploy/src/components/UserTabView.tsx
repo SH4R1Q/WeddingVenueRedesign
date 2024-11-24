@@ -600,7 +600,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
         />
         <button
           onClick={onEditClick}
-          className="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full shadow-md transform hover:scale-105 transition-all"
+          className="absolute bottom-0 right-0 bg-pink-400 text-white p-2 rounded-full shadow-md transform hover:scale-105 transition-all"
         >
           <FontAwesomeIcon icon={isEditing ? faTimes : faEdit} />
         </button>
@@ -619,7 +619,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               onChange={onChange}
               placeholder={`Enter ${field}`}
               className={`w-full p-2 border-b-2 ${profileData[field as keyof ProfileData] === '' ? 'border-red-300' : 'border-gray-300'
-                } focus:outline-none focus:ring-blue-300 focus:border-blue-500`}
+                } focus:outline-none focus:ring-pink-300 focus:border-pink-500`}
             />
           </div>
         ))}
@@ -628,7 +628,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           <button type="button" onClick={onEditClick} className="text-gray-500 hover:text-gray-700">
             Cancel
           </button>
-          <button type="submit" className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors">
+          <button type="submit" className="bg-pink-400 text-white px-5 py-2 rounded-lg shadow hover:bg-pink-700 transition-colors">
             Save
           </button>
         </div>
