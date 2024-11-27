@@ -506,49 +506,50 @@ const UserTabView: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between md:flex-row p-6 h-auto bg-pink-400" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}>
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-
-      <main className="w-60 h-60">
-        {activeTab === 'Profile' ? (
-          <ProfileSection
-            profileData={profileData}
-            isEditing={isEditing}
-            onEditClick={handleEditClick}
-            onSaveClick={handleSaveClick}
-            onChange={handleChange}
-          />
-        ) : activeTab === 'Wishlist' ? (
-          <Wishlist userId={userId} />
-        ) : (
-          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white rounded-lg shadow-md p-6 max-w-sm w-full">
-              <h2 className="text-lg font-semibold mb-4">Confirm Logout</h2>
-              <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
-              <div className="flex justify-end space-x-4">
-                <button
-                  onClick={onClose}
-                  className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={onLogout}
-                  className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
-                >
-                  Logout
-                </button>
-              </div>
+    <div
+    className="flex flex-col md:flex-row justify-between items-stretch p-6 h-76 bg-pink-400"
+    style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}
+  >
+    {/* Sidebar */}
+    <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+  
+    {/* Main Section */}
+    <main className="flex flex-col justify-center md:flex-row flex-grow space-y-4 md:space-y-0 md:space-x-6 md:mt-0 lg:ml-4 sm:ml-0">
+      {activeTab === 'Profile' ? (
+        <ProfileSection
+          profileData={profileData}
+          isEditing={isEditing}
+          onEditClick={handleEditClick}
+          onSaveClick={handleSaveClick}
+          onChange={handleChange}
+        />
+      ) : activeTab === 'Wishlist' ? (
+        <Wishlist userId={userId} />
+      ) : (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg shadow-md p-6 max-w-sm w-full">
+            <h2 className="text-lg font-semibold mb-4">Confirm Logout</h2>
+            <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={onClose}
+                className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={onLogout}
+                className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
+              >
+                Logout
+              </button>
             </div>
           </div>
-        )}
-      </main>
-
-      <main className='w-30'>
-
-      </main>
-
-    </div>
+        </div>
+      )}
+    </main>
+  </div>
+  
   );
 };
 
@@ -558,14 +559,17 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => (
-  <nav className="md:w-1/4 p-3 text-gray-700 rounded-sm bg-white-500-a h-auto">
-    {['Profile', 'Wishlist', 'LogOut'].map(tab => (
-      <button
-        key={tab}
-        onClick={() => setActiveTab(tab)}
-        className={`p-3 mb-2 w-full text-left text-lg font-semibold transition-colors rounded ${activeTab === tab ? 'bg-pink-400 text-white-500' : 'hover:bg-pink-400 text-gray-500'
-          }`}
-      >
+  <nav className="lg:flex lg:flex-col sm:flex-row lg:items-center md:w-1/4 p-3 text-gray-700 rounded-sm bg-white-500-a h-auto">
+  {['Profile', 'Wishlist', 'LogOut'].map((tab) => (
+    <button
+      key={tab}
+      onClick={() => setActiveTab(tab)}
+      className={`lg:flex flex-col lg:flex-row lg:justify-start items-center lg:w-full justify-center p-3 sm:mr-2 mb-2 sm:mb-3 text-lg font-semibold transition-colors rounded ${
+        activeTab === tab
+          ? 'bg-pink-400 text-white'
+          : 'hover:bg-pink-400 text-gray-500'
+      }`}
+    >
         <FontAwesomeIcon icon={tab === 'Profile' ? faHome : tab === 'Wishlist' ? faHeart : faUserAlt} className="mr-5" />
         {tab}
       </button>
@@ -588,7 +592,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   onSaveClick,
   onChange,
 }) => (
-  <div className="flex flex-col bg-white p-4 shadow-md rounded-xl w-auto h-auto md:w-3/4 lg:w-1/2 mx-auto ">
+  <div className="flex flex-col bg-white p-4 shadow-md rounded-xl w-100 h-auto md:w-3/4 lg:w-1/2">
     {/* <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">My Profile</h2> */}
 
     <div className="flex flex-col items-center mb-4 ">
