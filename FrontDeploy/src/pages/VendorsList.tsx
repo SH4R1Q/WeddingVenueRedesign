@@ -1,8 +1,5 @@
 import React from "react";
-import { FaSearch } from "react-icons/fa";
 import "./VendorsList.css";
-// import AllVendors from "../components/card/AllVendors";
-import ArticleCard from "../components/card/ArticleCard";
 import WeddingCategories from "../components/WeddingCateg";
 import NavBar from "../components/navbar";
 import Footer from "../components/Footer";
@@ -13,8 +10,6 @@ import VendorCard from "../components/card/Vendorcard";
 import { useParams } from "react-router-dom";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import SkeletonCard from "../components/skeleton/Vendor";
-import { useGetAllBlogsQuery } from "../redux/api/blog";
-import AllVendors from "../components/card/AllVendors";
 
 interface VendorsListProps {
   NumberOfCards?: number;
@@ -25,25 +20,15 @@ interface VendorsListProps {
   NumberOfArticleCards?: number;
 }
 
-const VendorsList: React.FC<VendorsListProps> = ({
-  // NumberOfArticleCards = 10,
-  Search = "Search Artists By Name",
-  // Img = "/wv_cover.jpg",
-  // ImgTitle2 = "weddingImage",
-}) => {
-  // const ArticleCardsArray = Array.from({ length: NumberOfArticleCards });
+const VendorsList: React.FC<VendorsListProps> = () => {
   const { data, error, isLoading } = useAllVendorQuery("");
   const [allVendors, setAllVendors] = useState<Vendor[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const [filteredVendors, setFilteredVendors] = useState<Vendor[]>([]);
   const { type } = useParams<{ type: string }>();
   const Title = type;
-  // .replace(/([a-z])([A-Z])/g, "$1 $2");
-
   const [currentPage, setCurrentPage] = useState(1);
-  const vendorsPerPage = 9;
-  const { data: blog } = useGetAllBlogsQuery('');
-  const blogs = blog?.data.blog || [];
+  const vendorsPerPage = 8;
   const vendors = [
     {
       name: "Vendor One",
@@ -539,11 +524,11 @@ const VendorsList: React.FC<VendorsListProps> = ({
     const approvedVendors = vendors;
     let filtered = approvedVendors;
 
-    if (searchQuery.trim() !== "") {
-      filtered = approvedVendors.filter((vendor) =>
-        vendor.name?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
+    // if (searchQuery.trim() !== "") {
+    //   filtered = approvedVendors.filter((vendor) =>
+    //     vendor.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    //   );
+    // }
 
     if (Title !== "AllVendors") {
       filtered = filtered.filter((vendor) => vendor.type_Of_Business.toLowerCase() === Title?.toLowerCase());
@@ -551,7 +536,7 @@ const VendorsList: React.FC<VendorsListProps> = ({
 
     setFilteredVendors(filtered);
     setCurrentPage(1); // Reset to first page when filters change
-  }, [searchQuery, allVendors, Title]);
+  }, [allVendors, Title]);
 
   const indexOfLastVendor = currentPage * vendorsPerPage;
   const indexOfFirstVendor = indexOfLastVendor - vendorsPerPage;
@@ -577,7 +562,7 @@ const VendorsList: React.FC<VendorsListProps> = ({
       <NavBar />
       {Title === "AllVendors" && <WeddingCategories />}
       <div className="flex flex-col lg:flex-row bg-white">
-        <div className="lg:w-3/4 p-4 w-full">
+        <div className="p-4 w-full">
           <div className="bg-white rounded-md">
             <>
             {/* <p className="text-xl font-bold mx-3 pt-1">
@@ -632,14 +617,15 @@ const VendorsList: React.FC<VendorsListProps> = ({
                                                               : Title}
             </p> */}
             </>
-            <p className="text-xl font-bold mx-3 pt-1">
+            {Title && <p className="text-xl font-bold mx-3 pt-1">
               {Title.replace(/([a-z])([A-Z])/g, "$1 $2")}
             </p>
+            }
           </div>
 
           <hr className="h-1 bg-white my-2"></hr>
 
-          <div className="bg-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-5 justify-center rounded-md min-h-screen">
+          <div className="bg-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-5 justify-center rounded-md min-h-screen">
             {isLoading ? (
               Array.from({ length: 10 }).map((_, index) => <SkeletonCard key={index} />)
             ) : currentVendors.length > 0 ? (
@@ -707,7 +693,7 @@ const VendorsList: React.FC<VendorsListProps> = ({
         </div>
 
         {/* Second section (responsive) */}
-        <div className="lg:w-1/4 w-full bg-white p-4">
+        {/* <div className="lg:w-1/4 w-full bg-white p-4">
           <div className="justify-end">
             <p className="text-xl font-bold">{Search}</p>
             <hr className="h-1 bg-gray-200 my-2"></hr>
@@ -729,23 +715,6 @@ const VendorsList: React.FC<VendorsListProps> = ({
             </div>
 
             <p className="text-xl font-semibold pt-3 pb-2">Related Article</p>
-
-            {/* <div className="flex flex-wrap py-4 justify-center shadow">
-              {blogs?.map((items: any, index: any) => (
-                index < 10 ? (
-                  <div key={index} className="mx-4 mb-4 shadow-xl">
-                    <ArticleCard
-                      id={items?._id}
-                      image={items?.images[0]}
-                      title={items?.title}
-                      description={items?.content}
-                      date={items?.createdAt}
-                    />
-                  </div>
-                ) : null
-              ))}
-            </div> */}
-
             <div className="flex scroll-container flex-wrap py-4 justify-center
              shadow overflow-x-hidden overflow-y-auto max-h-[600px]">
               {blogs?.map((items: any, index: any) =>
@@ -763,7 +732,7 @@ const VendorsList: React.FC<VendorsListProps> = ({
               )}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </>

@@ -485,7 +485,15 @@ const UserTabView: React.FC = () => {
     e.preventDefault();
     setIsEditing(false);
     try {
-      await updateUser({ id: userId ?? "", user: profileData }).unwrap();
+      await updateUser({
+        id: userId ?? "", user: {
+          fullName: profileData.name,
+          phone: profileData.phoneNumber,
+          city: profileData.address,
+          email: profileData.email,
+          avatarUrl: profileData.avatarUrl,
+        }
+      }).unwrap();
       refetch();
     } catch (error) {
       console.error("Failed to update user:", error);
@@ -507,49 +515,49 @@ const UserTabView: React.FC = () => {
 
   return (
     <div
-    className="flex flex-col md:flex-row justify-between items-stretch p-6 h-76 bg-pink-400"
-    style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}
-  >
-    {/* Sidebar */}
-    <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-  
-    {/* Main Section */}
-    <main className="flex flex-col justify-center md:flex-row flex-grow space-y-4 md:space-y-0 md:space-x-6 md:mt-0 lg:ml-4 sm:ml-0">
-      {activeTab === 'Profile' ? (
-        <ProfileSection
-          profileData={profileData}
-          isEditing={isEditing}
-          onEditClick={handleEditClick}
-          onSaveClick={handleSaveClick}
-          onChange={handleChange}
-        />
-      ) : activeTab === 'Wishlist' ? (
-        <Wishlist userId={userId} />
-      ) : (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg shadow-md p-6 max-w-sm w-full">
-            <h2 className="text-lg font-semibold mb-4">Confirm Logout</h2>
-            <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
-            <div className="flex justify-end space-x-4">
-              <button
-                onClick={onClose}
-                className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={onLogout}
-                className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
-              >
-                Logout
-              </button>
+      className="flex flex-col md:flex-row justify-between items-stretch p-6 h-76 bg-pink-400"
+      style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}
+    >
+      {/* Sidebar */}
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      {/* Main Section */}
+      <main className="flex flex-col justify-center md:flex-row flex-grow space-y-4 md:space-y-0 md:space-x-6 md:mt-0 lg:ml-4 sm:ml-0">
+        {activeTab === 'Profile' ? (
+          <ProfileSection
+            profileData={profileData}
+            isEditing={isEditing}
+            onEditClick={handleEditClick}
+            onSaveClick={handleSaveClick}
+            onChange={handleChange}
+          />
+        ) : activeTab === 'Wishlist' ? (
+          <Wishlist userId={userId} />
+        ) : (
+          <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white rounded-lg shadow-md p-6 max-w-sm w-full">
+              <h2 className="text-lg font-semibold mb-4">Confirm Logout</h2>
+              <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={onClose}
+                  className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onLogout}
+                  className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
+                >
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </main>
-  </div>
-  
+        )}
+      </main>
+    </div>
+
   );
 };
 
@@ -560,16 +568,15 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => (
   <nav className="lg:flex lg:flex-col sm:flex-row lg:items-center md:w-1/4 p-3 text-gray-700 rounded-sm bg-white-500-a h-auto">
-  {['Profile', 'Wishlist', 'LogOut'].map((tab) => (
-    <button
-      key={tab}
-      onClick={() => setActiveTab(tab)}
-      className={`lg:flex flex-col lg:flex-row lg:justify-start items-center lg:w-full justify-center p-3 sm:mr-2 mb-2 sm:mb-3 text-lg font-semibold transition-colors rounded ${
-        activeTab === tab
-          ? 'bg-pink-400 text-white'
-          : 'hover:bg-pink-400 text-gray-500'
-      }`}
-    >
+    {['Profile', 'Wishlist', 'LogOut'].map((tab) => (
+      <button
+        key={tab}
+        onClick={() => setActiveTab(tab)}
+        className={`lg:flex flex-col lg:flex-row lg:justify-start items-center lg:w-full justify-center p-3 sm:mr-2 mb-2 sm:mb-3 text-lg font-semibold transition-colors rounded ${activeTab === tab
+            ? 'bg-pink-400 text-white'
+            : 'hover:bg-pink-400 text-gray-500'
+          }`}
+      >
         <FontAwesomeIcon icon={tab === 'Profile' ? faHome : tab === 'Wishlist' ? faHeart : faUserAlt} className="mr-5" />
         {tab}
       </button>
@@ -659,8 +666,6 @@ interface WishlistProps {
 
 const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
   const { data: wishlistData, isLoading, error } = useGetWishlistQuery(userId ?? "");
-  const wishlistItems = wishlistData?.wishlist?.items || [];
-  console.log(wishlistItems);
 
   if (isLoading) {
     return <div>Loading your wishlist...</div>;
@@ -669,6 +674,9 @@ const Wishlist: React.FC<WishlistProps> = ({ userId }) => {
   if (error) {
     return <div>Failed to load wishlist. Please try again later.</div>;
   }
+
+  const wishlistItems = wishlistData?.wishlist?.items || [];
+  console.log(wishlistItems);
 
   if (wishlistItems.length === 0) {
     return <div>Your wishlist is empty.</div>;

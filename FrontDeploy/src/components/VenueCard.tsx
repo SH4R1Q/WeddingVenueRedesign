@@ -20,7 +20,7 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
     data: venueData,
   } = useGetVenueByIdQuery(venue.id);
 
-  if(venue.name==="" && venue.location === "" && venue.maxGuests === ""){
+  if(!venue?.images || (venue.name==="" && venue.location === "" && venue.maxGuests === "")){
     venue.name = venueData?.data.venue.businessName
     venue.location = venueData?.data.venue.city
     venue.maxGuests = venueData?.data.venue.guestCapacity

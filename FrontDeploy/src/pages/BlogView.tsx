@@ -54,7 +54,7 @@ const BlogView: React.FC = () => {
               })} | {blog.category}
             </p>
 
-            <div className="prose text-center font-serif font-light max-w-3xl mx-auto text-gray-700 leading-loose text-lg">
+            <div className="prose text-justify font-serif font-light max-w-3xl mx-auto text-gray-700 leading-loose text-lg">
               <p>{blog?.content?.slice(0, 500)}</p>
             </div>
 
@@ -68,7 +68,7 @@ const BlogView: React.FC = () => {
               </div>
             )}
 
-            <div className="prose text-center font-serif font-light max-w-3xl mx-auto text-gray-700 leading-loose text-lg">
+            <div className="prose text-justify font-serif font-light max-w-3xl mx-auto text-gray-700 leading-loose text-lg">
               {blog?.content}
             </div>
           </div>

@@ -84,7 +84,7 @@ const RealWeddingsView: React.FC = () => {
             )}
 
             {/* Content Section */}
-            <div className="prose text-center font-serif font-light max-w-3xl mx-auto text-gray-700 leading-loose text-lg">
+            <div className="prose text-justify font-serif font-light max-w-3xl mx-auto text-gray-700 leading-loose text-lg">
               {realWedding?.content}
             </div>
           </div>

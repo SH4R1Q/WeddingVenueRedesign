@@ -52,7 +52,7 @@ const VenueServicePage = () => {
                 rating={venueData?.rank}
                 address={venueData?.address}
                 photosCount={venueData?.images?.length}
-                shareMessage={`Check out ${venueData?.businessName} in ${venueData?.city} – an exquisite venue perfect for weddings and celebrations with stunning architecture and top-notch facilities. See more details and photos here: https://www.wedmegood.com/"`}
+                shareMessage={`Check out ${venueData?.businessName} in ${venueData?.city} – an exquisite venue perfect for weddings and celebrations with stunning architecture and top-notch facilities. See more details and photos here: https://weddingzvenue.in/"`}
               />
             </div>
           </div>

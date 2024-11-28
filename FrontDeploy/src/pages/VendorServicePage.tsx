@@ -102,7 +102,7 @@ function VendorServicePage() {
                 reviews={vendorData.review.length}
                 address={vendorData?.address}
                 photosCount={vendorData?.portfolio?.length}
-                shareMessage={`Check out ${vendorData?.businessName} in ${vendorData?.city} – a perfect ${vendorData?.type_Of_Business} for weddings and celebrations with great Services. See more details and photos here: https://www.wedmegood.com/"`}
+                shareMessage={`Check out ${vendorData?.businessName} in ${vendorData?.city} – a perfect ${vendorData?.type_Of_Business} for weddings and celebrations with great Services. See more details and photos here: https://weddingzvenue.in/"`}
                 summary={`${vendorData?.summary} | ${vendorData?.usp} | ${vendorData?.termAndConditions} | ${vendorData?.cancellationPolicy}`}
                 businessType={vendorData?.type_Of_Business}
               />
@@ -131,7 +131,7 @@ function VendorServicePage() {
             </div>
           </div>
         </div>
-        <div className="my-4">
+        <div className="my-4 mx-4">
           <TermsAndPolicyCard />
         </div>
         <div className="container mx-auto px-4 mt-4">

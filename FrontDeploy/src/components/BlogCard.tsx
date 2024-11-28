@@ -16,9 +16,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   const imageUrl = Array.isArray(blog.images)
     ? blog.images[0]
     : blog.images || "/default-image.jpg";
-  const contentPreview = blog.content
-    ? blog.content.substring(0, 200)
-    : "No content available";
+  // const contentPreview = blog.content
+  //   ? blog.content.substring(0, 200)
+  //   : "No content available";
   const title = blog.title || "Untitled"; // Fallback for title
 
   return (
@@ -35,7 +35,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         <h2 className="text-xl font-semibold text-gray-800 group-hover:text-pink-700 transition-colors duration-300">
           {title}
         </h2>
-        <p className="mt-2 text-gray-600">{contentPreview}...</p>
+        {/* <p className="mt-2 text-gray-600">{contentPreview}...</p> */}
         <Link
           to={`/blogs/${blog._id}`}
           className="inline-block mt-4 bg-pink-400 text-white py-2 px-4 rounded hover:bg-pink-700 transition-colors duration-300"

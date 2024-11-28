@@ -89,7 +89,7 @@ const PhotosPage: React.FC = () => {
                     {photos.map((photo, index) => (
                         <div
                             key={index}
-                            className="relative overflow-hidden shadow-md group"
+                            className="relative overflow-hidden group"
                         >
                             <img
                                 // src="https://picsum.photos/200"
@@ -110,6 +110,7 @@ const PhotosPage: React.FC = () => {
                                     className="w-10 h-10 rounded-full bg-[#e81489] p-1 hover:!bg-[#c3207a]"
                                 />
                             </a>
+                            <p className="text-center font-marcellus">Image Title</p>
                         </div>
                     ))}
                 </div>

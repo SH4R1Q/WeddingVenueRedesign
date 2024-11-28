@@ -56,11 +56,11 @@ const WeddingCategoriesShort: React.FC = () => {
                 {categories.map((category, index) => (
                     <div
                         key={index}
-                        className={`${category.bgColor} rounded-lg p-4 flex flex-col space-y-2 cursor-pointer transition-all duration-300`}
+                        className={`${category.bgColor} rounded-lg flex flex-col space-y-2 cursor-pointer transition-all duration-300`}
                         onClick={() => handleToggle(index)}
                     >
                         <div className="flex items-center justify-between">
-                            <div>
+                            <div className="p-4">
                                 <h3 className="text-xl font-bold inline">{category.title}</h3>
                                 <button className="text-lg ml-4 font-bold text-gray-700">
                                     {expandedIndex === index ? "▲" : "▼"}
@@ -70,11 +70,11 @@ const WeddingCategoriesShort: React.FC = () => {
                             <img
                                 src={category.image}
                                 alt={category.title}
-                                className="w-24 h-24 object-cover rounded-lg"
+                                className="w-24 h-24 object-cover rounded-r-lg"
                             />
                         </div>
                         {expandedIndex === index && (
-                            <div className="mt-2 text-sm text-gray-700">
+                            <div className="mt-2 text-sm text-gray-700 p-4">
                                 <p>Explore our wide range of services for {category.title}.</p>
                                 <Link to={`/vendor/${category.title.replace(/ /g, "")}`} className="text-pink-600 hover:underline">
                                     Learn More
