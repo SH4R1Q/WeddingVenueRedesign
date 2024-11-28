@@ -73,7 +73,7 @@ const VendorCard: React.FC<VendorCardProps> = ({
 
   return (
     <>
-    <Link to={`/vendor/${type.type}/${_id}`} className="block">
+    <Link to={`/vendor/${type.type}/${_id}`} target="_blank" className="block">
       <div className="relative bg-white rounded-lg overflow-hidden hover:shadow-md transition-transform transform mx-2 my-2 cursor-pointer">
         {/* Image Section */}
         <div className="h-48 p-2">
@@ -140,6 +140,7 @@ const VendorCard: React.FC<VendorCardProps> = ({
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         onSubmit={handleEnquirySubmit}
+        isLoggedIn={userId?true:false}
       />
     )}
     </>

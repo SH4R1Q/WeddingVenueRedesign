@@ -31,7 +31,7 @@ export const bookingAPI = createApi({
     }),
 
 
-    getBookingbyId: builder.query< Bookings[],
+    getBookingbyId: builder.query< Bookings,
     { vId: string }
   >({
     query: ({ vId }) => ({

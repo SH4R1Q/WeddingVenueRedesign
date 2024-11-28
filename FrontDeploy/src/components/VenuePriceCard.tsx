@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-// import {
-//   useDeleteWishlistMutation,
-//   useGetWishlistQuery,
-//   useAddWishlistMutation,
-// } from "../redux/api/wishlist";
 import EnquiryFormModal from "./EnquiryFormModal";
 import { useAddBookingEnquiryMutation, useGetBookingByUserAndVenueQuery } from "../redux/api/booking";
 import VenueContactCard from "./VenueContactCard";
@@ -37,16 +32,11 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, contactNumber,ema
     setIsExpanded(!isExpanded);
   };
 
-  // const [isWishlistSelected, setIsWishlistSelected] = useState(false);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasSentEnquiry, setHasSentEnquiry] = useState(false);
   const [showOtpPopup, setShowOtpPopup] = useState(false);
-
-  // const [addWishlist] = useAddWishlistMutation();
-  // const [deleteWishlist] = useDeleteWishlistMutation();
   const [sendEnquiry] = useAddBookingEnquiryMutation();
-
-  // const { data: wishlistData, refetch } = useGetWishlistQuery(userId ?? "");
   const { data: bookingData } = useGetBookingByUserAndVenueQuery({
     uId: userId ?? "",
     vId: venueId as string,
@@ -55,16 +45,6 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, contactNumber,ema
   const otp = bookingData?.bookingId;
 
   const itemId = venueId;
-  // const itemType = "venue";
-
-  // useEffect(() => {
-  //   if (wishlistData) {
-  //     const isWishlisted =
-  //       wishlistData?.wishlist?.items?.some((item) => item.itemId === itemId) ?? false;
-  //     setIsWishlistSelected(isWishlisted);
-  //   }
-  // }, [wishlistData, itemId]);
-
   useEffect(() => {
     if (bookingData?.message === "True") {
       setHasSentEnquiry(true);

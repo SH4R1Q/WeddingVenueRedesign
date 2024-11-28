@@ -6,6 +6,7 @@ import VenueImageGallery from "../components/VenueImageGallery";
 import VenuePriceCard from "../components/VenuePriceCard";
 import VenueAboutCard from "../components/VenueAboutCard";
 // import Carousel from "../components/Carousel";
+import TermsAndPolicyCard from "../components/Terms";
 import FAQSection from "../components/FaqSection";
 import RelatedArticles from "../components/RelatedArticles";
 import { useGetVenueByIdQuery } from "../redux/api/venue";
@@ -80,8 +81,9 @@ const VenueServicePage = () => {
           </div>
         </div>
       </div>
-
-
+      <div className="my-4">
+          <TermsAndPolicyCard />
+        </div>
       {/* Related Articles */}
       <div className="container mx-auto px-4 mt-4">
         <RelatedArticles />
