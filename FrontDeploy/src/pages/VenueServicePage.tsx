@@ -81,7 +81,7 @@ const VenueServicePage = () => {
           </div>
         </div>
       </div>
-      <div className="my-4">
+      <div className="my-4 mx-4">
           <TermsAndPolicyCard />
         </div>
       {/* Related Articles */}

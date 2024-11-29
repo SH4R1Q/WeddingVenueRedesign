@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
 
-const categories = ['Weddings', 'Engagements', 'Pre-Wedding Shoots', 'Bridal Portraits'];
-const locations = ['Jaipur', 'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad'];
-const themes = ['Traditional', 'Modern', 'Vintage', 'Boho', 'Rustic'];
+// const categories = ['Weddings', 'Engagements', 'Pre-Wedding Shoots', 'Bridal Portraits'];
+// const locations = ['Jaipur', 'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad'];
+// const themes = ['Traditional', 'Modern', 'Vintage', 'Boho', 'Rustic'];
 
 const PhotosPage: React.FC = () => {
-    const [selectedCategory, setSelectedCategory] = useState('All Categories');
-    const [selectedLocation, setSelectedLocation] = useState('All Locations');
-    const [selectedTheme, setSelectedTheme] = useState('All Themes');
+    // const [selectedCategory, setSelectedCategory] = useState('All Categories');
+    // const [selectedLocation, setSelectedLocation] = useState('All Locations');
+    // const [selectedTheme, setSelectedTheme] = useState('All Themes');
 
     // Placeholder image URLs
     const photos = [
@@ -48,7 +48,7 @@ const PhotosPage: React.FC = () => {
             </div>
 
             {/* Filter Section */}
-            <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            {/* <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                 <select
                     className="border border-gray-300 p-3 rounded-md"
                     value={selectedCategory}
@@ -81,7 +81,7 @@ const PhotosPage: React.FC = () => {
                         <option key={theme}>{theme}</option>
                     ))}
                 </select>
-            </div>
+            </div> */}
 
             {/* Photo Grid Section */}
             <div className="container mx-auto px-4 py-10">

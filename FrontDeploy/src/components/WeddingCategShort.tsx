@@ -58,6 +58,7 @@ const WeddingCategoriesShort: React.FC = () => {
                         key={index}
                         className={`${category.bgColor} rounded-lg flex flex-col space-y-2 cursor-pointer transition-all duration-300`}
                         onClick={() => handleToggle(index)}
+
                     >
                         <div className="flex items-center justify-between">
                             <div className="p-4">
