@@ -163,6 +163,11 @@ const Home: React.FC = () => {
                   Search
                 </button>
               </div>
+              <div className="text-white-500 mt-4 text-lg font-roboto font-light tracking-wide" style={{
+                  textShadow:
+                    "1px 1px 10px black, 0 0 4em black, 0 0 2em white",
+                }}>
+              Wedding Photographers in IndiaBridal | Makeup Artists in IndiaWedding | Venues in India</div>
             </div>
           </div>
         </div>
