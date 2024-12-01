@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
+// import { FaHeart } from "react-icons/fa";
 import { MdLocationPin } from "react-icons/md";
 import RatingStars from "./RatingStars";
 import { useGetWishlistQuery } from "../../redux/api/wishlist";
@@ -85,7 +85,7 @@ const VendorCard: React.FC<VendorCardProps> = ({
           <div
             className={`absolute top-2 right-2 ${isInWishlist ? "text-pink-500" : "text-gray-300"}`}
           >
-            <FaHeart size={22} />
+            {/* <FaHeart size={22} /> */}
           </div>
         </div>
 

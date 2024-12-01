@@ -56,26 +56,44 @@ const WeddingCategoriesShort: React.FC = () => {
                 {categories.map((category, index) => (
                     <div
                         key={index}
-                        className={`${category.bgColor} rounded-lg flex flex-col space-y-2 cursor-pointer transition-all duration-300`}
+                        className="rounded-lg flex flex-col space-y-2 cursor-pointer transition-all duration-300"
                         onClick={() => handleToggle(index)}
 
                     >
-                        <div className="flex items-center justify-between">
-                            <div className="p-4">
-                                <h3 className="text-xl font-bold inline">{category.title}</h3>
-                                <button className="text-lg ml-4 font-bold text-gray-700">
-                                    {expandedIndex === index ? "▲" : "▼"}
-                                </button>
-                                <p className="text-sm text-gray-600">{category.description}</p>
-                            </div>
-                            <img
-                                src={category.image}
-                                alt={category.title}
-                                className="w-24 h-24 object-cover rounded-r-lg"
-                            />
-                        </div>
+                       <div className="relative flex items-center justify-between p-4" style={{
+     backgroundImage: `url(${category.image})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+}}>
+  {/* Overlay Layer */}
+  <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+
+  {/* Text Content */}
+  <div className="relative z-10">
+    <h3 className="text-xl font-bold text-white inline">
+      {category.title}
+    </h3>
+    <button className="text-lg ml-4 font-bold text-white">
+      {expandedIndex === index ? "▲" : "▼"}
+    </button>
+    <p className="text-sm text-gray-300">{category.description}</p>
+  </div>
+
+  {/* Optional Image or Other Content */}
+  {/* Uncomment if you want an image */}
+  {/* 
+  <img
+    src={category.image}
+    alt={category.title}
+    className="w-24 h-24 object-cover rounded-r-lg"
+  /> 
+  */}
+</div>
+
                         {expandedIndex === index && (
-                            <div className="mt-2 text-sm text-gray-700 p-4">
+                            <div className=" text-sm text-gray-700 
+                            p-4 bg-gray-100">
                                 <p>Explore our wide range of services for {category.title}.</p>
                                 <Link to={`/vendor/${category.title.replace(/ /g, "")}`} className="text-pink-600 hover:underline">
                                     Learn More
