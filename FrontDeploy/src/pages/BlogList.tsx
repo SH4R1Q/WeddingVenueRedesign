@@ -4,6 +4,7 @@ import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
 import { useGetAllBlogsQuery } from '../redux/api/blog';
 import SkeletonBlogCard from '../components/skeleton/Blog';
+import Loader from '../components/skeleton/Loader';
 
 
 interface BlogPost {
@@ -80,8 +81,12 @@ const BlogList: React.FC = () => {
           <h1 className="text-5xl font-playfair font-bold mb-12 text-center">Weddingz Venue Blog Posts</h1>
           {isLoading ? (
             Array.from({ length: 8 }).map((_, index) => (
+              <>
               <SkeletonBlogCard key={index} />
+              <Loader/>
+              </>
             ))
+            
           ) : blogs.length > 0 ? (
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
               {blogs.map((blog: BlogPost) => {

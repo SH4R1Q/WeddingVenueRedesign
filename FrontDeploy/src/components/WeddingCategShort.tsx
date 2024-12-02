@@ -60,36 +60,26 @@ const WeddingCategoriesShort: React.FC = () => {
                         onClick={() => handleToggle(index)}
 
                     >
-                       <div className="relative flex items-center justify-between p-4" style={{
-     backgroundImage: `url(${category.image})`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-}}>
-  {/* Overlay Layer */}
-  <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+                        <div className="relative flex items-center justify-between p-4" style={{
+                            backgroundImage: `url(${category.image})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }}>
+                            {/* Overlay Layer */}
+                            <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
 
-  {/* Text Content */}
-  <div className="relative z-10">
-    <h3 className="text-xl font-bold text-white inline">
-      {category.title}
-    </h3>
-    <button className="text-lg ml-4 font-bold text-white">
-      {expandedIndex === index ? "▲" : "▼"}
-    </button>
-    <p className="text-sm text-gray-300">{category.description}</p>
-  </div>
-
-  {/* Optional Image or Other Content */}
-  {/* Uncomment if you want an image */}
-  {/* 
-  <img
-    src={category.image}
-    alt={category.title}
-    className="w-24 h-24 object-cover rounded-r-lg"
-  /> 
-  */}
-</div>
+                            {/* Text Content */}
+                            <div className="relative z-10">
+                                <h3 className="text-xl font-bold text-white inline">
+                                    {category.title}
+                                </h3>
+                                <button className="text-lg ml-4 font-bold text-white">
+                                    {expandedIndex === index ? "▲" : "▼"}
+                                </button>
+                                <p className="text-sm text-gray-300">{category.description}</p>
+                            </div>
+                        </div>
 
                         {expandedIndex === index && (
                             <div className=" text-sm text-gray-700 

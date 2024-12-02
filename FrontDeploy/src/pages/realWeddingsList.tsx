@@ -5,6 +5,7 @@ import NavBar from '../components/navbar';
 import { RealWeddings } from '../types/types';
 import { useGetAllRealWeddingsQuery } from '../redux/api/realWeddings';
 import SkeletonWeddingCard from '../components/skeleton/RealWedding';
+import Loader from '../components/skeleton/Loader';
 
 const RealWeddingsList: React.FC = () => {
   const { data: realWeddingsData, isLoading, error } = useGetAllRealWeddingsQuery();
@@ -31,7 +32,10 @@ const RealWeddingsList: React.FC = () => {
         {isLoading ? (
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 mt-12">
             {Array.from({ length: 6 }).map((_, index) => (
+              <>
               <SkeletonWeddingCard key={index} />
+              <Loader/>
+              </>
             ))}
           </div>
         ) : realWeddings.length > 0 ? (

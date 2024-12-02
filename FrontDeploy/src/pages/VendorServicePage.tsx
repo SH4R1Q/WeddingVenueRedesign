@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useGetVendorByIdQuery } from "../redux/api/vendor";
 import VenueImageGallery from "../components/VenueImageGallery";
 import FAQSection from "../components/FaqSection";
+import Loader from "../components/skeleton/Loader";
 
 interface Params {
   [key: string]: string | undefined;
@@ -65,7 +66,7 @@ function VendorServicePage() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   if (error) {

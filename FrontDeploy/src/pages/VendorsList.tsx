@@ -10,6 +10,7 @@ import VendorCard from "../components/card/Vendorcard";
 import { useParams } from "react-router-dom";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import SkeletonCard from "../components/skeleton/Vendor";
+import Loader from "../components/skeleton/Loader";
 
 interface VendorsListProps {
   NumberOfCards?: number;
@@ -565,7 +566,7 @@ const VendorsList: React.FC<VendorsListProps> = () => {
         <div className="p-4 w-full">
           <div className="bg-white rounded-md">
             <>
-            {/* <p className="text-xl font-bold mx-3 pt-1">
+              {/* <p className="text-xl font-bold mx-3 pt-1">
               {Title === "AllVendors"
                 ? "All Vendors"
                 : Title === "Photographer"
@@ -627,7 +628,12 @@ const VendorsList: React.FC<VendorsListProps> = () => {
 
           <div className="bg-white grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-5 justify-center rounded-md min-h-screen">
             {isLoading ? (
-              Array.from({ length: 10 }).map((_, index) => <SkeletonCard key={index} />)
+              Array.from({ length: 10 }).map((_, index) =>
+                <>
+                  <SkeletonCard key={index} />
+                  <Loader />
+                </>
+              )
             ) : currentVendors.length > 0 ? (
               currentVendors.map((vendor, index) => {
                 if (Title === "AllVendors") {

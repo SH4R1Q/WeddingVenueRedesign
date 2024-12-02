@@ -4,17 +4,14 @@ import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Loader from '../components/skeleton/Loader';
 
 const RealWeddingsView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data: realWeddingData, error, isLoading } = useGetRealWeddingsPostByIdQuery(id || '');
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="text-xl font-semibold text-gray-600">Loading...</div>
-      </div>
-    );
+    return <Loader/>;
   }
 
   if (error || !realWeddingData?.data) {
