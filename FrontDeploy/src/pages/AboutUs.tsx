@@ -125,11 +125,11 @@ const AboutUs: React.FC = () => {
 
               {/* Circular founder's photo */}
               <div className="mb-8">
-                <img
+                {/* <img
                   src="/founderandCEO.jpg"
                   alt="Founder Abdul Kareem"
                   className="w-40 h-40 sm:w-64 sm:h-64 rounded-full mx-auto object-cover border-4 border-pink-500 shadow-md transition-transform duration-300 hover:scale-110"
-                />
+                /> */}
               </div>
 
               {/* Founder's description */}
