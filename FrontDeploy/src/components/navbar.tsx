@@ -156,42 +156,41 @@ const NavBar: React.FC = () => {
             </ul>
           </div>
         </div>
-        <div className="icons flex space-x-4">
-          <ul className="space-x-4 hidden md:block">
-            {isLoggedIn && role != 'user' && (
-              <li className="relative">
-                <Link
-                  to="/notification"
-                  className="text-light-blue hover:text-gray-200"
-                >
-                  <FaBell />
-                </Link>
-              </li>
-            )}
-          </ul>
+        <div className="flex items-center space-x-4 ml-auto">
+  <ul className="flex items-center space-x-4">
+    {isLoggedIn && role != 'user' && (
+      <li className="relative hidden md:block rounded-full py-1 px-4">
+        <Link
+          to="/notification"
+          className="text-light-blue hover:text-gray-200"
+        >
+          <FaBell />
+        </Link>
+      </li>
+    )}
+  </ul>
 
-        </div>
-        <div className="icons flex space-x-4">
-          <ul className="flex justify-right items-center space-x-4">
-            {!isLoggedIn && (
-              <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4 ">
-                <Link
-                  to="/login"
-                  className="text-light-blue hover:text-gray-200"
-                >
-                  Login
-                </Link>
-              </li>
-            )}
-            {isLoggedIn && (
-              <li className="relative hidden md:block">
-                <Link to={url} className="text-light-blue hover:text-gray-200">
-                  <FaUser />
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
+  <ul className="flex items-center space-x-4">
+    {!isLoggedIn && (
+      <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4">
+        <Link
+          to="/login"
+          className="text-light-blue hover:text-gray-200"
+        >
+          Login
+        </Link>
+      </li>
+    )}
+    {isLoggedIn && (
+      <li className="relative hidden md:block">
+        <Link to={url} className="text-light-blue hover:text-gray-200">
+          <FaUser />
+        </Link>
+      </li>
+    )}
+  </ul>
+</div>
+
         <div className="md:hidden">
           <button onClick={toggleMobileMenu} className="text-light-blue">
             {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
