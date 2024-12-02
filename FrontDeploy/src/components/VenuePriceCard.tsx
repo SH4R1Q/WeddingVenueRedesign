@@ -119,7 +119,7 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, contactNumber,ema
           isOpen={isEnquirySelected}
           onRequestClose={() => setIsEnquirySelected(false)}
           onSubmit={handleEnquirySubmit}
-          isLoggedIn={userId ? true : false}
+          isLoggedIn={true}
         />
       )}
       {showOtpPopup && <OtpPopup otp={otp} />}

@@ -6,7 +6,7 @@ import RelatedArticles from '../components/RelatedArticles';
 import Footer from '../components/Footer';
 import { Venue } from '../types/types';
 import { useAllVenueQuery } from '../redux/api/venue';
-import Universal from '../components/skeleton/Universal';
+import Loader from '../components/skeleton/Loader';
 import FilterBar from '../components/FilterBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -336,7 +336,7 @@ function VenueList() {
   }
 
   if (isLoading) {
-    return <Universal />;
+    return <Loader />;
   }
 
 

@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useGetBlogByIdQuery } from '../redux/api/blog';
 import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
+import Loader from '../components/skeleton/Loader';
 
 const BlogView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -9,9 +10,7 @@ const BlogView: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="text-xl font-semibold text-gray-600">Loading...</div>
-      </div>
+      <Loader/>
     );
   }
 
