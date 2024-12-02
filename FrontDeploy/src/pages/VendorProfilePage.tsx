@@ -31,42 +31,43 @@ const VendorProfilePage: React.FC = () => {
   return (
     <>
       <NavBar />
-      <div className="flex justify-center text-white  bg-[#fffdd0] p-4">
-        <div className="text-4xl font-semibold">PROFILE PAGE</div>
+      <div className="p-4">
+        <div className="text-3xl font-semibold">PROFILE PAGE</div>
       </div>
 
-      <div className="flex justify-start">
-        <div className="w-1/2 lg:w-96">
-          <VendorProfileCard
-            name={vendorData?.name}
-            phone={vendorData?.phone}
-            email={vendorData?.email}
-            id={vendorid}
-          />
-        </div>
-        <div className="w-full">
-          <div className="max-w-full mx-auto px-4">
-            <VendorProfileInfo
-              businessName={vendorData?.businessName}
-              typeOfBusiness={vendorData?.type_Of_Business}
-            />
-          </div>
-          <div className="w-full lg:w-full p-4">
-            {/* Pass vendorData as serviceDetails */}
-            <ServiceDetailsForm
-              address={vendorData?.address}
-              price={vendorData?.packages?.price}
-              portfolio={vendorData?.portfolio}
-              experience={vendorData?.experience}
-              event_completed={vendorData?.event_completed}
-              willingToTravel={vendorData?.willingToTravel}
-              summary={vendorData?.summary}
-              packages={vendorData?.packages}
-              id={vendorid}
-            />
-          </div>
-        </div>
-      </div>
+      <div className="flex justify-start" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}>
+  {/* Left Panel */}
+  <div className="w-1/2 lg:w-96 m-3 bg-white-500-a rounded-lg">
+    {/* Vendor Profile Card */}
+    <VendorProfileCard
+      name={vendorData?.name}
+      phone={vendorData?.phone}
+      email={vendorData?.email}
+      id={vendorid}
+    />
+
+   
+  </div>
+
+  {/* Right Panel */}
+  <div className="w-full">
+    <div className="max-w-full mt-4 mx-auto px-4">
+      {/* Service Details Form */}
+      <ServiceDetailsForm
+        address={vendorData?.address}
+        price={vendorData?.packages?.price}
+        portfolio={vendorData?.portfolio}
+        experience={vendorData?.experience}
+        event_completed={vendorData?.event_completed}
+        willingToTravel={vendorData?.willingToTravel}
+        summary={vendorData?.summary}
+        packages={vendorData?.packages}
+        id={vendorid}
+      />
+    </div>
+  </div>
+</div>
+
       <Footer />
     </>
   );

@@ -4,6 +4,9 @@ import { useUpdateVendorMutation } from '../redux/api/vendor';
 import {  logout } from '../redux/reducer/auth';
 import { useDispatch } from 'react-redux';
 import {  AppDispatch } from '../redux/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { useGetVendorByIdQuery } from '../redux/api/vendor';
 
 
 interface Props {
@@ -87,50 +90,107 @@ const VendorProfileCard: React.FC<Props> = ({name, profile, phone, email, passwo
     }
   };
 
+  const vendorid =  useSelector((state: RootState) => state?.auth?.user?._id) ;
+  console.log("user" , vendorid)
+
+
+    const { data: vendor} = useGetVendorByIdQuery(vendorid || "");
+   
+    // console.log("updatevendor", updatevendor)
+    const vendorData = vendor?.data?.vendor;
+    console.log("vendor data", vendor);
+
+
   return (
     <div className="flex h-full">
-      <div className="bg-[#110069] w-80 p-6">
-        <div className='flex flex-col items-center justify-center'>
-          <div className="mt-8 w-24 h-24 rounded-full overflow-hidden border-4 border-gray-300">
-            <img src={profile} alt="Profile" className="w-full h-full object-cover" />
-          </div>
-          <div className="mt-4">
-            {editing ? (
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label htmlFor="name" className="block mb-1">Name:</label>
-                  <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} className="w-full rounded-md border-gray-300 px-3 py-2" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="email" className="block mb-1">Email:</label>
-                  <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full rounded-md border-gray-300 px-3 py-2" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="phoneNumber" className="block mb-1">Phone Number:</label>
-                  <input type="text" id="phoneNumber" name="phoneNumber" value={formData.phone} onChange={handleInputChange} className="w-full rounded-md border-gray-300 px-3 py-2" />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="profilePic" className="block mb-1">Profile Picture:</label>
-                  <input type="file" id="profilePic" accept="image/*" onChange={handleImageChange} className="w-full rounded-md border-gray-300 px-3 py-2" />
-                </div>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Update</button>
-              </form>
-            ) : (
-              <>
-                <h3 className="text-4xl font-semibold my-2 text-white">{name}</h3>
-                <p className="text-gray-100">{email}</p>
-                <p className="text-gray-100">{phone}</p>
-                <button onClick={handleEditClick} className="bg-blue-500 text-white px-8 py-2 rounded-md mx-4 my-8">Edit</button>
-              </>
-            )}
-          </div>  
-          <div className="mt-auto text-xl">
-            {/* Navigation Tabs */}
-            <div className="cursor-pointer text-white my-4 hover:bg-blue-500 hover:text-white hover:border-[#110069] py-2 px-4 rounded-md border border-transparent" onClick={() => handleTabClick('Logout')}>Logout</div>
-          </div>
+    <div className="m-2">
+      <div className="flex flex-col rounded-lg p-4 items-center justify-center w-96">
+        <div className="mt-8 w-24 h-24 rounded-full overflow-hidden border-4 border-gray-300">
+          <img src={profile} alt="Profile" className="w-full h-full object-cover" />
+        </div>
+        <div className="mt-4 w-full">
+          {editing ? (
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Enter Name"
+                  className="w-full text-sm bg-transparent text-black border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter Email"
+                  className="w-full text-sm bg-transparent text-white border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="Enter Phone Number"
+                  className="w-full text-sm bg-transparent text-white border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="file"
+                  id="profilePic"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="w-full bg-transparent text-white border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
+                />
+              </div>
+              <button type="submit" className="bg-pink-400 text-white px-4 py-2 rounded-md">
+                Update
+              </button>
+            </form>
+          ) : (
+            <>
+            
+              <h3 className="text-3xl font-semibold my-2 text-gray-500">
+                {name || "Name not available"}
+              </h3>
+              <p className="text-gray-500">{email || "Email not available"}</p>
+              <p className="text-gray-500">{phone || "Phone number not available"}</p>
+              <button
+                onClick={handleEditClick}
+                className="bg-pink-400 text-white px-8 py-2 rounded-md w-full my-8"
+              >
+                Edit
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+       {/* Business Name and Type of Business */}
+    <div className="mt-2 shadow-md rounded-lg p-4 mr-4" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}>
+      <h3 className="text-lg font-bold text-gray-600">Business Name:</h3>
+      <p className="text-white-100 text-3xl">{vendorData?.businessName || "Not Available"}</p>
+
+      <h3 className="text-lg font-bold text-gray-600 mt-3">Type of Business:</h3>
+      <p className="text-white-100  text-3xl">{vendorData?.type_Of_Business || "Not Available"}</p>
+    </div>
+      {/* Logout button moved outside */}
+      <div className="text-xl mt-4">
+        <div
+          className="cursor-pointer text-white bg-pink-400 hover:bg-pink-200  hover:border-[#110069] py-2 px-4 rounded-md border border-pink-400  mr-4"
+          onClick={() => handleTabClick("Logout")}
+        >
+          Logout
         </div>
       </div>
     </div>
+  </div>
   );
 };
 export default VendorProfileCard;
