@@ -11,10 +11,11 @@ interface PriceCardProps {
   contactNumber?: string | undefined;
   email?: string |undefined;
   detailPackage?: {
-  name: string | undefined,
-  days: string |  undefined,
-  price: string | undefined,
-  minAdvance: string | undefined };
+  name: string,
+  days: string,
+  price: string,
+  minAdvance: string
+} | undefined;
 }
 
 const OtpPopup: React.FC<{ otp: string | undefined }> = ({ otp }) => (
@@ -92,11 +93,12 @@ const PriceCard: React.FC<PriceCardProps> = ({ name, contactNumber,email, price,
       </button>
       {isExpanded && (
         <div className="mt-4 text-sm text-gray-600">
-          <p>- Days : {detailPackage?.days}</p>
-          <p>- Advance : {detailPackage?.minAdvance}</p>
-          <p>- Name : {detailPackage?.name}</p>
-          <p>- Price : {detailPackage?.price}</p>
-          <p>- Pricing may vary based on the requirements.</p>
+          <p><span className="font-semibold">Name : </span>{detailPackage?.name}</p>
+          <p><span className="font-semibold">Days : </span>{detailPackage?.days}</p>
+          <p><span className="font-semibold">Price : </span>{detailPackage?.price}</p>
+          <p><span className="font-semibold">Advance : </span>{detailPackage?.minAdvance}</p>
+          <br/><hr />
+          <p className="font-semibold">Pricing may vary based on the requirements.</p>
         </div>
       )}
       <button

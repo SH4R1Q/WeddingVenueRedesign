@@ -15,37 +15,37 @@ interface Params {
   [key: string]: string | undefined;
 }
 
-const dummyData =
-{
-  name: "Vendor One",
-  email: "vendor1@example.com",
-  password: "password123",
-  phone: "1234567890",
-  address: "123 Main St",
-  city: "New York",
-  state: "NY",
-  businessName: "Vendor One Business",
-  type_Of_Business: "Photographer",
-  packages: {
-    name: "Basic",
-    days: "3",
-    price: "500",
-    minAdvance: "100",
-  },
-  portfolio: ["/public/home3.jpg", "/public/home4.jpg"],
-  experience: "5 years",
-  event_completed: 50,
-  willingToTravel: true,
-  isVerified: "Approved",
-  usp: "Best quality service",
-  summary: "Top vendor with great reviews",
-  price: "500-1000",
-  bookingPolicy: "50% advance",
-  cancellationPolicy: "Non-refundable",
-  termAndConditions: "Terms apply",
-  review: [],
-  refreshToken: "",
-};
+// const dummyData =
+// {
+//   name: "Vendor One",
+//   email: "vendor1@example.com",
+//   password: "password123",
+//   phone: "1234567890",
+//   address: "123 Main St",
+//   city: "New York",
+//   state: "NY",
+//   businessName: "Vendor One Business",
+//   type_Of_Business: "Photographer",
+//   packages: {
+//     name: "Basic",
+//     days: "3",
+//     price: "500",
+//     minAdvance: "100",
+//   },
+//   portfolio: ["/public/home3.jpg", "/public/home4.jpg"],
+//   experience: "5 years",
+//   event_completed: 50,
+//   willingToTravel: true,
+//   isVerified: "Approved",
+//   usp: "Best quality service",
+//   summary: "Top vendor with great reviews",
+//   price: "500-1000",
+//   bookingPolicy: "50% advance",
+//   cancellationPolicy: "Non-refundable",
+//   termAndConditions: "Terms apply",
+//   review: [],
+//   refreshToken: "",
+// };
 
 function VendorServicePage() {
   const { _id } = useParams<Params>();
@@ -57,8 +57,8 @@ function VendorServicePage() {
     isLoading,
   } = useGetVendorByIdQuery(id ? id : "");
 
-  // const vendorData = vendor?.data.vendor;
-  const vendorData = dummyData;
+  const vendorData = vendor?.data.vendor;
+  // const vendorData = dummyData;
   console.log("vendor:", vendor);
 
   if (!id) {
@@ -100,11 +100,11 @@ function VendorServicePage() {
               <VendorInfo
                 name={vendorData?.name}
                 location={vendorData?.city}
-                reviews={vendorData.review.length}
+                reviews={vendorData?.review.length}
                 address={vendorData?.address}
                 photosCount={vendorData?.portfolio?.length}
                 shareMessage={`Check out ${vendorData?.businessName} in ${vendorData?.city} – a perfect ${vendorData?.type_Of_Business} for weddings and celebrations with great Services. See more details and photos here: https://weddingzvenue.in/"`}
-                summary={`${vendorData?.summary} | ${vendorData?.usp} | ${vendorData?.termAndConditions} | ${vendorData?.cancellationPolicy}`}
+                summary={vendorData?.summary}
                 businessType={vendorData?.type_Of_Business}
               />
             </div>

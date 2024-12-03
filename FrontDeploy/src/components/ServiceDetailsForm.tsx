@@ -105,7 +105,7 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
 
 
         // Append images if they exist
-        imagedata.forEach((image) => {
+        imagedata.forEach((image: File) => {
             formDataToSend.append('portfolio', image);
         });
         console.log("sending : ",formData);
@@ -113,6 +113,8 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
         try {
             const result = await updateVendor({ vendorId: id || "", formData: formData }).unwrap();
             console.log('Venue updated:', result);
+            const imageResult = await updateVendor({ vendorId: id || "", formData: formDataToSend }).unwrap();
+            console.log('Portfolio updated:', imageResult);
             // Handle success (e.g., show a success message, redirect)
         } catch (error) {
             console.error('Failed to update venue:', error);

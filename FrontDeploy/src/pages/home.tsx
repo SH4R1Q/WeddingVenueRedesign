@@ -131,8 +131,8 @@ const Home: React.FC = () => {
                     "1px 1px 10px black, 0 0 4em black, 0 0 2em white",
                 }}
               >
-                India's Largest Wedding
-                <span className="text-pink-200"> Planning Platform</span>
+                Plan Your Perfect 
+                <span className="text-pink-200"> Indian Wedding</span>
               </h1>
               <h2
                 className="text-2xl font-light font-roboto text-white mt-4"

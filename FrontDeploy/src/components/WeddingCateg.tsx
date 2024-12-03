@@ -172,7 +172,7 @@ const WeddingCategories: React.FC = () => {
                             <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
 
                             {/* Text Content */}
-                            <div className="relative z-10">
+                            <div className="relative z-1">
                                 <h3 className="text-xl font-bold text-white inline">
                                     {category.title}
                                 </h3>
