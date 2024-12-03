@@ -77,13 +77,13 @@ export const UpdateVendor = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const updateFields = req.body;
     const givenFiles = req.files;
-    console.log("uodate", updateFields);
+    console.log("update", updateFields);
     const vendor = await Vendor.findById(id);
     if (!vendor) {
         throw new ApiError(404, "No Vendor Found!!!");
     }
     if (givenFiles?.length > 0) {
-        console.log(givenFiles);
+        console.log("givenFiles", givenFiles);
         const imageUrls = await uploadOnCloudinary(givenFiles);
         console.log("cloud", imageUrls);
         if (imageUrls)
@@ -104,12 +104,13 @@ export const UpdateVendor = asyncHandler(async (req, res) => {
 export const GetVendorById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const vendor = await Vendor.findById(id);
+    console.log("packages",vendor.packages);
     if (!vendor) {
         throw new ApiError(404, "No Vendor Found!!!");
     }
     return res.status(200).json(new ApiResponse(200, { vendor }, "Here is the Vendor"));
 });
-//Delete Vendor bY ID
+//Delete Vendor bY Is
 export const DeleteVendorById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const vendor = await Vendor.findById(id);

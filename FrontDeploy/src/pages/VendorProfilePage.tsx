@@ -3,7 +3,7 @@ import VendorProfileCard from '../components/VendorProfileCard';
 import ServiceDetailsForm from '../components/ServiceDetailsForm';
 import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
-import VendorProfileInfo from '../components/VendorProfileInfo';
+// import VendorProfileInfo from '../components/VendorProfileInfo';
 import { useGetVendorByIdQuery } from '../redux/api/vendor';
 
 import { useSelector } from 'react-redux';

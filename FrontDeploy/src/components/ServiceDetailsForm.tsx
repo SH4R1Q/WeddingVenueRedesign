@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import Caro from './Carousel3';
+// import Caro from './Carousel3';
 
 
 import { useUpdateVendorMutation } from '../redux/api/vendor';
 import Loader from "../components/skeleton/Loader"
-
+import VenueImageGallery from './VenueImageGallery';
 
 interface Package {
     name?: string;
@@ -32,7 +32,7 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
     const [updateVendor] = useUpdateVendorMutation();
     const [isLoading, setIsLoading] = useState(false); // Add loading state
 
-    console.log("packages", packages?.days)
+    // console.log("packages", packages?.days)
 
 
     const [editing, setEditing] = useState(false);
@@ -40,9 +40,9 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
     const [formData, setFormData] = useState<Props>({
         address: '',
         price: '',  // Initial value for 'price' property
-        portfolio: undefined,
+        portfolio: [],
         experience: '',
-        event_completed: undefined,
+        event_completed: 0,
         willingToTravel: false,
         summary: '',
         packages: { name: '', days: '', price: '', minAdvance: '' },
@@ -91,6 +91,10 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
         }
     };
 
+    const handleCancelClick = () => {
+        setEditing(false);
+    }
+
 
 
     // Function to handle form submission
@@ -104,10 +108,10 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
         imagedata.forEach((image) => {
             formDataToSend.append('portfolio', image);
         });
-
+        console.log("sending : ",formData);
         // Here you can submit the updated data (formData) to your backend or perform any other action
         try {
-            const result = await updateVendor({ vendorId: id || "", formData: formDataToSend }).unwrap();
+            const result = await updateVendor({ vendorId: id || "", formData: formData }).unwrap();
             console.log('Venue updated:', result);
             // Handle success (e.g., show a success message, redirect)
         } catch (error) {
@@ -116,6 +120,7 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
         }
         setIsLoading(false);
         setEditing(false);
+        window.location.reload();
     };
 
     // Function to handle edit button click
@@ -135,7 +140,7 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
         // Enter editing mode
         setEditing(true);
     };
-    console.log("Pack", packages)
+    // console.log("Pack", packages)
 
     return (
         <div className="bg-white-500 rounded-lg p-8 mx-auto max-w-full mb-12">
@@ -278,6 +283,9 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                             <button type="submit" className="text-white bg-pink-400 px-4 py-3 rounded-md text-l">
                                 Update
                             </button>
+                            <button onClick={handleCancelClick} className="ml-4 text-white bg-pink-400 px-4 py-3 rounded-md text-l">
+                                Cancel
+                            </button>
                         </form>
 
                     ) : (
@@ -294,10 +302,10 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                                     type="text"
                                     id="address"
                                     name="address"
-                                    value={formData.address}
-                                    onChange={handleInputChange}
+                                    value={address}
+                                    readOnly
                                     placeholder=""
-                                    className="w-3/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                    className="w-3/4 text-lg bg-transparent text-[#110069] "
                                 />
                             </div>
 
@@ -312,10 +320,10 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                                     type="text"
                                     id="price"
                                     name="price"
-                                    value={formData.price}
-                                    onChange={handleInputChange}
+                                    value={price}
+                                    readOnly
                                     placeholder=""
-                                    className="w-3/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                    className="w-3/4 text-lg bg-transparent text-[#110069]"
                                 />
                             </div>
 
@@ -330,10 +338,10 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                                     type="text"
                                     id="experience"
                                     name="experience"
-                                    value={formData.experience}
-                                    onChange={handleInputChange}
+                                    value={experience}
+                                    readOnly
                                     placeholder=""
-                                    className="w-3/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                    className="w-3/4 text-lg bg-transparent text-[#110069]"
                                 />
                             </div>
 
@@ -348,10 +356,10 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                                     type="text"
                                     id="event_completed"
                                     name="event_completed"
-                                    value={formData.event_completed}
-                                    onChange={handleInputChange}
+                                    value={event_completed}
+                                    readOnly
                                     placeholder=""
-                                    className="w-3/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                    className="w-3/4 text-lg bg-transparent text-[#110069]"
                                 />
                             </div>
 
@@ -365,10 +373,10 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                                 <textarea
                                     id="summary"
                                     name="summary"
-                                    value={formData.summary}
-                                    onChange={handleInputChange}
+                                    value={summary}
+                                    readOnly
                                     placeholder=""
-                                    className="w-3/4 h-32 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                    className="w-3/4 text-lg bg-transparent text-[#110069]"
                                 />
                             </div>
 
@@ -384,43 +392,43 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                                         type="text"
                                         id="packages.name"
                                         name="packages.name"
-                                        value={formData.packages?.name || ""}
-                                        onChange={handleInputChange}
+                                        value={packages?.name}
+                                        readOnly
                                         placeholder=""
-                                        className="w-1/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                        className="w-3/4 text-lg bg-transparent text-[#110069]"
                                     />
                                     <input
                                         type="text"
                                         id="packages.days"
                                         name="packages.days"
-                                        value={formData.packages?.days || ""}
-                                        onChange={handleInputChange}
+                                        value={packages?.days}
+                                        readOnly
                                         placeholder=""
-                                        className="w-1/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                        className="w-3/4 text-lg bg-transparent text-[#110069]"
                                     />
                                     <input
                                         type="text"
                                         id="packages.price"
                                         name="packages.price"
-                                        value={formData.packages?.price || ""}
-                                        onChange={handleInputChange}
+                                        value={packages?.price}
+                                        readOnly
                                         placeholder=""
-                                        className="w-1/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                        className="w-3/4 text-lg bg-transparent text-[#110069]"
                                     />
                                     <input
                                         type="text"
                                         id="packages.minAdvance"
                                         name="packages.minAdvance"
-                                        value={formData.packages?.minAdvance || ""}
-                                        onChange={handleInputChange}
+                                        value={packages?.minAdvance}
+                                        readOnly
                                         placeholder=""
-                                        className="w-1/4 text-lg border-b-2 border-gray-300 bg-transparent text-[#110069] focus:outline-none focus:border-[#110069]"
+                                        className="w-3/4 text-lg bg-transparent text-[#110069]"
                                     />
                                 </div>
                             </div>
                             <div className="mb-8">
                                 <h3 className="font-bold text-lg text-[#110069]">Images:</h3>
-                                <Caro images={portfolio} />
+                                <VenueImageGallery images={portfolio} />
                             </div>
                             <button
                                 onClick={handleEditClick}
