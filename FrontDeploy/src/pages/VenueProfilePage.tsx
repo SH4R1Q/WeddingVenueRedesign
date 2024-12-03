@@ -41,12 +41,12 @@ const VenueProfilePage: React.FC = () => {
     return (
         <>
             <NavBar />
-            <div className="flex justify-center text-white bg-[#fffdd0] p-4">
-                <div className="text-4xl font-semibold">PROFILE PAGE</div>
+            <div className="p-4">
+                <div className="text-3xl font-semibold">PROFILE PAGE</div>
             </div>
 
-            <div className="flex justify-start">
-                <div className="w-1/2 lg:w-96">
+            <div className="flex justify-start" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}>
+                <div className="w-1/2 lg:w-96 m-3 bg-white-500-a rounded-lg">
                     <VenueProfileCard 
                         yourName={venueData?.yourName} 
                         phone={venueData?.phone} 
@@ -57,10 +57,10 @@ const VenueProfilePage: React.FC = () => {
                     /> 
                 </div>
                 <div className='w-full'>
-                    <div className="max-w-full mx-auto px-4">
+                    {/* <div className="max-w-full mx-auto px-4">
                         <VenueProfileInfo businessName={venueData?.businessName}  address={venueData?.address}/>
-                    </div>
-                    <div className="w-full lg:w-full p-4">
+                    </div> */}
+                    <div className="max-w-full mt-4 mx-auto px-4">
                       
                         <ServiceDetailsFormVenue 
                         phone={venueData?.phone} 

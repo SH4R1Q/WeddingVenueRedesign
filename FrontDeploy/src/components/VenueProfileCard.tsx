@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateVenueMutation } from '../redux/api/venue';
-import {  logout } from '../redux/reducer/auth';
+import { logout } from '../redux/reducer/auth';
 import { useDispatch } from 'react-redux';
-import {  AppDispatch } from '../redux/store';
+import { AppDispatch } from '../redux/store';
+import VenueProfileInfo from '../components/VenueProfileInfo';
+
+import { useGetVenueByIdQuery } from '../redux/api/venue';
+
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 
 
-
-
-  
 
 interface Props {
   yourName?: string | undefined;
@@ -56,13 +59,27 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!id) return;
-    await updateVenue({ venueId:id, formData: formData });
+    await updateVenue({ venueId: id, formData: formData });
     setEditing(false);
   };
 
   const handleEditClick = () => {
     setEditing(true);
   };
+
+  const venueId = useSelector((state: RootState) => state?.auth?.user?._id);
+  console.log("user", venueId)
+
+
+  const { data: venue } = useGetVenueByIdQuery(venueId || "");
+
+  // import { useAllVenueQuery } from '../redux/api/venue';
+
+
+
+  // console.log("updatevendor", updatevendor)
+  const venueData = venue?.data?.venue;
+  console.log("vendue data", venueData);
 
   const handleTabClick = (tabName: string) => {
     switch (tabName) {
@@ -76,9 +93,9 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
         navigate('/list-service');
         break;
       case 'Logout':
-         // Perform logout logic here
-         dispatch(logout());
-         navigate('/');
+        // Perform logout logic here
+        dispatch(logout());
+        navigate('/');
         break;
       default:
         break;
@@ -86,71 +103,76 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
   };
 
   return (
-    <div className="flex h-full bg-gray-100">
-      <div className="bg-blue-900 w-80 p-6 flex flex-col items-center">
-        <div className="mt-8 w-24 h-24 rounded-full overflow-hidden border-4 border-gray-300">
-          <img src={profile} alt="Profile" className="w-full h-full object-cover" />
+    <div className="flex h-full">
+      <div className="m-2">
+        <div className="flex flex-col rounded-lg p-4 items-center justify-center w-full">
+          <div className="mt-8 w-24 h-24 rounded-full overflow-hidden border-4 border-gray-300">
+            <img src={profile} alt="Profile" className="w-full h-full object-cover" />
+          </div>
         </div>
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center w-full">
           {editing ? (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block mb-1 text-white">Name:</label>
+            <form onSubmit={handleSubmit}>
+              <div className='mb-4'>
+
                 <input
                   type="text"
                   id="yourName"
                   name="yourName"
+                  placeholder='Enter Your Name'
                   value={formData.yourName}
                   onChange={handleInputChange}
-                  className="w-full rounded-md border-gray-300 px-3 py-2"
+                  className="w-full text-sm bg-transparent text-black border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
                 />
               </div>
-              <div>
-                <label htmlFor="email" className="block mb-1 text-white">Email:</label>
+              <div className='mb-4'>
+
                 <input
                   type="email"
                   id="email"
                   name="email"
+                  placeholder='Email'
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full rounded-md border-gray-300 px-3 py-2"
+                  className="w-full text-sm bg-transparent text-black border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
                 />
               </div>
-              <div>
-                <label htmlFor="phone" className="block mb-1 text-white">Phone Number:</label>
+              <div className='mb-4'>
+
                 <input
                   type="text"
                   id="phone"
                   name="phone"
+                  placeholder='Phone Number'
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full rounded-md border-gray-300 px-3 py-2"
+                  className="w-full text-sm bg-transparent text-black border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
                 />
               </div>
-              <div>
+              <div className='mb-4'>
                 <label htmlFor="profilePic" className="block mb-1 text-white">Profile Picture:</label>
                 <input
                   type="file"
                   id="profilePic"
                   accept="image/*"
                   onChange={handleImageChange}
-                  className="w-full rounded-md border-gray-300 px-3 py-2"
+                  className="w-full text-sm bg-transparent text-black  py-1"
                 />
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                className="bg-pink-400 text-white px-4 py-2 rounded-md">
                 Update
               </button>
             </form>
           ) : (
             <>
-              <h3 className="text-4xl font-semibold my-2 text-white">{yourName}</h3>
-              <p className="text-gray-300">{email}</p>
-              <p className="text-gray-300">{phone}</p>
+              <h3 className="text-3xl font-semibold my-2 text-gray-500">{yourName}</h3>
+              <p className="text-gray-500">{email}</p>
+              <p className="text-gray-500">{phone}</p>
               <button
                 onClick={handleEditClick}
-                className="bg-blue-500 text-white px-8 py-2 rounded-md mx-4 my-8 hover:bg-blue-600"
+                className="bg-pink-400 text-white px-8 py-2 rounded-md w-full my-4"
               >
                 Edit
               </button>
@@ -161,12 +183,20 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
           {['Logout'].map(tab => (
             <div
               key={tab}
-              className="cursor-pointer text-white my-4 py-2 px-4 rounded-md border border-transparent hover:bg-blue-500 hover:text-white hover:border-[#110069] transition-colors"
+              className="bg-pink-400 text-white px-8 py-2 rounded-md w-full mb-4 text-center hover:bg-pink-200  hover:border-[#110069]"
               onClick={() => handleTabClick(tab)}
             >
               {tab}
             </div>
           ))}
+        </div>
+        <div className="shadow-md rounded-lg p-4 w-80" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}>
+          <h3 className="text-lg font-bold text-gray-600">Business Name:</h3>
+          <p className="text-white-100 text-3xl">{venueData?.businessName || "Not Available"}</p>
+
+          <h3 className="text-lg font-bold text-gray-600 mt-3">Type of Address:</h3>
+          <p className="text-white-100  text-3xl">{venueData?.address || "Not Available"}</p>
+          {/* <VenueProfileInfo businessName={venueData?.businessName}  address={venueData?.address}/> */}
         </div>
       </div>
     </div>

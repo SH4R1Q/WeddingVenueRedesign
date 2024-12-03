@@ -151,7 +151,7 @@ const ServiceDetailsForm: React.FC<Props> = ({ address, price, portfolio, experi
                 <div className="flex-grow">
                     {editing ? (
                         <form onSubmit={handleSubmit}>
-                            <div className="mb-4 pb-4">
+                            <div className="mb-10 border-b pb-8">
                                 <input
                                     type="text"
                                     id="address"
