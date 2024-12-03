@@ -172,7 +172,7 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
               <p className="text-gray-500">{phone}</p>
               <button
                 onClick={handleEditClick}
-                className="bg-pink-400 text-white px-8 py-2 rounded-md w-full my-4"
+                className="bg-pink-400 text-white px-8 py-2 rounded-md w-full mt-4"
               >
                 Edit
               </button>
