@@ -16,11 +16,13 @@ const VenueServicePage = () => {
   const { pathname, search } = useLocation();
   const { data: venue } = useGetVenueByIdQuery(id ? id : "");
   const venueData = venue?.data?.venue;
-  const dummySummary= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut voluptate iste id magni ullam atque reprehenderit saepe ratione velit enim quidem eveniet tenetur aspernatur in, culpa, architecto tempore quod consequatur."
+  // const dummySummary= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut voluptate iste id magni ullam atque reprehenderit saepe ratione velit enim quidem eveniet tenetur aspernatur in, culpa, architecto tempore quod consequatur."
+  const price = venueData?.foodPackages?.match(/\d+/);
 
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to top on route change
   }, [pathname, search]);
+
 
   return (
     <>
@@ -46,7 +48,7 @@ const VenueServicePage = () => {
             {/* Venue About Card */}
             <div className="bg-white shadow">
               <VenueAboutCard
-                summary={dummySummary}
+                summary={venueData?.summary || "N/A"}
                 name={venueData?.businessName}
                 location={venueData?.city}
                 rating={venueData?.rank}
@@ -63,8 +65,8 @@ const VenueServicePage = () => {
             <div className="bg-white shadow">
               <VenuePriceCard
                 name={venueData?.businessName}
-                vegPrice={venueData?.foodPackages?.slice(0, 5)}
-                nonVegPrice="1800"
+                vegPrice={price ? price[0] : "N/A"}
+                nonVegPrice="N/A"
                 contactNumber={venueData?.phone}
                 email={venueData?.email}
                 detailPackage={venueData?.foodPackages}

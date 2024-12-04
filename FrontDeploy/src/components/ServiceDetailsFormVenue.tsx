@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Caro from "./Carousel3";
+// import Caro from "./Carousel3";
 import { useUpdateVenueMutation } from "../redux/api/venue";
 import Loader from "../components/skeleton/Loader"
+import VenueImageGallery from "./VenueImageGallery";
 
 interface Props {
   phone?: string;
@@ -633,7 +634,7 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
           
             <div className="mb-8">
                   <h3 className="font-bold text-lg text-[#110069]">Images:</h3>
-                  <Caro images={images} />
+                  <VenueImageGallery images={images} />
                 </div>
           
             <button

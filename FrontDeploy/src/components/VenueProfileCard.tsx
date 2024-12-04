@@ -4,7 +4,7 @@ import { useUpdateVenueMutation } from '../redux/api/venue';
 import { logout } from '../redux/reducer/auth';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
-import VenueProfileInfo from '../components/VenueProfileInfo';
+// import VenueProfileInfo from '../components/VenueProfileInfo';
 
 import { useGetVenueByIdQuery } from '../redux/api/venue';
 
@@ -44,17 +44,17 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData({ ...formData, profile: reader.result as string });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const files = e.target.files;
+  //   if (files && files.length > 0) {
+  //     const file = files[0];
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setFormData({ ...formData, profile: reader.result as string });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,13 +73,13 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
 
   const { data: venue } = useGetVenueByIdQuery(venueId || "");
 
-  // import { useAllVenueQuery } from '../redux/api/venue';
-
-
-
-  // console.log("updatevendor", updatevendor)
   const venueData = venue?.data?.venue;
+  formData.profile = venueData?.images[0];
   console.log("vendue data", venueData);
+
+  const handleCancelClick = () => {
+    setEditing(false);
+  }
 
   const handleTabClick = (tabName: string) => {
     switch (tabName) {
@@ -120,6 +120,7 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
                   id="yourName"
                   name="yourName"
                   placeholder='Enter Your Name'
+                  defaultValue={yourName}
                   value={formData.yourName}
                   onChange={handleInputChange}
                   className="w-full text-sm bg-transparent text-black border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
@@ -132,6 +133,7 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
                   id="email"
                   name="email"
                   placeholder='Email'
+                  defaultValue={email}
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full text-sm bg-transparent text-black border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
@@ -144,12 +146,13 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
                   id="phone"
                   name="phone"
                   placeholder='Phone Number'
+                  defaultValue={phone}
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full text-sm bg-transparent text-black border-b border-gray-300 focus:outline-none focus:border-pink-400 py-1"
                 />
               </div>
-              <div className='mb-4'>
+              {/* <div className='mb-4'>
                 <label htmlFor="profilePic" className="block mb-1 text-white">Profile Picture:</label>
                 <input
                   type="file"
@@ -158,11 +161,16 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
                   onChange={handleImageChange}
                   className="w-full text-sm bg-transparent text-black  py-1"
                 />
-              </div>
+              </div> */}
               <button
                 type="submit"
                 className="bg-pink-400 text-white px-4 py-2 rounded-md">
                 Update
+              </button>
+              <button
+                onClick={handleCancelClick}
+                className="bg-pink-400 text-white px-4 py-2 rounded-md ml-4">
+                Cancel
               </button>
             </form>
           ) : (
@@ -179,7 +187,7 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
             </>
           )}
         </div>
-        <div className="mt-16 text-xl w-full">
+        <div className="mt-4 text-xl w-full">
           {['Logout'].map(tab => (
             <div
               key={tab}

@@ -11,7 +11,7 @@ interface VenueProps {
     contact: string | undefined;
     description: string | undefined;
     vegPrice?: string | undefined;
-    nonVegPrice?: number | undefined;
+    nonVegPrice?: string | undefined;
     images: string[] | undefined;
     id: string | undefined;
   };

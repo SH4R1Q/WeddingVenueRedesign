@@ -5,140 +5,133 @@ const categories = [
     {
         title: "Photographer",
         description: "Professional wedding photographers",
-        image: "/public/home1.jpg",
-        bgColor: "bg-orange-100",
+        image: "/category/photographer.jpg",
+    
     },
     {
         title: "Makeup Artist",
         description: "Bridal and family makeup services",
-        image: "/public/home1.jpg",
-        bgColor: "bg-rose-200",
+        image: "/category/makeup.jpeg",
     },
     {
         title: "Mehendi Artist",
         description: "Beautiful bridal mehendi designs",
-        image: "/public/home1.jpg",
-        bgColor: "bg-yellow-200",
+        image: "/category/mehndi.jpeg",
+    
     },
     {
         title: "Decorator",
         description: "Wedding planners and decorators",
-        image: "/public/home1.jpg",
-        bgColor: "bg-green-100",
+        image: "/category/decorator.jpg",
+
     },
     {
         title: "Caterer",
         description: "Delicious catering services",
-        image: "/public/home1.jpg",
-        bgColor: "bg-purple-100",
+        image: "/category/caterers.jpg",
+    
     },
     {
         title: "Band Baja",
         description: "Traditional wedding bands",
-        image: "/public/home1.jpg",
-        bgColor: "bg-blue-200",
+        image: "/category/band.jpeg",
     },
     {
         title: "Dhol",
         description: "Energetic dhol players",
-        image: "/public/home1.jpg",
-        bgColor: "bg-orange-200",
+        image: "/category/dhol.jpg",
+    
     },
     {
         title: "Tattoo Artist",
         description: "Unique wedding tattoos",
-        image: "/public/home1.jpg",
-        bgColor: "bg-rose-300",
+        image: "/category/tattoo.jpg",
     },
     {
         title: "Messkot",
         description: "Fun mascots for events",
-        image: "/public/home1.jpg",
-        bgColor: "bg-yellow-300",
+        image: "/category/mascot.png",
+    
     },
     {
         title: "Magicians",
         description: "Magical performances for guests",
-        image: "/public/home1.jpg",
-        bgColor: "bg-green-200",
+        image: "/category/magic.jpeg",
+
     },
     {
         title: "Fog Event",
         description: "Fog effects for grand entrances",
-        image: "/public/home1.jpg",
-        bgColor: "bg-purple-200",
+        image: "/category/fog.jpg",
+    
     },
     {
         title: "Game Coordinator",
         description: "Fun games and activities",
-        image: "/public/home1.jpg",
-        bgColor: "bg-blue-300",
+        image: "/category/game.jpeg",
     },
     {
         title: "Anchor",
         description: "Professional event anchors",
-        image: "/public/home1.jpg",
-        bgColor: "bg-orange-300",
+        image: "/category/anchor.jpeg",
+    
     },
     {
         title: "Live Singer",
         description: "Live music performances",
-        image: "/public/home1.jpg",
-        bgColor: "bg-rose-400",
+        image: "/category/singer.jpg",
     },
     {
         title: "Welcome Girls",
         description: "Traditional welcome girls",
-        image: "/public/home1.jpg",
-        bgColor: "bg-yellow-400",
+        image: "/category/welcome.jpeg",
+    
     },
     {
         title: "Waiter Service",
         description: "Experienced waitstaff",
-        image: "/public/home1.jpg",
-        bgColor: "bg-green-300",
+        image: "/category/waitor.jpg",
+
     },
     {
         title: "Valet Parking",
         description: "Hassle-free valet services",
-        image: "/public/home1.jpg",
-        bgColor: "bg-purple-300",
+        image: "/category/valet.png",
+    
     },
     {
         title: "DJ",
         description: "DJ and music entertainment",
-        image: "/public/home1.jpg",
-        bgColor: "bg-blue-400",
+        image: "/category/dj.jpg",
     },
     {
         title: "Birthday Entry",
         description: "Special birthday entries",
-        image: "/public/home1.jpg",
-        bgColor: "bg-orange-400",
+        image: "/category/birthday.jpg",
+    
     },
     {
         title: "Jagran Setup",
         description: "Spiritual jagran setup",
-        image: "/public/home1.jpg",
-        bgColor: "bg-rose-500",
+        image: "/category/jagran.jpg",
     },
     {
         title: "Mata Chowki Setup",
         description: "Mata chowki arrangements",
-        image: "/public/home1.jpg",
-        bgColor: "bg-yellow-500",
+        image: "/category/mata.jpg",
+    
     },
     {
         title: "Bartender",
         description: "Professional bartending services",
-        image: "/public/home1.jpg",
-        bgColor: "bg-green-400",
+        image: "/category/bar.jpeg",
+
     },
     {
         title: "Rooms Booking",
         description: "Accommodation for guests",
-        image: "/public/home1.jpg",
-        bgColor: "bg-purple-400",
+        image: "/category/room.jpg",
+    
     },
 ];
 

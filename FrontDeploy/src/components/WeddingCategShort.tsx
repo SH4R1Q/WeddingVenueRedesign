@@ -5,38 +5,32 @@ const categories = [
     {
         title: "Photographer",
         description: "Professional wedding photographers",
-        image: "/public/photographer.jpg",
-        bgColor: "bg-orange-100",
+        image: "/category/photographer.jpg",
     },
     {
         title: "Makeup Artist",
         description: "Bridal and family makeup services",
-        image: "/public/makeup.jpeg",
-        bgColor: "bg-rose-200",
+        image: "/category/makeup.jpeg",
     },
     {
         title: "Mehendi Artist",
         description: "Beautiful bridal mehendi designs",
-        image: "/public/mehndi.jpeg",
-        bgColor: "bg-yellow-200",
+        image: "/category/mehndi.jpeg",
     },
     {
         title: "Decorator",
         description: "Wedding planners and decorators",
-        image: "/public/decorator.jpg",
-        bgColor: "bg-green-100",
+        image: "/category/decorator.jpg",
     },
     {
         title: "Caterer",
         description: "Delicious catering services",
-        image: "/public/caterers.jpg",
-        bgColor: "bg-purple-100",
+        image: "/category/caterers.jpg",
     },
     {
         title: "Band Baja",
         description: "Traditional wedding bands",
-        image: "/public/band.jpeg",
-        bgColor: "bg-blue-200",
+        image: "/category/band.jpeg",
     },
 ];
 

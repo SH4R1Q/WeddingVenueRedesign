@@ -373,8 +373,8 @@ function VenueList() {
                   maxGuests: venue.guestCapacity,
                   contact: venue.phone,
                   description: venue.summary,
-                  vegPrice: venue.foodPackages,
-                  nonVegPrice: 1700,
+                  vegPrice: venue.foodPackages?.match(/\d+/) ? venue.foodPackages?.match(/\d+/)[0] : "N/A",
+                  nonVegPrice: "N/A",
                   images: venue.images,
                   id: venue._id,
                 }}
