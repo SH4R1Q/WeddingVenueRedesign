@@ -16,7 +16,7 @@ const NewPassword: FC = () => {
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match");
     } else {
-      
+      console.log("matched");
     }
   };
 

@@ -1,38 +1,4 @@
-// import { Phone } from 'lucide-react'; // Import phone icon from react-icons
-
-// const InformationBanner = () => {
-//   return (
-//     <div className="bg-gradient-to-r from-red-900 via-red-700 to-red-500 text-white py-12 px-6 md:px-10 shadow-lg">
-//       <div className="space-y-6 max-w-2xl">
-//         <div className="flex items-center text-3xl font-bold animate-pulse">
-//           <Phone className="w-8 h-8 mr-3" strokeWidth={2.5} />
-//           <span className="text-center sm:text-left">CALL US: <span className="text-yellow-300 block sm:inline mt-1 sm:mt-0 sm:ml-2">+91 8076207112</span></span>
-//         </div>
-//         <div className="md:text-left sm:text-right text-lg italic opacity-80">24-hour helpline</div>
-//         <div className="text-2xl font-bold lg:text-left sm:text-center">OR</div>
-//         <div className="lg:text-left text-xl font-semibold sm:text-center animate-pulse">
-//           HAVE US CALL YOU FOR UP TO <span className="text-yellow-300 text-2xl">30%</span> DISCOUNT
-//         </div>
-//         <div className="space-y-3">
-//           <p className="lg:text-left text-xl font-bold sm:text-center">India's Largest Wedding Company</p>
-//           <p className="lg:text-lg lg:text-left sm:text-center">Find, Compare And Book Wedding Venues And Services</p>
-//           <p className="lg:text-left text-xl font-bold sm:text-center">Best Prices Guaranteed</p>
-//           <p className="lg:text-left text-lg sm:text-center">Find Inspiration, Ideas And Insights For Your Wedding</p>
-//         </div>
-//         <div className='md:absolute md:bottom-[42vh] lg:ml-[96vh] lg:bottom-[42vh]'>
-//           <img className='h-fit w-fit' src='/Group3.png' alt="Decorative element" />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-
-// export default InformationBanner;
-
-
 import { Parallax } from 'react-parallax';
-import { Phone } from 'lucide-react';
 
 const InformationBanner = () => (
   <Parallax

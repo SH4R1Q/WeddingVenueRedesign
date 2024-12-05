@@ -47,6 +47,7 @@ import VenueProfile from "./pages/admin/components/profile/venue/VenueProfilePag
 import EnquiryNotif from "./pages/notification/enquirynotif";
 import ScrollToTop from "./components/ScrollToTop";
 import PhotosPage from "./pages/PhotoGallery";
+import ForgetPasswordPage from "./auth/Forget";
 // import UpdateVenueComponent from "./pages/Test";
 
 import PopUp from "./components/PopUp";
@@ -66,6 +67,7 @@ const App: React.FC = () => {
             {/* <Route path="/popup" element={<PopUp />} /> */}
 
             <Route path="/login" element={<Login />} />
+            <Route path="/forget" element={<ForgetPasswordPage />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="aboutus1" element={<AboutUs />} />

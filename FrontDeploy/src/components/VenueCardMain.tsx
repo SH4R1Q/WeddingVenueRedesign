@@ -25,23 +25,23 @@ const VenueCardMain: React.FC<VenueProps> = ({ venue }) => {
 
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === venue.images.length - 1 ? 0 : prevIndex + 1
+        prevIndex === (venue.images?.length || 0) - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [venue?.images?.length]);
+  }, [venue?.images?.length, venue.images]);
 
   return (
     <Link to={`/venuelist/${venue.id}`} className="block" target="_blank">
       <div className="relative bg-white rounded-lg overflow-hidden hover:shadow-md transition-transform transform mx-2 my-2 cursor-pointer">
         {/* Image Section */}
         <div className="h-48 p-2">
-          <img
+          {venue.images && <img
             src={venue.images[currentImageIndex]}
             alt="Venue Image"
             className="w-full h-full object-cover rounded-lg"
-          />
+          />}
         </div>
 
         {/* Venue Details */}

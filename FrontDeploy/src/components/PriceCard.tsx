@@ -15,7 +15,7 @@ interface PriceCardProps {
   days: string,
   price: string,
   minAdvance: string
-} | undefined;
+} | undefined
 }
 
 const OtpPopup: React.FC<{ otp: string | undefined }> = ({ otp }) => (

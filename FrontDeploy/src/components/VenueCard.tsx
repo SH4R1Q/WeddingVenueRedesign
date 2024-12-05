@@ -32,7 +32,7 @@ const VenueCard: React.FC<VenueProps> = ({ venue }) => {
       handleNextImage();
     }, 3000);
     return () => clearInterval(interval);
-  }, [currentImageIndex]);
+  }, );
 
   const handleNextImage = () => {
         setFade(false);

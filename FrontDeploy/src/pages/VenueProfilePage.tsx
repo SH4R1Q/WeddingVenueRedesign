@@ -1,8 +1,5 @@
 import NavBar from '../components/navbar';
 import Footer from '../components/Footer';
-// import { useGetVendorByIdQuery } from '../redux/api/vendor';
-// import { useUpdateVendorMutation } from '../redux/api/vendor';
-import VenueProfileInfo from '../components/VenueProfileInfo';
 import VenueProfileCard from '../components/VenueProfileCard';
 import ServiceDetailsFormVenue from '../components/ServiceDetailsFormVenue';
 import { useGetVenueByIdQuery } from '../redux/api/venue';
@@ -41,12 +38,12 @@ const VenueProfilePage: React.FC = () => {
     return (
         <>
             <NavBar />
-            <div className="p-4">
-                <div className="text-3xl font-semibold">PROFILE PAGE</div>
+            <div className="p-2" style={{backgroundColor:'rgb(254,234,232)'}}>
+                <div className="text-3xl text-center font-semibold mt-3">{venueData?.businessName}</div>
             </div>
 
             <div className="flex justify-start" style={{ backgroundColor: 'rgb(254,234,232)', borderRadius: '12px' }}>
-                <div className="w-1/2 lg:w-96 m-3 bg-white-500-a rounded-lg">
+                <div className="w-1/2 lg:w-96 m-4 bg-white-500-a rounded-lg">
                     <VenueProfileCard 
                         yourName={venueData?.yourName} 
                         phone={venueData?.phone} 

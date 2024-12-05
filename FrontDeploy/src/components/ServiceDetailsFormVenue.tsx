@@ -192,7 +192,7 @@ const ServiceDetailsFormVenue: React.FC<Props> = ({
     try {
       const result = await updateVenue({ venueId: id || "", formData: formDataToSend }).unwrap();
       console.log('Venue updated:', result);
-      alert("Venue Updated")
+      // alert("Venue Updated")
       // Handle success (e.g., show a success message, redirect)
     } catch (error) {
       console.error('Failed to update venue:', error);

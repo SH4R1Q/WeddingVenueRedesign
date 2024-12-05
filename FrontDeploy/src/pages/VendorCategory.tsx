@@ -87,6 +87,7 @@ const navigate = useNavigate();
           {vendors.map((vendor, index) => (
             <div onClick={() => director(vendor.name)}>
               <VendorCard
+              vendorId=""
               key={index}
               imageUrl={vendor.imageUrl}
               name={vendor.name}

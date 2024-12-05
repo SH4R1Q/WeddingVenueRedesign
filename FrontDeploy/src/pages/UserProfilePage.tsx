@@ -10,7 +10,7 @@ const VenueProfilePage = () => {
     const userId = useSelector((state: RootState) => state?.auth?.user?._id);
     const { data: user } = useGetUserQuery(userId || "");
     const userData = user?.data?.user;
-
+    console.log("user : ",userData);
     return (
         <>
             <NavBar />

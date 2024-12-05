@@ -14,7 +14,7 @@ import { Blog, RealWeddings } from "../types/types";
 import { useGetAllCitiesQuery } from "../redux/api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-// import { cityStatus } from "../redux/reducer/auth";
+import { cityStatus } from "../redux/reducer/auth";
 import Universal from "../components/skeleton/Universal";
 import WeddingCategoriesShort from "../components/WeddingCategShort";
 

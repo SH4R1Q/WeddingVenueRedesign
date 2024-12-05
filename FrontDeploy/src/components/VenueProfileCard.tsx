@@ -74,13 +74,12 @@ const VenueProfileCard: React.FC<Props> = ({ yourName, profile, phone, email, pa
   const { data: venue } = useGetVenueByIdQuery(venueId || "");
 
   const venueData = venue?.data?.venue;
-  formData.profile = venueData?.images[0];
+  formData.profile = venueData?.images?.[0] || "/userAvatar.jpg";
   console.log("vendue data", venueData);
 
   const handleCancelClick = () => {
     setEditing(false);
   }
-
   const handleTabClick = (tabName: string) => {
     switch (tabName) {
       case 'My venues':
