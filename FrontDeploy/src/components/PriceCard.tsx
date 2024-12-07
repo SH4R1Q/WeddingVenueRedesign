@@ -122,7 +122,7 @@ const PriceCard: React.FC<PriceCardProps> = ({ name, contactNumber,email, price,
           isOpen={isEnquirySelected}
           onRequestClose={() => setIsEnquirySelected(false)}
           onSubmit={handleEnquirySubmit}
-          isLoggedIn={userId ? true : false}
+          isLoggedIn={true}
         />
       )}
       {showOtpPopup && <OtpPopup otp={otp} />}
