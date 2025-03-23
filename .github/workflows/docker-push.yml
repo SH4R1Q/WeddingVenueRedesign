@@ -48,7 +48,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: 🔑 Log in to Docker Hub
-        run: echo " docker login - ${{ secrets.DOCKER_USERNAME }} "
+        run: echo " docker login - ${{ secrets.DOCKER_HUB_USERNAME }} "
 
 
       # - name: Login to DockerHub
@@ -64,6 +64,7 @@ jobs:
 
       - name: Push Image to Docker
           run: |
+            docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{secrets.DOCKER_HUB_TOKEN_DEMO}}
             docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
             docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
 
