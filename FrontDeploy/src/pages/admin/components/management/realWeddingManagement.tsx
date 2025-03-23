@@ -72,7 +72,8 @@ const RealWeddingManagement: React.FC = () => {
               <div key={index} className="flex text-center items-center hover:bg-gray-100">
                 <div className="w-1/12 p-2">{index + 1}</div>
                 <div className="w-5/12 p-2">{admin?.title}</div>
-                <div className="w-4/12 p-2">{admin?.createdAt}</div>
+                {/* <div className="w-4/12 p-2">{admin?.createdAt}</div> */}
+                <div className="w-4/12 p-2">{admin?.createdAt ? admin.createdAt.toLocaleString() : 'N/A'}</div>
                 <div
                   className="w-1/12 p-2 cursor-pointer flex justify-center items-center"
                   onClick={() => viewUser(admin?._id)}

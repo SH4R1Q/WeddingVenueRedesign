@@ -16,7 +16,9 @@ const VenueManagement: React.FC = () => {
   console.log("admin", adminId);
 
   const navigate = useNavigate();
-  const { data: venueData, refetch } = useAllVenueQuery("");
+  // const { data: venueData, refetch } = useAllVenueQuery("");
+  const { data: venueData, refetch } = useAllVenueQuery({});
+
   const venues = (venueData as AllVenuesResponse)?.data || [];
   console.log("Venue data structure:", venueData);
   const [verify] = useUpdateVenueMutation();
@@ -74,6 +76,7 @@ const VenueManagement: React.FC = () => {
   };
 
   const toggleEditMode = (id: string) => {
+    if (!id) return; 
     setEditModeMap((prevState) => ({
       ...prevState,
       [id]: !prevState[id],
@@ -104,7 +107,9 @@ const VenueManagement: React.FC = () => {
                 <div className="w-2/12 p-2">{admin.yourName}</div>
                 <div className="w-3/12 p-2">{admin.email}</div>
                 <div className="w-1/12 p-2">
-                  {editModeMap[admin._id ?? ""] ? (
+                  {/* {editModeMap[admin._id ?? ""] ? ( */}
+                  {editModeMap[admin._id || ""] ? (
+
                     <div className="flex items-center justify-center">
                       <input
                         type="number"

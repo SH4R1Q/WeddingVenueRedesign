@@ -1,9 +1,12 @@
 name: Deploy to VPS
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+      inputs:
+        branch_name:
+          description: "Branch to test"
+          required: true
+          default: "main"
 
 jobs:
   build:
@@ -11,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: List repository contents
         run: |
@@ -39,18 +42,32 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: 🔑 Log in to Docker Hub
+        run: echo " docker login - ${{ secrets.DOCKER_USERNAME }} "
 
-      - name: Build and push Docker images
+
+      # - name: Login to DockerHub
+      #   uses: docker/login-action@v1
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      -name: Build Docker Image
         run: |
-          docker build -t sokhi/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
-          docker build -t sokhi/mern-backend:latest -f Deploy/Dockerfile Deploy
-          docker push sokhi/mern-frontend:latest
-          docker push sokhi/mern-backend:latest
+          docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend-:latest -f FrontDeploy/Dockerfile FrontDeploy
+          docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest -f Deploy/Dockerfile Deploy
+
+      -name: Push Image to Docker
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
+
+      # - name: Build and push Docker images
+      #   run: |
+      #     docker build -t sokhi/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
+      #     docker build -t sokhi/mern-backend:latest -f Deploy/Dockerfile Deploy
+      #     docker push sokhi/mern-frontend:latest
+      #     docker push sokhi/mern-backend:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,7 +75,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Ensure Docker is installed on VPS
         uses: appleboy/ssh-action@master
@@ -113,7 +130,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: |
             cd /home/root/
-            docker pull sokhi/mern-frontend:latest
-            docker pull sokhi/mern-backend:latest
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
             docker-compose down
             docker-compose up -d

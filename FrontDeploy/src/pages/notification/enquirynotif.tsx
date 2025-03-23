@@ -79,7 +79,8 @@ const EnquiryNotif = () => {
     <>
       <NavBar />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {data?.map((user: any, index: number) => (
+        {data?.map((user: any, index: number) => ( //  ye vala error resolve krdo
+        
           <div
             key={index}
             className={`p-4 m-4 border border-gray-200 rounded shadow-md`}
