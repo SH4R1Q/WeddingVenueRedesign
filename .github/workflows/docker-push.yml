@@ -54,7 +54,7 @@ jobs:
 
       -name: Build Docker Image
         run: |
-          docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend-:latest -f FrontDeploy/Dockerfile FrontDeploy
+          docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
           docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest -f Deploy/Dockerfile Deploy
 
       -name: Push Image to Docker
