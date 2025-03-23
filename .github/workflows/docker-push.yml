@@ -109,7 +109,7 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           source: "Deploy"
-          target: "/home/root/"
+          target: "/home/${{ secrets.VPS_USERNAME }}/"
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
@@ -118,7 +118,18 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: |
-            cd /home/root/
+            sudo apt-get update
+            sudo apt-get install -y docker.io docker-compose
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo usermod -aG docker $USER
+            sudo chmod 666 /var/run/docker.sock
+            newgrp docker
+            echo "docker version"
+            docker --version
+            echo "docker-compose version"
+            docker-compose --version
+            cd /home/${{ secrets.VPS_USERNAME }}/
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
             docker-compose down
