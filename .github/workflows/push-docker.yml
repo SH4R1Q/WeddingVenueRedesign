@@ -1,0 +1,140 @@
+name: Deploy to VPS
+
+on:
+  workflow_dispatch:
+      inputs:
+        branch_name:
+          description: "Branch to test"
+          required: true
+          default: "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛒 Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch_name }}  # Dynamic branch name
+          
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: List repository contents
+        run: |
+          echo "Listing repository contents..."
+          ls -R
+
+      - name: Check FrontDeploy directory existence
+        run: |
+          if [ ! -d "./FrontDeploy" ]; then
+            echo "FrontDeploy directory does not exist."
+            exit 1
+          else
+            echo "FrontDeploy directory exists."
+          fi
+
+      - name: Check Deploy directory existence
+        run: |
+          if [ ! -d "./Deploy" ]; then
+            echo "Deploy directory does not exist."
+            exit 1
+          else
+            echo "Deploy directory exists."
+          fi
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: 🔑 Log in to Docker Hub
+        run: echo " docker login - ${{ secrets.DOCKER_USERNAME }} "
+
+
+      # - name: Login to DockerHub
+      #   uses: docker/login-action@v1
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      -name: Build Docker Image
+        run: |
+          docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
+          docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest -f Deploy/Dockerfile Deploy
+
+      -name: Push Image to Docker
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
+
+      # - name: Build and push Docker images
+      #   run: |
+      #     docker build -t sokhi/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
+      #     docker build -t sokhi/mern-backend:latest -f Deploy/Dockerfile Deploy
+      #     docker push sokhi/mern-frontend:latest
+      #     docker push sokhi/mern-backend:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Ensure Docker is installed on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo curl -L "https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo usermod -aG docker $USER
+            newgrp docker
+            docker --version
+            docker-compose --version
+
+      - name: Copy docker-compose.yml to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          source: "docker-compose.yml"
+          target: "/home/root/"
+
+      - name: Copy FrontDeploy directory to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          source: "FrontDeploy"
+          target: "/home/root/"
+
+      - name: Copy Deploy directory to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          source: "Deploy"
+          target: "/home/root/"
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/root/
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
+            docker-compose down
+            docker-compose up -d
