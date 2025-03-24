@@ -82,7 +82,7 @@ jobs:
             sudo usermod -aG docker $USER
             newgrp docker
             docker --version
-            docker compose --version
+            docker compose version
 
       - name: Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@master
