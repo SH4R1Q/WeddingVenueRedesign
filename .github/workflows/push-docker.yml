@@ -70,28 +70,37 @@ jobs:
             if [ -f /etc/debian_version ]; then
               echo "Detected Debian/Ubuntu, installing Docker..."
               sudo apt update && sudo apt install -y docker.io
-            elif [ -f /etc/redhat-release ]; then
-              echo "Detected RHEL/CentOS, installing Docker..."
-              sudo yum install -y docker
+            elif [ -f /etc/redhat-release ] || [ -f /etc/os-release ] && grep -qi "almalinux" /etc/os-release; then
+              echo "Detected AlmaLinux/RHEL, installing Docker..."
+              sudo dnf install -y dnf-plugins-core
+              sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+              sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
             elif [ -f /etc/alpine-release ]; then
               echo "Detected Alpine Linux, installing Docker..."
-              apk add --no-cache docker
+              sudo apk add --no-cache docker
             else
               echo "Unsupported OS. Please install Docker manually."
               exit 1
             fi
-            sudo systemctl start docker || service docker start
+
+            sudo systemctl start docker || sudo service docker start
             sudo systemctl enable docker
-            sudo usermod -aG docker $(whoami)
-            newgrp docker
+
+            # Add current user to docker group for non-root access
+            sudo usermod -aG docker $USER
+            sudo newgrp docker
+
+            # Install Docker Compose if not already installed
             if ! command -v docker-compose &> /dev/null; then
               echo "Installing Docker Compose..."
               sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
               sudo chmod +x /usr/local/bin/docker-compose
             fi
 
+            # Verify installation
             docker --version
-            docker-compose --version
+            docker compose version
+
 
       - name: 📂 Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@master
