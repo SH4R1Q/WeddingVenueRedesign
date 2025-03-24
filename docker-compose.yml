@@ -35,7 +35,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./custom.conf:/etc/nginx/conf.d/default.conf
+      - /home/weddingzvenue/custom.conf:/etc/nginx/conf.d/default.conf
 
 networks:
   app-network:
