@@ -138,6 +138,9 @@ jobs:
             echo "docker-compose version"
             docker-compose --version
             cd /home/${{ secrets.VPS_USERNAME }}/
+            echo "Stopping and removing all running containers..."
+            docker ps -a --filter "name=nginx" --format "{{.ID}}" | xargs -r docker stop
+            docker ps -a --filter "name=nginx" --format "{{.ID}}" | xargs -r docker rm
             echo "🔄 Pulling latest images..."
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest

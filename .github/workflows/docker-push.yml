@@ -123,7 +123,14 @@ jobs:
             echo "docker-compose version"
             docker-compose --version
             cd /home/${{ secrets.VPS_USERNAME }}/
+            echo "Stopping and removing all running containers..."
+            docker ps -q | xargs -r docker stop
+            docker ps -aq | xargs -r docker rm
+            echo "Removing unused volumes..."
+            docker volume prune -f
+            echo "Pulling latest images..."
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
+            echo "Starting containers..."
             docker-compose down
             docker-compose up -d
