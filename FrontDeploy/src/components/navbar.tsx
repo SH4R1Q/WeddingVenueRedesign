@@ -52,7 +52,7 @@ const NavBar: React.FC = () => {
 
   return (
     <nav
-      className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 "
+      className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-20 m-0 sticky top-0 "
       style={{ opacity }}
     >
       <div className="bg-gradient-to-r from-[#e363aa] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center pt-2 pb-2 rounded-md shadow-sm">
@@ -199,7 +199,7 @@ const NavBar: React.FC = () => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-10 transition-transform duration-300">
+        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-20 transition-transform duration-300">
           <div className="absolute top-8">
             <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch" />
           </div>
