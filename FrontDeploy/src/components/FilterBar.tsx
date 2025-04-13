@@ -63,73 +63,56 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="fixed top-21 left-0 right-0 bg-white p-2 z-10 flex justify-around border-b border-2 border-gray-200">
-      {/* No. of Guests */}
-      <div className="relative">
-        {renderHeader("No. of Guests", "guests")}
-        {activeDropdown === "guests" &&
-          renderOptions("guests", ["<100", "100-250", "250-500", "500-1000", ">1000"])}
-      </div>
-
-      {/* Room Count */}
-      {/* <div className="relative">
-        {renderHeader("Room Count", "roomCount")}
-        {activeDropdown === "roomCount" &&
-          renderOptions("roomCount", ["<30", "30-60", "61-100", "100-200", "200-1000"])}
-      </div> */}
-
-      {/* Price per Plate */}
-      <div className="relative">
-        {renderHeader("Price per Plate (₹)", "foodPackage")}
-        {activeDropdown === "foodPackage" &&
-          renderOptions("foodPackage", ["< 1,000", "1,000 - 1,500", "1,500 - 2,000", "2,000 - 3,000", "> 3,000"])}
-      </div>
-
-      {/* Rental Cost */}
-      {/* <div className="relative">
-        {renderHeader("Rental Cost", "rentalCost")}
-        {activeDropdown === "rentalCost" &&
-          renderOptions("rentalCost", ["< ₹1 Lakh", "₹1-2 Lakh", "₹2-4 Lakh", "₹4-6 Lakh", "> ₹6 Lakh"])}
-      </div> */}
-
-      {/* Venue Type */}
-      <div className="relative">
-        {renderHeader("Venue Type", "venueTypes")}
-        {activeDropdown === "venueTypes" &&
-          renderOptions("venueTypes", ["4 Star & Above", "Banquet Halls", "Marriage Garden", "3 Star Hotels", "Country/Golf Club"])}
-      </div>
-
-      {/* Space Type */}
-      {/* <div className="relative">
-        {renderHeader("Space", "space")}
-        {activeDropdown === "space" &&
-          renderOptions("space", ["Indoor", "Outdoor", "Poolside", "Terrace/Rooftop"])}
-      </div> */}
-
-      {/* Rating */}
-      <div className="relative">
-        {renderHeader("Rating", "rating")}
-        {activeDropdown === "rating" &&
-          renderOptions("rating", ["All Ratings", "Rated <4", "Rated 4+", "Rated 4.5+", "Rated 4.8+"])}
-      </div>
-
-      {/* Apply and Reset Buttons */}
-        <div className="flex items-center gap-4">
+    <div className="fixed top-[84px] left-0 right-0 bg-white p-3 z-10 border-b border-2 border-gray-200">
+      <div className="flex flex-wrap justify-between gap-4 sm:gap-6 md:justify-around items-start">
+        
+        {/* No. of Guests */}
+        <div className="relative min-w-[140px]">
+          {renderHeader("No. of Guests", "guests")}
+          {activeDropdown === "guests" &&
+            renderOptions("guests", ["<100", "100-250", "250-500", "500-1000", ">1000"])}
+        </div>
+  
+        {/* Price per Plate */}
+        <div className="relative min-w-[160px]">
+          {renderHeader("Price per Plate (₹)", "foodPackage")}
+          {activeDropdown === "foodPackage" &&
+            renderOptions("foodPackage", ["< 1,000", "1,000 - 1,500", "1,500 - 2,000", "2,000 - 3,000", "> 3,000"])}
+        </div>
+  
+        {/* Venue Type */}
+        <div className="relative min-w-[160px]">
+          {renderHeader("Venue Type", "venueTypes")}
+          {activeDropdown === "venueTypes" &&
+            renderOptions("venueTypes", ["4 Star & Above", "Banquet Halls", "Marriage Garden", "3 Star Hotels", "Country/Golf Club"])}
+        </div>
+  
+        {/* Rating */}
+        <div className="relative min-w-[140px]">
+          {renderHeader("Rating", "rating")}
+          {activeDropdown === "rating" &&
+            renderOptions("rating", ["All Ratings", "Rated <4", "Rated 4+", "Rated 4.5+", "Rated 4.8+"])}
+        </div>
+  
+        {/* Apply and Reset Buttons */}
+        <div className="flex gap-2 mt-2 sm:mt-0">
           <button
-            className="bg-indigo-500 text-white py-1 px-4 rounded-full"
+            className="bg-indigo-500 text-white py-1 px-4 rounded-full text-sm"
             onClick={handleApply}
           >
             Apply
           </button>
           <button
-            className="bg-gray-300 text-gray-700 py-1 px-4 rounded-full"
+            className="bg-gray-300 text-gray-700 py-1 px-4 rounded-full text-sm"
             onClick={handleReset}
           >
             Reset
           </button>
         </div>
+      </div>
     </div>
   );
+  
 };
 
 export default FilterBar;

@@ -234,17 +234,6 @@ const NavBar: React.FC = () => {
             </li>
             <li>
               <Link
-                to="/newhome"
-                className={`${getActiveClass(
-                  "/NewHome"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Venues
-              </Link>
-            </li>
-            <li>
-              <Link
                 to="/vendor/AllVendors"
                 className={`${getActiveClass(
                   "/vendor/AllVendors"

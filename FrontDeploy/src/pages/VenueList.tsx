@@ -75,16 +75,17 @@ function VenueList() {
   if (isLoading) {
     return <Loader />;
   }
-
-
   return (
-    <div className="flex flex-col min-h-screen  bg-white">
+    <div className="flex flex-col min-h-screen bg-white">
       <NavBar />
-      <div className="w-full mt-4">
+  
+      {/* Filter Bar */}
+      <div className="w-full mt-4 px-4 sm:px-6">
         <FilterBar onFilterChange={handleFilterChange} />
       </div>
+  
       {/* Search Bar */}
-      <div className="w-full container mx-auto px-4 mt-8">
+      <div className="w-full container mx-auto px-4 sm:px-6 mt-6">
         <div className="relative w-full">
           <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
@@ -96,9 +97,10 @@ function VenueList() {
           />
         </div>
       </div>
-      <div className="container mx-auto px-4 mt-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
+  
+      {/* Venue Grid */}
+      <div className="container mx-auto px-4 sm:px-6 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-4">
           {filteredVenues.length > 0 ? (
             filteredVenues.map((venue, index) => (
               <VenueCardMain
@@ -110,7 +112,7 @@ function VenueList() {
                   maxGuests: venue.guestCapacity,
                   contact: venue.phone,
                   description: venue.summary,
-                  vegPrice: venue.foodPackages?.match(/\d+/) ? venue.foodPackages?.match(/\d+/)?.[0] : "N/A",
+                  vegPrice: venue.foodPackages?.match(/\d+/)?.[0] || "N/A",
                   nonVegPrice: "N/A",
                   images: venue.images,
                   id: venue._id,
@@ -118,16 +120,20 @@ function VenueList() {
               />
             ))
           ) : (
-            <div className="col-span-full text-center">No Venue found</div>
+            <div className="col-span-full text-center text-gray-500 text-sm sm:text-base py-8">
+              No Venue found
+            </div>
           )}
         </div>
       </div>
-      <div className="mt-8">
+  
+      {/* Related Articles */}
+      <div className="mt-8 px-4 sm:px-6">
         <RelatedArticles />
       </div>
+  
       <Footer />
     </div>
   );
-}
-
+}  
 export default VenueList;
