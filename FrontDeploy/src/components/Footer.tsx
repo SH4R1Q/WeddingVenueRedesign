@@ -13,57 +13,58 @@ function Footer() {
     {
       title: 'Start Planning',
       links: [
-        'Search By Vendor',
-        'Search By City',
-        'Download Our App',
-        'Top Rated Vendors',
-        'Destination Wedding',
+        { name: 'Search By Vendor', path: '/VendorsList' },
+        { name: 'Search By City', path: '#' },
+        { name: 'Download Our App', path: '#' },
+        { name: 'Top Rated Vendors', path: '/VendorList' },
+        { name: 'Destination Wedding', path: '#' },
       ],
     },
     {
       title: 'Wedding Ideas',
       links: [
-        'Wedding Blog',
-        'Wedding Inspiration Gallery',
-        'Real Wedding',
-        'Submit Wedding',
+        { name: 'Wedding Blog', path: '/BlogList' },
+        { name: 'Wedding Inspiration Gallery', path: '/PhotoGallery' },
+        { name: 'Real Wedding', path: '#' },
+        { name: 'Submit Wedding', path: '#' },
       ],
     },
     {
       title: 'Photo Gallery',
       links: [
-        'Bridal Wear',
-        'Wedding Jewellery',
-        'Bridal Makeup & Hair',
-        'Wedding Decor',
-        'Wedding Photography',
-        'Groom Wear',
-        'Invitations & Favors',
-        'Wedding Accessories',
-        'Mehendi Designs',
+        { name: 'Bridal Wear', path: '#' },
+        { name: 'Wedding Jewellery', path: '#' },
+        { name: 'Bridal Makeup & Hair', path: '#' },
+        { name: 'Wedding Decor', path: '#' },
+        { name: 'Wedding Photography', path: '#' },
+        { name: 'Groom Wear', path: '#' },
+        { name: 'Invitations & Favors', path: '#' },
+        { name: 'Wedding Accessories', path: '#' },
+        { name: 'Mehendi Designs', path: '#' },
       ],
     },
     {
       title: 'Home',
       links: [
-        'About WeddingzVenue',
-        'Careers',
-        'Contact Us',
-        'Site Map',
-        'Terms & Conditions',
-        'Privacy Policy',
-        'Cancellation Policy',
+        { name: 'About WeddingzVenue', path: '/AboutUs' },
+        { name: 'Careers', path: '#' },
+        { name: 'Contact Us', path: 'AboutUs' },
+        { name: 'Site Map', path: '#' },
+        { name: 'Terms & Conditions', path: '#' },
+        { name: 'Privacy Policy', path: '#' },
+        { name: 'Cancellation Policy', path: '#' },
       ],
     },
     {
       title: 'Wedding Invitation Maker',
       links: [
-        'Wedding Card Designs',
-        'Save the Date Templates',
-        'Invitation Video Templates',
+        { name: 'Wedding Card Designs', path: '#' },
+        { name: 'Save the Date Templates', path: '#' },
+        { name: 'Invitation Video Templates', path: '#' },
       ],
     },
   ];
+  
 
   return (
     <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-300 py-8">
@@ -87,8 +88,8 @@ function Footer() {
               <ul className="mt-2 space-y-2">
                 {section.links.map((link, idx) => (
                   <li key={idx}>
-                    <Link to="#" className="text-base hover:text-[#D6BF5E]">
-                      {link}
+                    <Link to={link.path} className="text-base hover:text-[#D6BF5E]">
+                      {link.name}
                     </Link>
                   </li>
                 ))}
@@ -106,8 +107,8 @@ function Footer() {
             <ul className="footer-links flex flex-col">
               {section.links.map((link, idx) => (
                 <li key={idx} className="mb-2">
-                  <Link to="#" className="text-l hover:text-[#D6BF5E]">
-                    {link}
+                  <Link to={link.path} className="text-l hover:text-[#D6BF5E]">
+                    {link.name}
                   </Link>
                 </li>
               ))}
