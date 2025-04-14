@@ -99,14 +99,14 @@ const NavBar: React.FC = () => {
           <div className="options ">
             <ul className="hidden md:flex justify-center items-center space-x-8 flex-grow static top-0 ml-1">
               <li className="relative">
-                <Link to="/" className={${getActiveClass("/")} link-effect}>
+                <Link to="/" className={`${getActiveClass("/")} link-effect`}>
                   Home
                 </Link>
               </li>
               <li className="relative">
                 <Link
                   to="/venuelist"
-                  className={${getActiveClass("/venuelist")} link-effect}
+                  className={`${getActiveClass("/venuelist")} link-effect`}
                 >
                   Venues
                 </Link>
@@ -124,7 +124,7 @@ const NavBar: React.FC = () => {
               <li>
                 <Link
                   to="/photos"
-                  className={${getActiveClass("/photos")} link-effect}
+                  className={`${getActiveClass("/photos")} link-effect`}
                 >
                   Photos
                 </Link>
@@ -132,7 +132,7 @@ const NavBar: React.FC = () => {
               <li>
                 <Link
                   to="/blogs"
-                  className={${getActiveClass("/blogs")} link-effect}
+                  className={`${getActiveClass("/blogs")} link-effect`}
                 >
                   Blogs
                 </Link>
@@ -140,7 +140,7 @@ const NavBar: React.FC = () => {
               <li>
                 <Link
                   to="/realWedding"
-                  className={${getActiveClass("/realWedding")} link-effect}
+                  className={`${getActiveClass("/realWedding")} link-effect`}
                 >
                   Real Weddings
                 </Link>
@@ -148,7 +148,7 @@ const NavBar: React.FC = () => {
               <li>
                 <Link
                   to="/aboutus1"
-                  className={${getActiveClass("/aboutus1")} link-effect}
+                  className={`${getActiveClass("/aboutus1")} link-effect`}
                 >
                   Why Us
                 </Link>
@@ -226,17 +226,6 @@ const NavBar: React.FC = () => {
                 to="/venuelist"
                 className={`${getActiveClass(
                   "/venuelist"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Venues
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/newhome"
-                className={`${getActiveClass(
-                  "/NewHome"
                 )} text-2xl hover:border-b-2 hover:border-gray-200`}
                 onClick={toggleMobileMenu}
               >
