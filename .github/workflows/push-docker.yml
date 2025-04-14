@@ -146,4 +146,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
             echo "🚀 Starting new deployment..."
             docker-compose down
+            docker system prune -a
             docker-compose up -d

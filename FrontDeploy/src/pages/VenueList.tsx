@@ -100,8 +100,8 @@ function VenueList() {
       </div>
 
       {/* Venue Grid */}
-      <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 mt-10 flex-grow">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-4">
+      <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 mt-6 flex-grow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-x-4 sm:gap-x-6">
           {filteredVenues.length > 0 ? (
             filteredVenues.map((venue, index) => (
               <VenueCardMain
@@ -113,8 +113,8 @@ function VenueList() {
                   maxGuests: venue.guestCapacity,
                   contact: venue.phone,
                   description: venue.summary,
-                  vegPrice: venue.foodPackages?.match(/\d+/)?.[0] || 'N/A',
-                  nonVegPrice: 'N/A',
+                  vegPrice: venue.foodPackages?.match(/\d+/)?.[0] || "N/A",
+                  nonVegPrice: "N/A",
                   images: venue.images,
                   id: venue._id,
                 }}
