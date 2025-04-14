@@ -1,7 +1,7 @@
+// import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import { FaCaretDown, FaCaretUp, FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
-
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 function Footer() {
   const [openSection, setOpenSection] = useState(null);
 
@@ -11,43 +11,64 @@ function Footer() {
 
   const sections = [
     {
-      title: 'Stay Connected',
+      title: 'Start Planning',
       links: [
-        {
-          label: 'Facebook',
-          href: 'https://www.facebook.com',
-          icon: <FaFacebook />,
-        },
-        {
-          label: 'Twitter',
-          href: 'https://twitter.com',
-          icon: <FaTwitter />,
-        },
-        {
-          label: 'Instagram',
-          href: 'https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr',
-          icon: <FaInstagram />,
-        },
+        { name: 'Search By Vendor', path: '/VendorsList' },
+        { name: 'Search By City', path: '#' },
+        { name: 'Download Our App', path: '#' },
+        { name: 'Top Rated Vendors', path: '/VendorList' },
+        { name: 'Destination Wedding', path: '#' },
       ],
     },
     {
-      title: 'Contact Us',
+      title: 'Wedding Ideas',
       links: [
-        'Shakti Khand 2, Indirapuram',
-        'Ghaziabad, 201014',
-        <span key="phone">
-          Phone: <a href="tel:+918076207112" className="hover:underline text-[#D6BF5E]">+91 8076207112</a>
-        </span>,
-        <span key="email">
-          Email: <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-[#D6BF5E]">Weddingzvenue.in@gmail.com</a>
-        </span>,
+        { name: 'Wedding Blog', path: '/BlogList' },
+        { name: 'Wedding Inspiration Gallery', path: '/PhotoGallery' },
+        { name: 'Real Wedding', path: '#' },
+        { name: 'Submit Wedding', path: '#' },
+      ],
+    },
+    {
+      title: 'Photo Gallery',
+      links: [
+        { name: 'Bridal Wear', path: '#' },
+        { name: 'Wedding Jewellery', path: '#' },
+        { name: 'Bridal Makeup & Hair', path: '#' },
+        { name: 'Wedding Decor', path: '#' },
+        { name: 'Wedding Photography', path: '#' },
+        { name: 'Groom Wear', path: '#' },
+        { name: 'Invitations & Favors', path: '#' },
+        { name: 'Wedding Accessories', path: '#' },
+        { name: 'Mehendi Designs', path: '#' },
+      ],
+    },
+    {
+      title: 'Home',
+      links: [
+        { name: 'About WeddingzVenue', path: '/AboutUs' },
+        { name: 'Careers', path: '#' },
+        { name: 'Contact Us', path: 'AboutUs' },
+        { name: 'Site Map', path: '#' },
+        { name: 'Terms & Conditions', path: '#' },
+        { name: 'Privacy Policy', path: '#' },
+        { name: 'Cancellation Policy', path: '#' },
+      ],
+    },
+    {
+      title: 'Wedding Invitation Maker',
+      links: [
+        { name: 'Wedding Card Designs', path: '#' },
+        { name: 'Save the Date Templates', path: '#' },
+        { name: 'Invitation Video Templates', path: '#' },
       ],
     },
   ];
+  
 
   return (
     <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-300 py-8">
-      {/* Mobile View */}
+      {/* Mobile View (Dropdowns) */}
       <div className="container mx-auto px-4 lg:px-20 lg:hidden space-y-4">
         {sections.map((section, index) => (
           <div key={index} className="border-b border-gray-700 pb-2">
@@ -56,7 +77,8 @@ function Footer() {
               className="w-full flex justify-between items-center text-xl font-semibold text-[#D6BF5E] py-2 focus:outline-none"
             >
               {section.title}
-              <span>{openSection === index ? <FaCaretUp /> : <FaCaretDown />}</span>
+              
+              <span>{openSection === index ? <FaCaretUp/> : <FaCaretDown/>}</span>
             </button>
             <div
               className={`${
@@ -66,20 +88,9 @@ function Footer() {
               <ul className="mt-2 space-y-2">
                 {section.links.map((link, idx) => (
                   <li key={idx}>
-                    {typeof link === 'string' ? (
-                      <p className="text-base">{link}</p>
-                    ) : link.href ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-base flex items-center gap-2 hover:text-[#D6BF5E]"
-                      >
-                        {link.icon} {link.label}
-                      </a>
-                    ) : (
-                      <p className="text-base">{link}</p>
-                    )}
+                    <Link to={link.path} className="text-base hover:text-[#D6BF5E]">
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -87,51 +98,25 @@ function Footer() {
           </div>
         ))}
       </div>
-  
-      {/* Desktop View */}
-      <div className="container mx-auto px-4 lg:px-20 hidden lg:flex justify-evenly space-y-0 mt-10">
-        {/* Stay Connected */}
-        <div className="text-left">
-          <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">Stay Connected</h2>
-          <div className="flex gap-6">
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebook className="text-3xl hover:text-red-500 transition duration-300" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter className="text-3xl hover:text-red-500 transition duration-300" />
-            </a>
-            <a
-              href="https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram className="text-3xl hover:text-red-500 transition duration-300" />
-            </a>
+
+      {/* Desktop View (Flex Layout) */}
+      <div className="container mx-auto px-4 lg:px-20 hidden lg:flex justify-evenly space-y-0">
+        {sections.map((section, index) => (
+          <div key={index} className="text-left">
+            <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">{section.title}</h2>
+            <ul className="footer-links flex flex-col">
+              {section.links.map((link, idx) => (
+                <li key={idx} className="mb-2">
+                  <Link to={link.path} className="text-l hover:text-[#D6BF5E]">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-  
-        {/* Contact Us */}
-        <div className="text-left">
-          <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">Contact Us</h2>
-          <ul className="space-y-2 text-base">
-            <li>Shakti Khand 2, Indirapuram</li>
-            <li>Ghaziabad, 201014</li>
-            <li>
-              Phone:{' '}
-              <a href="tel:+918076207112" className="hover:underline text-[#D6BF5E]">
-                +91 8076207112
-              </a>
-            </li>
-            <li>
-              Email:{' '}
-              <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-[#D6BF5E]">
-                Weddingzvenue.in@gmail.com
-              </a>
-            </li>
-          </ul>
-        </div>
+        ))}
       </div>
-  
+
       {/* Divider Line */}
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
         <p className="text-xs">
@@ -146,12 +131,12 @@ function Footer() {
             rel="noopener noreferrer"
             className="text-[#D6BF5E] hover:underline font-medium"
           >
-            BINARAMA
+            AMONG US COMMUNITY
           </a>
         </p>
       </div>
     </footer>
   );
-}  
+}
 
 export default Footer;
