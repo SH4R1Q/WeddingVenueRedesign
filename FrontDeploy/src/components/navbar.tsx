@@ -1,311 +1,173 @@
-import "./navbar.css";
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FaUser, FaBell, FaBars, FaTimes } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { FaEnvelope, FaPhone, FaEdit } from "react-icons/fa";
-import ReviewModal from "./ReviewModal";
+import { useState } from 'react';
+import { Link } from "react-router-dom";
+import { FaCaretDown, FaCaretUp, FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
-import Logo from "/weddingz_venue_logo_transparent.png";
-
-const NavBar: React.FC = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const role = useSelector((state: RootState) => state?.auth?.user?.role);
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const [opacity, setOpacity] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleModalOpen = () => setIsModalOpen(true);
-  const handleModalClose = () => setIsModalOpen(false);
-
-  let url = "/";
-  if (role === "vendor") url = "/vendorProfilePage";
-  if (role === "venue") url = "/venueProfilePage";
-  if (role === "user") url = "/userProfilePage";
-  if (role === "admin") url = "/adminDashboard";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (currentPath === "/") {
-        if (window.scrollY > 50 && window.scrollY < 750) {
-          // desired scroll threshold
-          setOpacity(0.9); // Set to full opacity after scrolling
-        } else {
-          setOpacity(1); // Default opacity
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [currentPath]);
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const getActiveClass = (path: string) =>
-    currentPath === path ? "active-link" : "";
-
-  return (
-    <nav
-      className="bg-[#fffff] py-2 pl-2 pr-4 font-roboto relative z-20 m-0 sticky top-0 "
-      style={{ opacity }}
-    >
-      <div className="bg-gradient-to-r from-[#1ecbe1] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center pt-2 pb-2 rounded-md shadow-sm">
-        {/* Contact Details (Left-aligned) */}
-        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-8">
-          <a
-            href="mailto:Weddingzvenue.in@gmail.com"
-            className="flex items-center space-x-2 hover:text-gray-100 transition-colors duration-200"
-          >
-            <FaEnvelope className="text-white text-lg" />
-            <span className="text-sm font-medium sm:text-base">
-              Weddingzvenue.in@gmail.com
-            </span>
-          </a>
-          <a
-            href="tel:+918076207112"
-            className="flex items-center space-x-2 hover:text-gray-100 transition-colors duration-200"
-          >
-            <FaPhone className="text-white text-lg" />
-            <span className="text-sm font-medium sm:text-base">
-              +91 8076207112
-            </span>
-          </a>
-        </div>
-
-        {/* Write a Review Button (Right-aligned) */}
-        <button
-          onClick={handleModalOpen}
-          className="flex items-center space-x-2 hover:text-gray-100 transition-colors duration-200"
-        >
-          <FaEdit className="text-white text-lg" />
-          <span className="text-sm font-medium sm:text-base">Write a Review</span>
-        </button>
-      </div>
-
-      <div className="container mx-0 flex md:justify-left justify-between items-center">
-        <div className="nav-links mx-0 pt-1 flex md:justify-left justify-between items-center ">
-
-
-          <Link to="/" className="flex items-center">
-            <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch my-0" />
-          </Link>
-
-          <div className="options ">
-            <ul className="hidden md:flex justify-center items-center space-x-8 flex-grow static top-0 ml-1">
-              <li className="relative">
-                <Link to="/" className={`${getActiveClass("/")} link-effect`}>
-                  Home
-                </Link>
-              </li>
-              <li className="relative">
-                <Link
-                  to="/venuelist"
-                  className={`${getActiveClass("/venuelist")} link-effect`}
-                >
-                  Venues
-                </Link>
-              </li>
-              <li className="relative">
-                <Link
-                  to="/vendor/AllVendors"
-                  className={`${getActiveClass(
-                    "/vendor/AllVendors"
-                  )} link-effect`}
-                >
-                  Vendors
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/photos"
-                  className={`${getActiveClass("/photos")} link-effect`}
-                >
-                  Photos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blogs"
-                  className={`${getActiveClass("/blogs")} link-effect`}
-                >
-                  Blogs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/realWedding"
-                  className={`${getActiveClass("/realWedding")} link-effect`}
-                >
-                  Real Weddings
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/aboutus1"
-                  className={`${getActiveClass("/aboutus1")} link-effect`}
-                >
-                  Why Us
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4 ml-auto">
-  <ul className="flex items-center space-x-4">
-    {isLoggedIn && role != 'user' && (
-      <li className="relative hidden md:block rounded-full py-1 px-4">
-        <Link
-          to="/notification"
-          className="text-light-blue hover:text-gray-200"
-        >
-          <FaBell />
-        </Link>
-      </li>
-    )}
-  </ul>
-
-  <ul className="flex items-center space-x-4">
-    {!isLoggedIn && (
-      <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4">
-        <Link
-          to="/login"
-          className="text-light-blue hover:text-gray-200"
-        >
-          Login
-        </Link>
-      </li>
-    )}
-    {isLoggedIn && (
-      <li className="relative hidden md:block">
-        <Link to={url} className="text-light-blue hover:text-gray-200">
-          <FaUser />
-        </Link>
-      </li>
-    )}
-  </ul>
-</div>
-
-        <div className="md:hidden">
-          <button onClick={toggleMobileMenu} className="text-light-blue">
-            {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-20 transition-transform duration-300">
-          <div className="absolute top-8">
-            <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch" />
-          </div>
-          <button
-            onClick={toggleMobileMenu}
-            className="absolute top-4 right-4 text-light-blue"
-          >
-            <FaTimes size={24} />
-          </button>
-          <ul className="flex flex-col items-center space-y-4">
-            <li>
-              <Link
-                to="/"
-                className={`${getActiveClass(
-                  "/"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/venuelist"
-                className={`${getActiveClass(
-                  "/venuelist"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Venues
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/vendor/AllVendors"
-                className={`${getActiveClass(
-                  "/vendor/AllVendors"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Vendors
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/blogs"
-                className={`${getActiveClass(
-                  "/blogs"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Blogs
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/realWedding"
-                className={`${getActiveClass(
-                  "/realWedding"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Real Weddings
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/aboutus1"
-                className={`${getActiveClass(
-                  "/aboutus1"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Why Us
-              </Link>
-            </li>
-
-            {!isLoggedIn && (
-              <li>
-                <Link
-                  to="/login"
-                  className="text-2xl text-light-blue hover:text-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  Login
-                </Link>
-              </li>
-            )}
-            {isLoggedIn && (
-              <li>
-                <Link
-                  to={url}
-                  className="text-2xl text-light-blue hover:text-gray-200"
-                  onClick={toggleMobileMenu}
-                >
-                  <FaUser />
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
-      )}
-      {/* Review Modal */}
-      {isModalOpen && <ReviewModal onClose={handleModalClose} />}
-    </nav>
-  );
+type SocialLink = {
+  label: string;
+  href: string;
+  icon?: JSX.Element;
+  isExternal?: boolean;
 };
 
-export default NavBar;
+type Section = {
+  title: string;
+  links: SocialLink[];
+};
+
+function Footer() {
+  const [openSection, setOpenSection] = useState<number | null>(null);
+
+  const toggleSection = (sectionIndex: number) => {
+    setOpenSection(openSection === sectionIndex ? null : sectionIndex);
+  };
+
+  const sections: Section[] = [
+    {
+      title: 'Stay Connected',
+      links: [
+        {
+          label: 'Facebook',
+          href: 'https://www.facebook.com',
+          icon: <FaFacebook />,
+          isExternal: true,
+        },
+        {
+          label: 'Twitter',
+          href: 'https://twitter.com',
+          icon: <FaTwitter />,
+          isExternal: true,
+        },
+        {
+          label: 'Instagram',
+          href: 'https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr',
+          icon: <FaInstagram />,
+          isExternal: true,
+        },
+      ],
+    },
+    {
+      title: 'Contact Us',
+      links: [
+        { label: 'Shakti Khand 2, Indirapuram', href: '#' },
+        { label: 'Ghaziabad, 201014', href: '#' },
+        {
+          label: 'Phone: +91 8076207112',
+          href: 'tel:+918076207112',
+          isExternal: true,
+        },
+        {
+          label: 'Email: Weddingzvenue.in@gmail.com',
+          href: 'mailto:Weddingzvenue.in@gmail.com',
+          isExternal: true,
+        },
+      ],
+    },
+  ];
+
+  return (
+    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-300 py-8">
+      {/* Mobile View */}
+      <div className="container mx-auto px-4 lg:px-20 lg:hidden space-y-4">
+        {sections.map((section, index) => (
+          <div key={index} className="border-b border-gray-700 pb-2">
+            <button
+              onClick={() => toggleSection(index)}
+              className="w-full flex justify-between items-center text-xl font-semibold text-[#D6BF5E] py-2 focus:outline-none"
+            >
+              {section.title}
+              <span>{openSection === index ? <FaCaretUp /> : <FaCaretDown />}</span>
+            </button>
+            <div className={${openSection === index ? 'block' : 'hidden'} transition-all duration-300}>
+              <ul className="mt-2 space-y-2">
+                {section.links.map((link, idx) => (
+                  <li key={idx}>
+                    {link.href !== '#' ? (
+                      <a
+                        href={link.href}
+                        target={link.isExternal ? "_blank" : "_self"}
+                        rel={link.isExternal ? "noopener noreferrer" : ""}
+                        className="text-base flex items-center gap-2 hover:text-[#D6BF5E]"
+                      >
+                        {link.icon && link.icon} {link.label}
+                      </a>
+                    ) : (
+                      <p className="text-base">{link.label}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop View */}
+      <div className="container mx-auto px-4 lg:px-20 hidden lg:flex justify-evenly space-y-0">
+        {/* Stay Connected */}
+        <div className="text-left">
+          <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">Stay Connected</h2>
+          <div className="flex gap-6">
+            {sections[0].links.map((link, idx) => (
+              <a
+                key={idx}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.icon && (
+                  <span className="text-3xl hover:text-red-500 transition duration-300">
+                    {link.icon}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact Us */}
+        <div className="text-left">
+          <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">Contact Us</h2>
+          <ul className="space-y-2 text-base">
+            {sections[1].links.map((link, idx) => (
+              <li key={idx}>
+                {link.href !== '#' ? (
+                  <a
+                    href={link.href}
+                    target={link.isExternal ? "_blank" : "_self"}
+                    rel={link.isExternal ? "noopener noreferrer" : ""}
+                    className="hover:underline text-[#D6BF5E]"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <span>{link.label}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Divider Line */}
+      <div className="mt-8 border-t border-gray-700 pt-4 text-center">
+        <p className="text-xs">
+          &copy; {new Date().getFullYear()}{' '}
+          <span className="font-semibold text-[#D6BF5E]">Weddingz Venue</span>. All rights reserved.
+        </p>
+        <p className="mt-1 text-xs">
+          Designed by{' '}
+          <a
+            href="https://binarama.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#D6BF5E] hover:underline font-medium"
+          >
+            BINARAMA
+          </a>
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;
