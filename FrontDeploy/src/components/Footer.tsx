@@ -58,7 +58,11 @@ function Footer() {
               {section.title}
               <span>{openSection === index ? <FaCaretUp /> : <FaCaretDown />}</span>
             </button>
-            <div className={${openSection === index ? 'block' : 'hidden'} transition-all duration-300}>
+            <div
+              className={`${
+                openSection === index ? 'block' : 'hidden'
+              } transition-all duration-300`}
+            >
               <ul className="mt-2 space-y-2">
                 {section.links.map((link, idx) => (
                   <li key={idx}>
@@ -83,9 +87,9 @@ function Footer() {
           </div>
         ))}
       </div>
-
+  
       {/* Desktop View */}
-      <div className="container mx-auto px-4 lg:px-20 hidden lg:flex justify-evenly space-y-0">
+      <div className="container mx-auto px-4 lg:px-20 hidden lg:flex justify-evenly space-y-0 mt-10">
         {/* Stay Connected */}
         <div className="text-left">
           <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">Stay Connected</h2>
@@ -96,12 +100,16 @@ function Footer() {
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
               <FaTwitter className="text-3xl hover:text-red-500 transition duration-300" />
             </a>
-            <a href="https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaInstagram className="text-3xl hover:text-red-500 transition duration-300" />
             </a>
           </div>
         </div>
-
+  
         {/* Contact Us */}
         <div className="text-left">
           <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">Contact Us</h2>
@@ -123,7 +131,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-
+  
       {/* Divider Line */}
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
         <p className="text-xs">
@@ -144,6 +152,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+}  
 
 export default Footer;
