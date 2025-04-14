@@ -51,7 +51,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
   );
 
   const renderHeader = (label: string, category: string) => {
-    const isOpen = activeDropdown === category;
+    // const isOpen = activeDropdown === category;
     return (
       <button
         className="font-semibold flex items-center"
