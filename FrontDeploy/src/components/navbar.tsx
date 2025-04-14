@@ -52,10 +52,10 @@ const NavBar: React.FC = () => {
 
   return (
     <nav
-      className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-20 m-0 sticky top-0 "
+      className="bg-[#fffff] py-2 pl-2 pr-4 font-roboto relative z-20 m-0 sticky top-0 "
       style={{ opacity }}
     >
-      <div className="bg-gradient-to-r from-[#e363aa] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center pt-2 pb-2 rounded-md shadow-sm">
+      <div className="bg-gradient-to-r from-[#1ecbe1] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center pt-2 pb-2 rounded-md shadow-sm">
         {/* Contact Details (Left-aligned) */}
         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-8">
           <a
