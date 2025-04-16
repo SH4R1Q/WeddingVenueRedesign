@@ -28,7 +28,8 @@ const VenueServicePage = () => {
     <>
       <NavBar />
       {/* Hero Section */}
-      <div className="container mx-auto px-28 mt-8">
+      <div className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-28 mt-8">
+
         {/* Venue Main Image */}
         {venueData?.images?.[0] && (
           <div className="w-full">

@@ -133,4 +133,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
             echo "Starting containers..."
             docker-compose down
+            docker system prune -a -f
             docker-compose up -d
