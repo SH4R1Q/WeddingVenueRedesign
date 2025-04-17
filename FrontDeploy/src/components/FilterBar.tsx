@@ -74,7 +74,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
   return (
     <div>
       {/* Navigation for larger screens */}
-      <div className="hidden sm:flex fixed top-21 left-0 right-0 bg-white p-2 z-10 justify-around border-b border-2 border-gray-200 mb-4">
+      <div className="hidden sm:flex absolute top-21 left-0 right-0 bg-white p-2 z-10 justify-around border-b border-2 border-gray-200 mb-4">
         {/* No. of Guests */}
         <div className="relative">
           {renderHeader("No. of Guests", "guests")}
@@ -121,7 +121,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
       </div>
 
       {/* Navigation for smaller screens */}
-      <div className="sm:hidden fixed top-36 left-0 right-0 bg-white p-2 z-10 flex justify-around border-b border-2 border-gray-200 mb-4">
+      <div className="sm:hidden absolute top-36 left-0 right-0 bg-white p-2 z-5 flex justify-around border-b border-2 border-gray-200 mb-4">
       {/* No. of Guests */}
       <div className="relative">
         {renderHeader("No. of Guests", "guests")}

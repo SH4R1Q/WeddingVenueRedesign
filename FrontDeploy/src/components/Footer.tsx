@@ -156,10 +156,10 @@ function Footer() {
       title: 'Start Planning',
       links: [
         { name: 'Search By Vendor', path: '/vendor/AllVendors' },
-        { name: 'Search By City', path: '/vendor/AllVendors' },
-        { name: 'Download Our App', path: '#' },
+        // { name: 'Search By City', path: '/vendor/AllVendors' },
+        // { name: 'Download Our App', path: '#' },
         { name: 'Top Rated Vendors', path: '/vendor/AllVendors' },
-        { name: 'Destination Wedding', path: '#' },
+        // { name: 'Destination Wedding', path: '#' },
       ],
     },
     {
@@ -168,43 +168,43 @@ function Footer() {
         { name: 'Wedding Blog', path: '/blogs' },
         { name: 'Wedding Inspiration Gallery', path: '/photos' },
         { name: 'Real Wedding', path: '/realWedding' },
-        { name: 'Submit Wedding', path: '#' },
+        // { name: 'Submit Wedding', path: '#' },
       ],
     },
-    {
-      title: 'Photo Gallery',
-      links: [
-        { name: 'Bridal Wear', path: '/realWedding' },
-        { name: 'Wedding Jewellery', path: '/realWedding' },
-        { name: 'Bridal Makeup & Hair', path: '/realWedding' },
-        { name: 'Wedding Decor', path: '/realWedding' },
-        { name: 'Wedding Photography', path: '/realWedding' },
-        { name: 'Groom Wear', path: '/realWedding' },
-        { name: 'Invitations & Favors', path: '/realWedding' },
-        { name: 'Wedding Accessories', path: '/realWedding' },
-        { name: 'Mehendi Designs', path: '/realWedding' },
-      ],
-    },
+    // {
+    //   title: 'Photo Gallery',
+    //   links: [
+    //     { name: 'Bridal Wear', path: '/realWedding' },
+    //     { name: 'Wedding Jewellery', path: '/realWedding' },
+    //     { name: 'Bridal Makeup & Hair', path: '/realWedding' },
+    //     { name: 'Wedding Decor', path: '/realWedding' },
+    //     { name: 'Wedding Photography', path: '/realWedding' },
+    //     { name: 'Groom Wear', path: '/realWedding' },
+    //     { name: 'Invitations & Favors', path: '/realWedding' },
+    //     { name: 'Wedding Accessories', path: '/realWedding' },
+    //     { name: 'Mehendi Designs', path: '/realWedding' },
+    //   ],
+    // },
     {
       title: 'Home',
       links: [
         { name: 'About WeddingzVenue', path: '/aboutus1' },
-        { name: 'Careers', path: '#' },
+        // { name: 'Careers', path: '#' },
         { name: 'Contact Us', path: '/aboutus1' },
-        { name: 'Site Map', path: '#' },
-        { name: 'Terms & Conditions', path: '#' },
-        { name: 'Privacy Policy', path: '#' },
-        { name: 'Cancellation Policy', path: '#' },
+        // { name: 'Site Map', path: '#' },
+        // { name: 'Terms & Conditions', path: '#' },
+        // { name: 'Privacy Policy', path: '#' },
+        // { name: 'Cancellation Policy', path: '#' },
       ],
     },
-    {
-      title: 'Wedding Invitation Maker',
-      links: [
-        { name: 'Wedding Card Designs', path: '#' },
-        { name: 'Save the Date Templates', path: '#' },
-        { name: 'Invitation Video Templates', path: '#' },
-      ],
-    },
+    // {
+    //   title: 'Wedding Invitation Maker',
+    //   links: [
+    //     { name: 'Wedding Card Designs', path: '#' },
+    //     { name: 'Save the Date Templates', path: '#' },
+    //     { name: 'Invitation Video Templates', path: '#' },
+    //   ],
+    // },
   ];
   
 
@@ -258,8 +258,16 @@ function Footer() {
           </div>
         ))}
       </div>
+      
+      <div className="lg:text-left mt-8 border-t border-gray-700 pt-4 text-center">
+          <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
+          <p className="mb-2">Shakti Khand 2, Indirapuram</p>
+          <p className="mb-2">Ghaziabad, 201014</p>
+          <p className="mb-2">Phone: <a href="tel:‪+918076207112‬" className="hover:underline text-[#D6BF5E]">‪+91 8076207112‬</a></p>
+          <p>Email: <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-[#D6BF5E]">Weddingzvenue.in@gmail.com</a></p>
+        </div>
 
-      {/* Divider Line */}
+      {/* Divider Line
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
         <p className="text-xs">
           &copy; {new Date().getFullYear()}{' '}
@@ -276,7 +284,7 @@ function Footer() {
             AMONG US COMMUNITY
           </a>
         </p>
-      </div>
+      </div> */}
     </footer>
   );
 }

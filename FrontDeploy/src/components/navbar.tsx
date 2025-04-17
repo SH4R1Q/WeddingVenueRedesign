@@ -199,7 +199,7 @@ const NavBar: React.FC = () => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-10 transition-transform duration-300">
+        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-15 transition-transform duration-300">
           <div className="absolute top-8">
             <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch" />
           </div>
