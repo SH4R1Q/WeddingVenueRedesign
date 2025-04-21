@@ -45,16 +45,16 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: 🔑 Log in to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_HUB_TOKEN_DEMO }}" | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        run: echo " docker login - ${{ secrets.DOCKER_USERNAME }} "
 
-      - name: Build Docker Image
+      - name: 🏗️ Build Docker Images
         run: |
           docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest -f FrontDeploy/Dockerfile FrontDeploy
           docker buildx build --load -t ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest -f Deploy/Dockerfile Deploy
 
-      - name: Push Image to Docker Hub
+      - name: 📤 Push Images to Docker Hub
         run: |
+          docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{secrets.DOCKER_HUB_TOKEN_DEMO}}
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
 
@@ -66,25 +66,46 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ensure Docker is installed on VPS
+      - name: 🖥️ Ensure Docker & Docker Compose Installed on VPS
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           script: |
-            sudo dnf update -y
-            sudo dnf install -y dnf-plugins-core
-            sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-            sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+            if [ -f /etc/debian_version ]; then
+              echo "Detected Debian/Ubuntu, installing Docker..."
+              sudo apt update && sudo apt install -y docker.io
+            elif [ -f /etc/redhat-release ] || [ -f /etc/os-release ] && grep -qi "almalinux" /etc/os-release; then
+              echo "Detected AlmaLinux/RHEL, installing Docker..."
+              sudo dnf install -y dnf-plugins-core
+              sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+              sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+            elif [ -f /etc/alpine-release ]; then
+              echo "Detected Alpine Linux, installing Docker..."
+              sudo apk add --no-cache docker
+            else
+              echo "Unsupported OS. Please install Docker manually."
+              exit 1
+            fi
+
             sudo systemctl start docker
             sudo systemctl enable docker
+
             sudo usermod -aG docker $USER
-            newgrp docker
+            sudo newgrp docker
+
+            if ! command -v docker-compose &> /dev/null; then
+              echo "Installing Docker Compose..."
+              sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+            fi
+
             docker --version
             docker compose version
 
-      - name: Copy docker-compose.yml to VPS
+
+      - name: 📂 Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -93,7 +114,7 @@ jobs:
           source: "docker-compose.yml"
           target: "/home/${{ secrets.VPS_USERNAME }}/"
 
-      - name: Copy FrontDeploy directory to VPS
+      - name: 📂 Copy FrontDeploy directory to VPS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -102,7 +123,7 @@ jobs:
           source: "FrontDeploy"
           target: "/home/${{ secrets.VPS_USERNAME }}/"
 
-      - name: Copy Deploy directory to VPS
+      - name: 📂 Copy Deploy directory to VPS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -111,7 +132,7 @@ jobs:
           source: "Deploy"
           target: "/home/${{ secrets.VPS_USERNAME }}/"
 
-      - name: Deploy to VPS
+      - name: 🚀 Deploy to VPS
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -124,14 +145,12 @@ jobs:
             docker-compose --version
             cd /home/${{ secrets.VPS_USERNAME }}/
             echo "Stopping and removing all running containers..."
-            docker ps -q | xargs -r docker stop
-            docker ps -aq | xargs -r docker rm
-            echo "Removing unused volumes..."
-            docker volume prune -f
-            echo "Pulling latest images..."
+            docker ps -a --filter "name=nginx" --format "{{.ID}}" | xargs -r docker stop
+            docker ps -a --filter "name=nginx" --format "{{.ID}}" | xargs -r docker rm
+            echo "🔄 Pulling latest images..."
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-frontend:latest
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/mern-backend:latest
-            echo "Starting containers..."
+            echo "🚀 Starting new deployment..."
             docker-compose down
             docker system prune -a -f
             docker-compose up -d
