@@ -26,7 +26,7 @@ const TermsAndPolicyCard = () => {
                     <li className="text-gray-700 mb-2">If any package contains X no. of clicks/shots and in case extra clicks/shots are requested by the client, additional charges will be applicable.</li>
                     <li className="text-gray-700 mb-2">The client is responsible for having an authorized representative present during all shooting phases of the Assignment. If no representative is present, the Photographer's interpretation shall be accepted.</li>
                     <li className="text-gray-700 mb-2">After booking confirmation, if you wish to change/alter your booked services in any way (e.g. your chosen event dates or location), we will do our utmost to accommodate these changes but it may not always be possible. Any request for changes must be in writing from the person who made the booking. All costs incurred due to amendments will be borne by you.</li>
-                    <li className="text-gray-700 mb-2">Weddingz.in does not accept any responsibility for third party services or service providers. We guarantee that the photographer will reach at the location on time but we are not responsible for the quality of the deliverables.</li>
+                    <li className="text-gray-700 mb-2">weddingzvenue.in does not accept any responsibility for third party services or service providers. We guarantee that the photographer will reach at the location on time but we are not responsible for the quality of the deliverables.</li>
                 </ol>
             </div>
         </div>
