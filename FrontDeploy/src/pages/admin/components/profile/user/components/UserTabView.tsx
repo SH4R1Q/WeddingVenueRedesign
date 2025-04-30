@@ -201,11 +201,13 @@ const OverviewTab: React.FC<OverviewTabProps> = ({ profileData }) => {
 const Wishlist = () => {
     const userId = useParams();
   const { data: wishlistData } = useGetWishlistQuery(userId.id??'');
-  const {
-    data: allVenuesData,
-    error: venueError,
-    isLoading: venueLoading,
-  } = useAllVenueQuery("");
+  // const {
+  //   data: allVenuesData,
+  //   error: venueError,
+  //   isLoading: venueLoading,
+  // } = useAllVenueQuery("");
+  const { data: allVenuesData, error: venueError, isLoading: venueLoading } = useAllVenueQuery({}); // new change
+
   const {
     data: allVendorsData,
     error: vendorError,
@@ -295,7 +297,7 @@ const Wishlist = () => {
                     vegPrice: venue.foodPackages,
                    
                     images: venue.images,
-                    id: venue._id,
+                    id: venue._id ?? "",
                   }}
                 />{" "}
               </div>

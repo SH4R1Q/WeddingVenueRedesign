@@ -38,74 +38,66 @@ const AboutUs: React.FC = () => {
           </section>
 
           <section id="info">
-            <div className="mt-24 flex flex-col items-center">
-              <div className="flex w-full">
-                {/*first column*/}
-                <div className="flex flex-col w-1/3 border border-white-500 border-3">
-                  <div className="flex-1 flex-col bg-majenta p-4 flex justify-center">
-                    <div>
-                      <h2 className="text-white-500 font-marcellus text-3xl font-bold tracking-wider">
-                        Our Mission
-                      </h2>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-white-500 text-md font-roboto">
-                        Our mission is to create unforgettable weddings by
-                        pairing couples with top vendors. We ensure every love
-                        story is beautifully celebrated through personalized
-                        service and attention to detail.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex-1 h-1/2 overflow-hidden">
-                    <img
-                      src="/aboutusLeft.jpg"
-                      alt="Placeholder"
-                      className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
-                    />
-                  </div>
-                </div>
+  <div className="mt-24 flex flex-col items-center px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col lg:flex-row w-full gap-4">
+      
+      {/* First Column */}
+      <div className="flex flex-col w-full lg:w-1/3 border border-white border-3">
+        <div className="bg-majenta p-4 flex-1 flex flex-col justify-center">
+          <h2 className="text-white font-marcellus text-2xl sm:text-3xl font-bold tracking-wider">
+            Our Mission
+          </h2>
+          <p className="text-white mt-4 text-sm sm:text-base font-roboto">
+            Our mission is to create unforgettable weddings by pairing couples
+            with top vendors. We ensure every love story is beautifully celebrated
+            through personalized service and attention to detail.
+          </p>
+        </div>
+        <div className="flex-1 h-64 sm:h-72 overflow-hidden">
+          <img
+            src="/aboutusLeft.jpg"
+            alt="Our Mission"
+            className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
+          />
+        </div>
+      </div>
 
-                {/* Second Column*/}
-                <div className="w-1/3 border border-white-500 border-3 ">
-                  <div className="w-full h-full overflow-hidden">
-                    <img
-                      src="aboutusMiddle.png"
-                      alt="Placeholder"
-                      className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
-                    />
-                  </div>
-                </div>
+      {/* Second Column */}
+      <div className="w-full lg:w-1/3 border border-white border-3">
+        <div className="h-64 sm:h-96 overflow-hidden">
+          <img
+            src="aboutusMiddle.png"
+            alt="Center"
+            className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
+          />
+        </div>
+      </div>
 
-                {/* Third Column */}
-                <div className="flex flex-col w-1/3 border border-white-500 border-3">
-                  <div className="flex-1 flex-col bg-majenta p-4 flex justify-center">
-                    <div>
-                      <h2 className="text-white-500 font-marcellus text-3xl font-bold tracking-wider">
-                        Our Story
-                      </h2>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-white-500 text-md font-roboto">
-                        Founded in 2015 by Abdul Kareem, we’ve grown from a
-                        small startup into a trusted leader in wedding vendor
-                        services. With a dedicated team and top-tier vendors, we
-                        bring couples' dream weddings to life through excellence
-                        and personalized service.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex-1 h-1/2 overflow-hidden">
-                    <img
-                      src="/aboutusRight.jpg"
-                      alt="Placeholder"
-                      className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+      {/* Third Column */}
+      <div className="flex flex-col w-full lg:w-1/3 border border-white border-3">
+        <div className="bg-majenta p-4 flex-1 flex flex-col justify-center">
+          <h2 className="text-white font-marcellus text-2xl sm:text-3xl font-bold tracking-wider">
+            Our Story
+          </h2>
+          <p className="text-white mt-4 text-sm sm:text-base font-roboto">
+            Founded in 2015 by Abdul Kareem, we’ve grown from a small startup
+            into a trusted leader in wedding vendor services. With a dedicated
+            team and top-tier vendors, we bring couples' dream weddings to life
+            through excellence and personalized service.
+          </p>
+        </div>
+        <div className="flex-1 h-64 sm:h-72 overflow-hidden">
+          <img
+            src="/aboutusRight.jpg"
+            alt="Our Story"
+            className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
         </div>
       </div>
 

@@ -199,7 +199,7 @@ const NavBar: React.FC = () => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-10 transition-transform duration-300">
+        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-15 transition-transform duration-300">
           <div className="absolute top-8">
             <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch" />
           </div>
@@ -226,17 +226,6 @@ const NavBar: React.FC = () => {
                 to="/venuelist"
                 className={`${getActiveClass(
                   "/venuelist"
-                )} text-2xl hover:border-b-2 hover:border-gray-200`}
-                onClick={toggleMobileMenu}
-              >
-                Venues
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/newhome"
-                className={`${getActiveClass(
-                  "/NewHome"
                 )} text-2xl hover:border-b-2 hover:border-gray-200`}
                 onClick={toggleMobileMenu}
               >

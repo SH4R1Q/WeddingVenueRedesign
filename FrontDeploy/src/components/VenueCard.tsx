@@ -10,6 +10,9 @@ interface VenueProps {
     maxGuests: string | undefined;
     images: string[] | undefined;
     id: string;
+    contact?: string;
+    description?: string;
+    vegPrice?: string;
   };
 }
 
