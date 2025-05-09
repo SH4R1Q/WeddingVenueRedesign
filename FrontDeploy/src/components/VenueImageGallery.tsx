@@ -40,7 +40,7 @@ const VenueImageGallery: React.FC<VenueImageGalleryProps> = ({ images }) => {
         <div className="text-center my-4">
           <button
             onClick={handleViewMoreClick}
-            className="text-indigo-600 hover:text-indigo-800 font-semibold focus:outline-none"
+            className="text-[#1c1c1c] hover:text-indigo-800 font-semibold focus:outline-none"
           >
             {!showAll ? "View More" : "View Less"}
           </button>

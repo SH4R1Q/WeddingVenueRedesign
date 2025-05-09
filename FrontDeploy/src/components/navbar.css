@@ -1,17 +1,17 @@
 .link-effect {
     position: relative;
-    color: #add8e6; /* Default link color */
+    color: #fff; /* Default link color */
     transition: color 0.3s ease;
   }
   
   .link-effect:hover {
-    color: #e5e7eb; /* Hovered link color */
+    color: #fff; /* Hovered link color */
   }
   
   /* active class */
   .active-link{
     position: relative;
-    color: #e5e7eb;
+    color: #fff;
   }
   
   .active-link::after{
@@ -19,7 +19,7 @@
     position: absolute;
     bottom: -2px;
     height: 2px;
-    background-color: #e5e7eb; /* Underline color */
+    background-color: #fff; /* Underline color */
     width: 100%;
     left: 0;
   }
@@ -32,7 +32,7 @@
     left: 50%;
     width: 0;
     height: 2px;
-    background-color: #e5e7eb; /* Underline color */
+    background-color: #fff; /* Underline color */
     transition: width 0.3s ease, left 0.3s ease;
   }
   

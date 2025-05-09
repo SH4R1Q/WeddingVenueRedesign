@@ -52,10 +52,10 @@ const NavBar: React.FC = () => {
 
   return (
     <nav
-      className="bg-[#c9217e] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 "
+      className="bg-[#1b1b1b] py-2 pl-2 pr-4 font-roboto relative z-10 m-0 sticky top-0 "
       style={{ opacity }}
     >
-      <div className="bg-gradient-to-r from-[#e363aa] via-[#d15b99] to-[#c04a87] text-white pl-2 pr-4 flex justify-between items-center pt-2 pb-2 rounded-md shadow-sm">
+      <div className="bg-[#161616] text-white pl-2 pr-4 flex justify-between items-center pt-2 pb-2 rounded-md shadow-sm">
         {/* Contact Details (Left-aligned) */}
         <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-8">
           <a
@@ -67,15 +67,15 @@ const NavBar: React.FC = () => {
               Weddingzvenue.in@gmail.com
             </span>
           </a>
-          <a
+          {/* <a
             href="tel:+918076207112"
             className="flex items-center space-x-2 hover:text-gray-100 transition-colors duration-200"
-          >
-            <FaPhone className="text-white text-lg" />
+          > */}
+            {/* <FaPhone className="text-white text-lg" />
             <span className="text-sm font-medium sm:text-base">
               +91 8076207112
-            </span>
-          </a>
+            </span> */}
+          {/* </a> */}
         </div>
 
         {/* Write a Review Button (Right-aligned) */}
@@ -172,10 +172,10 @@ const NavBar: React.FC = () => {
 
   <ul className="flex items-center space-x-4">
     {!isLoggedIn && (
-      <li className="bg-pink-600 relative hidden md:block rounded-full py-1 px-4">
+      <li className="bg-white relative hidden md:block rounded-full py-1 px-4">
         <Link
           to="/login"
-          className="text-light-blue hover:text-gray-200"
+          className="text-light-blue-300 hover:text-black"
         >
           Login
         </Link>
@@ -199,7 +199,7 @@ const NavBar: React.FC = () => {
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#c9217e] text-light-blue flex flex-col items-center justify-center space-y-4 z-15 transition-transform duration-300">
+        <div className="fixed inset-0 bg-[#090808] text-light-blue flex flex-col items-center justify-center space-y-4 z-15 transition-transform duration-300">
           <div className="absolute top-8">
             <img src={Logo} alt="Logo" className="w-24 h-12 items-stretch" />
           </div>

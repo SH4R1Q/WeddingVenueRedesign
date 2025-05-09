@@ -74,7 +74,7 @@ const RealWeddingsList: React.FC = () => {
                     </p>
                     <Link
                       to={`/realWedding/${wedding._id}`}
-                      className="text-pink-600 hover:underline text-sm font-semibold"
+                      className="text-[#04004c] hover:underline text-sm font-semibold"
                     >
                       Discover More
                     </Link>

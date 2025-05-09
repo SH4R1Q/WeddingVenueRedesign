@@ -4,7 +4,7 @@ import { FaArrowRight } from 'react-icons/fa';
 
 const RelatedArticles: React.FC = () => {
   return (
-    <section className="py-16 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+    <section className="py-16 bg-gradient-to-r from-[#1e1e1e] to-gray-800 text-white">
       <div className="container mx-auto px-6 text-center">
         <h2 className="text-5xl font-bold mb-8">
           Discover the Best Venues on Our Platform
@@ -14,7 +14,7 @@ const RelatedArticles: React.FC = () => {
         </p>
         <Link 
           to="/aboutus1"
-          className="inline-flex items-center bg-white text-pink-500 hover:bg-gray-200 font-bold py-3 px-6 rounded-lg text-lg transition-transform transform hover:scale-105"
+          className="inline-flex items-center bg-white text-black hover:bg-gray-200 font-bold py-3 px-6 rounded-lg text-lg transition-transform transform hover:scale-105"
         >
           About Weddingz Venue
           <FaArrowRight className="ml-3" />

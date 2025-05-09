@@ -20,13 +20,13 @@ const AboutUs: React.FC = () => {
               id="banner"
               className="lg:text-center bg-[url('/aboutusbanner.jpg')] h-64 flex place-items-center place-content-center bg-cover"
             >
-              <h2 className="text-5xl font-marcellus font-semibold text-pink-950">
+              <h2 className="text-5xl font-marcellus font-semibold text-black">
                 About Us
               </h2>
             </div>
             <div id="title">
               <p className="font-roboto mt-24 text-center text-sm text-black uppercase">
-                Welcome to Wedding Venuez
+                Welcome to Weddingz Venue
               </p>
               <p className="font-marcellus mt-4 text-center text-4xl text-black font-bold">
                 Dedicated to helping you create the wedding of your dreams
@@ -43,11 +43,11 @@ const AboutUs: React.FC = () => {
       
       {/* First Column */}
       <div className="flex flex-col w-full lg:w-1/3 border border-white border-3">
-        <div className="bg-majenta p-4 flex-1 flex flex-col justify-center">
+        <div className="bg-[#1b1b1b] p-4 flex-1 flex flex-col justify-center">
           <h2 className="text-white font-marcellus text-2xl sm:text-3xl font-bold tracking-wider">
             Our Mission
           </h2>
-          <p className="text-white mt-4 text-sm sm:text-base font-roboto">
+          <p className="text-[#e2e2e2] mt-4 text-sm sm:text-base font-roboto">
             Our mission is to create unforgettable weddings by pairing couples
             with top vendors. We ensure every love story is beautifully celebrated
             through personalized service and attention to detail.
@@ -75,11 +75,11 @@ const AboutUs: React.FC = () => {
 
       {/* Third Column */}
       <div className="flex flex-col w-full lg:w-1/3 border border-white border-3">
-        <div className="bg-majenta p-4 flex-1 flex flex-col justify-center">
+        <div className="bg-[#1b1b1b] p-4 flex-1 flex flex-col justify-center">
           <h2 className="text-white font-marcellus text-2xl sm:text-3xl font-bold tracking-wider">
             Our Story
           </h2>
-          <p className="text-white mt-4 text-sm sm:text-base font-roboto">
+          <p className="text-[#e2e2e2] mt-4 text-sm sm:text-base font-roboto">
             Founded in 2015 by Abdul Kareem, we’ve grown from a small startup
             into a trusted leader in wedding vendor services. With a dedicated
             team and top-tier vendors, we bring couples' dream weddings to life
@@ -101,17 +101,17 @@ const AboutUs: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-pink-50 mt-12 py-20">
+      <div className="bg-[#1b1b1b] mt-12 py-20">
         <div>
-          <section className="founders-note bg-gradient-to-b from-pink-50 to-white py-12">
+          <section className="founders-note bg-white py-12">
             <div className="w-11/12 sm:w-3/5 md:w-2/5 mx-auto text-center py-6 rounded-3xl shadow-lg transition-transform transform hover:scale-105">
               {/* Title: Founder's Note */}
-              <h2 className="font-marcellus text-4xl md:text-5xl font-bold text-pink-950 mb-4">
+              <h2 className="font-marcellus text-4xl md:text-5xl font-bold text-black mb-4">
                 Founder's Note
               </h2>
 
               {/* Founder name and title */}
-              <div className="text-xl font-medium font-inter mb-6 text-pink-800">
+              <div className="text-xl font-medium font-inter mb-6 text-[#1c1c1c]">
                 <p>ABDUL KAREEM - Founder & CEO</p>
               </div>
 

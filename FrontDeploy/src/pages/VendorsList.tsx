@@ -146,7 +146,7 @@ const VendorsList: React.FC<VendorsListProps> = () => {
             <button
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
-              className="flex items-center px-2 py-1 mx-1 bg-[#A31F24] text-white rounded sm:px-4 sm:py-2 sm:mx-2"
+              className="flex items-center px-2 py-1 mx-1 bg-[#1b1b1b] text-white rounded sm:px-4 sm:py-2 sm:mx-2"
             >
               <LuArrowLeft />
             </button>
@@ -156,7 +156,7 @@ const VendorsList: React.FC<VendorsListProps> = () => {
             <button
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
-              className="flex items-center px-2 py-1 mx-1 bg-[#A31F24] text-white rounded sm:px-4 sm:py-2 sm:mx-2"
+              className="flex items-center px-2 py-1 mx-1 bg-[#1b1b1b] text-white rounded sm:px-4 sm:py-2 sm:mx-2"
             >
               <LuArrowRight />
             </button>
