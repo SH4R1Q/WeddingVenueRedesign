@@ -49,7 +49,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import PhotosPage from "./pages/PhotoGallery";
 import ForgetPasswordPage from "./auth/Forget";
 // import UpdateVenueComponent from "./pages/Test";
-
+import FloatingMenu from "./components/FloatingMenu";
 import PopUp from "./components/PopUp";
 
 const App: React.FC = () => {
@@ -59,13 +59,13 @@ const App: React.FC = () => {
         <Suspense fallback={<Loader />}>
           <PopUp />
           <ScrollToTop />
+          <FloatingMenu />
           <Routes>
             <Route path="/" element={<Home />} />
 
             {/* <Route path="/popup" element={<PopUp />} /> */}
 
             {/* <Route path="/popup" element={<PopUp />} /> */}
-
             <Route path="/login" element={<Login />} />
             <Route path="/forget" element={<ForgetPasswordPage />} />
             <Route path="/Signup" element={<Signup />} />

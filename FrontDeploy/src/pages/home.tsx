@@ -17,7 +17,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import { cityStatus } from "../redux/reducer/auth";
 import Universal from "../components/skeleton/Universal";
 import WeddingCategoriesShort from "../components/WeddingCategShort";
-
+// import FloatingMenu from "../components/FloatingMenu";
 const images = [
   "/home1.jpg",
   "/home2.jpg",
@@ -120,7 +120,6 @@ const Home: React.FC = () => {
               ></div>
             ))}
           </div>
-
           {/* Content Container */}
           <div className="relative flex items-center justify-center w-full h-full bg-black bg-opacity-50">
             <div className="w-[1200px] text-center transform translate-y-24">

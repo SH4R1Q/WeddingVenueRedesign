@@ -178,6 +178,7 @@ const NavBar: React.FC = () => {
           className="text-light-blue-300 hover:text-black"
         >
           Login
+          <span className="shine-strip"></span>
         </Link>
       </li>
     )}
