@@ -36,7 +36,7 @@ const businessCategories = [
 ];
 
 const RegistrationPageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="min-h-screen rounded-lg flex items-center justify-center py-4 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500">
+  <div className="min-h-screen rounded-lg flex items-center justify-center py-4 bg-gradient-to-r from-[#1e1e1e] to-gray-800 text-white">
     <div className="w-full max-w-3xl p-8 sm:p-10 bg-white rounded-lg shadow-lg relative z-10">
       <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
         Register with Us
@@ -52,7 +52,7 @@ const commonStyles = {
   label: "block mb-1 font-medium text-gray-700",
   error: "text-red-500 text-sm mt-1",
   button:
-    "w-full mt-6 py-2 px-4 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out",
+    "w-full mt-6 py-2 px-4 rounded-md bg-[#1e1e1e] hover:bg-black bg-opacity-90 text-white transition duration-300 ease-in-out",
 };
 
 export const VenueRegistrationForm: React.FC = () => {

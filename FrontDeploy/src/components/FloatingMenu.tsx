@@ -1,31 +1,38 @@
 import React, { useState } from "react";
-import {FaTimes, FaLink } from "react-icons/fa";
+import { FaTimes, FaLink } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function FloatingMenu() {
   const [open, setOpen] = useState(false);
+
+  const handleLinkClick = () => {
+    setOpen(false);
+  };
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-2">
       {open && (
         <div className="flex flex-col items-end space-y-2 mb-2">
           <Link
-            to="/VenueContactCard"
+            to="/BlogCard"
+            onClick={handleLinkClick}
             className="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800 transition"
           >
             Contact Venue
           </Link>
           <Link
-            to="/link2"
+            to="/auth/businessRegistration/VendorRegistrationForm"
+            onClick={handleLinkClick}
             className="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800 transition"
           >
-            Link 2
+            Register as Vendor
           </Link>
           <Link
-            to="/link3"
+            to="/auth/businessRegistration/VenueRegistrationForm"
+            onClick={handleLinkClick}
             className="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800 transition"
           >
-            Link 3
+            Register as Venue
           </Link>
         </div>
       )}

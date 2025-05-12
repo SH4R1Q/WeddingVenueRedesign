@@ -51,6 +51,7 @@ import ForgetPasswordPage from "./auth/Forget";
 // import UpdateVenueComponent from "./pages/Test";
 import FloatingMenu from "./components/FloatingMenu";
 import PopUp from "./components/PopUp";
+import { VendorRegistrationForm, VenueRegistrationForm } from "./auth/businessRegistration";
 
 const App: React.FC = () => {
   return (
@@ -62,6 +63,8 @@ const App: React.FC = () => {
           <FloatingMenu />
           <Routes>
             <Route path="/" element={<Home />} />
+<Route path="/auth/businessRegistration/VendorRegistrationForm" element={<VendorRegistrationForm />} />
+<Route path="/auth/businessRegistration/VenueRegistrationForm" element={<VenueRegistrationForm />} />
 
             {/* <Route path="/popup" element={<PopUp />} /> */}
 
