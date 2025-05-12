@@ -17,7 +17,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import { cityStatus } from "../redux/reducer/auth";
 import Universal from "../components/skeleton/Universal";
 import WeddingCategoriesShort from "../components/WeddingCategShort";
-
+// import FloatingMenu from "../components/FloatingMenu";
 const images = [
   "/home1.jpg",
   "/home2.jpg",
@@ -120,7 +120,6 @@ const Home: React.FC = () => {
               ></div>
             ))}
           </div>
-
           {/* Content Container */}
           <div className="relative flex items-center justify-center w-full h-full bg-black bg-opacity-50">
             <div className="w-[1200px] text-center transform translate-y-24">
@@ -132,7 +131,7 @@ const Home: React.FC = () => {
                 }}
               >
                 Plan Your Perfect 
-                <span className="text-pink-200"> Indian Wedding</span>
+                <span className="text-[#d0d0d0]"> Indian Wedding</span>
               </h1>
               <h2
                 className="text-2xl font-light font-roboto text-white mt-4"
@@ -159,7 +158,7 @@ const Home: React.FC = () => {
                   ))}
                 </select>
 
-                <button className="px-6 py-2 bg-pink-200 text-black border-0">
+                <button className="px-6 py-2 bg-[#1e1e1e] text-white border-0">
                   Search
                 </button>
               </div>
@@ -215,7 +214,7 @@ const Home: React.FC = () => {
           <div className="flex justify-center mt-8">
             <Link
               to="/venuelist"
-              className="text-pink-600 hover:underline font-semibold"
+              className="text-[#1b1b1b] hover:underline font-semibold"
             >
               View More Venues
             </Link>
@@ -231,7 +230,7 @@ const Home: React.FC = () => {
 
       <section id="weddingCategories" className="py-16 bg-white">
         <WeddingCategoriesShort />
-        <Link to="/vendor/AllVendors" className="text-pink-600 flex justify-center hover:underline font-semibold">
+        <Link to="/vendor/AllVendors" className="text-[#1b1b1b] flex justify-center hover:underline font-semibold">
           View all Categories
         </Link>
       </section>
@@ -298,7 +297,7 @@ const Home: React.FC = () => {
                       </p>
                       <Link
                         to={`/realWedding/${wedding._id}`}
-                        className="text-pink-600 hover:underline mt-3 inline-block"
+                        className="text-[#1b1b1b] hover:underline mt-3 inline-block"
                       >
                         Discover More
                       </Link>
@@ -313,7 +312,7 @@ const Home: React.FC = () => {
             </p>
           )}
           <div className="flex justify-center mt-12">
-            <Link to="/realWedding" className="text-pink-600 flex justify-center hover:underline font-semibold">
+            <Link to="/realWedding" className="text-[#1b1b1b] flex justify-center hover:underline font-semibold">
               View More Stories
             </Link>
           </div>
@@ -373,7 +372,7 @@ const Home: React.FC = () => {
                       </p>
                       <Link
                         to={`/blogs/${blog._id}`}
-                        className="text-sm font-medium text-blue-600 hover:text-blue-800 mt-4 inline-block"
+                        className="text-sm font-medium text-[#04004c] hover:text-blue-800 mt-4 inline-block"
                       >
                         Read More →
                       </Link>
@@ -387,7 +386,7 @@ const Home: React.FC = () => {
           )}
 
           <div className="flex justify-center mt-8">
-            <Link to="/blogs" className="text-pink-600 flex justify-center hover:underline font-semibold">
+            <Link to="/blogs" className="text-[#1b1b1b] flex justify-center hover:underline font-semibold">
               View More Blogs
             </Link>
           </div>

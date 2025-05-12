@@ -100,9 +100,9 @@ const VenuePriceCard: React.FC<VenuePriceCardProps> = ({ name, contactNumber,ema
       )}
       <button
         className={`${hasSentEnquiry
-          ? "bg-pink-600"
-          : "bg-pink-700"
-          } text-white font-semibold py-2 px-4 w-full mt-6 rounded-md hover:bg-pink-600`}
+          ? "bg-[#1d1d1d] bg-opacity-90"
+          : "bg-[#1d1d1d] bg-opacity-90"
+          } text-white font-semibold py-2 px-4 w-full mt-6 rounded-md hover:bg-black`}
         onClick={hasSentEnquiry ? handleEnquirySentClick : () => setIsEnquirySelected(!isEnquirySelected)}
       >
         {hasSentEnquiry ? "Enquiry Sent" : "Send Enquiry"}

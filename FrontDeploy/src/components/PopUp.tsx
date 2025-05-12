@@ -102,21 +102,21 @@ const PopUp = () => {
     <>
      {showLoginPopup && (
   <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-    <div className="bg-gradient-to-r from-[#e9c6e8] to-[#a56cc1] text-gray-800 rounded-lg shadow-xl p-6 md:p-8 w-full max-w-md max-h-[90vh] overflow-auto scrollbar">
+    <div className="bg-[#1b1b1b] bg-opacity-90 text-white rounded-lg shadow-xl p-6 md:p-8 w-full max-w-md max-h-[90vh] overflow-auto scrollbar">
       <button
         onClick={handleClose}
-        className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+        className="absolute top-4 right-4 text-gray-500 hover:text-white focus:outline-none"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-      <h1 className='text-2xl font-bold text-[#173445] mb-2 font-marcellus text-center'>Welcome to Weddingz Venue</h1>
-      <h2 className='text-base font-semibold text-[#173445] mb-8 text-center'>Please fill the enquiry form</h2>
+      <h1 className='text-2xl font-bold text-white mb-2 font-marcellus text-center'>Welcome to Weddingz Venue</h1>
+      <h2 className='text-base font-semibold text-white mb-8 text-center'>Please fill the enquiry form</h2>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+          <label htmlFor="name" className="block text-sm font-medium text-white mb-1">Name</label>
           <input
             type="text"
             id="name"
@@ -129,7 +129,7 @@ const PopUp = () => {
         </div>
 
         <div>
-          <label htmlFor="contact" className="block text-sm font-medium text-gray-700 mb-1">Contact</label>
+          <label htmlFor="contact" className="block text-sm font-medium text-white mb-1">Contact</label>
           <input
             type="tel"
             id="contact"
@@ -145,7 +145,7 @@ const PopUp = () => {
         </div>
 
         <div>
-          <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+          <label htmlFor="location" className="block text-sm font-medium text-white mb-1">Location</label>
           <input
             type="text"
             id="location"
@@ -158,7 +158,7 @@ const PopUp = () => {
         </div>
 
         <div>
-          <label htmlFor="guests" className="block text-sm font-medium text-gray-700 mb-1">Number of Guests</label>
+          <label htmlFor="guests" className="block text-sm font-medium text-white mb-1">Number of Guests</label>
           <input
             type="number"
             id="guests"
@@ -171,7 +171,7 @@ const PopUp = () => {
         </div>
 
         <div>
-          <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">Date of Event</label>
+          <label htmlFor="date" className="block text-sm font-medium text-white mb-1">Date of Event</label>
           <input
             type="date"
             id="date"
@@ -184,7 +184,7 @@ const PopUp = () => {
         </div>
 
         <div>
-          <label htmlFor="typeOfEvent" className="block text-sm font-medium text-gray-700 mb-1">Type of Event</label>
+          <label htmlFor="typeOfEvent" className="block text-sm font-medium text-white mb-1">Type of Event</label>
           <input
             type="text"
             id="typeOfEvent"
@@ -197,7 +197,7 @@ const PopUp = () => {
         </div>
 
         <div className="md:col-span-2">
-          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+          <label htmlFor="address" className="block text-sm font-medium text-white mb-1">Address</label>
           <textarea
             id="address"
             name="address"
@@ -210,7 +210,7 @@ const PopUp = () => {
         </div>
 
         <div className="md:col-span-2">
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+          <label htmlFor="message" className="block text-sm font-medium text-white mb-1">Message</label>
           <textarea
             id="message"
             name="message"
@@ -223,7 +223,7 @@ const PopUp = () => {
 
         <div className="md:col-span-2 flex justify-end space-x-2">
           <button type="button" onClick={handleClose} className="bg-gray-400 text-white font-medium py-2 px-4 rounded hover:bg-gray-500 transition duration-300">Close</button>
-          <button type="submit" className="bg-blue-500 text-white font-medium py-2 px-4 rounded hover:bg-blue-600 transition duration-300">Submit</button>
+          <button type="submit" className="bg-white text-black font-medium py-2 px-4 rounded hover:bg-blue-600 transition duration-300">Submit</button>
         </div>
       </form>
     </div>

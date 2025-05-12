@@ -49,8 +49,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import PhotosPage from "./pages/PhotoGallery";
 import ForgetPasswordPage from "./auth/Forget";
 // import UpdateVenueComponent from "./pages/Test";
-
+import FloatingMenu from "./components/FloatingMenu";
 import PopUp from "./components/PopUp";
+import { VendorRegistrationForm, VenueRegistrationForm } from "./auth/businessRegistration";
 
 const App: React.FC = () => {
   return (
@@ -59,13 +60,15 @@ const App: React.FC = () => {
         <Suspense fallback={<Loader />}>
           <PopUp />
           <ScrollToTop />
+          <FloatingMenu />
           <Routes>
             <Route path="/" element={<Home />} />
+<Route path="/auth/businessRegistration/VendorRegistrationForm" element={<VendorRegistrationForm />} />
+<Route path="/auth/businessRegistration/VenueRegistrationForm" element={<VenueRegistrationForm />} />
 
             {/* <Route path="/popup" element={<PopUp />} /> */}
 
             {/* <Route path="/popup" element={<PopUp />} /> */}
-
             <Route path="/login" element={<Login />} />
             <Route path="/forget" element={<ForgetPasswordPage />} />
             <Route path="/Signup" element={<Signup />} />

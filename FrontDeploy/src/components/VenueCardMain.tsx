@@ -27,7 +27,7 @@ const VenueCardMain: React.FC<VenueProps> = ({ venue }) => {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === (venue.images?.length || 0) - 1 ? 0 : prevIndex + 1
       );
-    }, 3000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [venue?.images?.length, venue.images]);

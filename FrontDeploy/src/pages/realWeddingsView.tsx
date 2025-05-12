@@ -32,13 +32,13 @@ const RealWeddingsView: React.FC = () => {
         <div className="relative flex">
           <div className="hidden lg:flex flex-col items-center fixed top-1/4 left-10 space-y-4">
             <a href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`} target="_blank" rel="noopener noreferrer">
-              <img src="/public/icons/facebook.svg" alt="Share on Facebook" className="w-16 h-16 rounded-full bg-[#e81489] p-1 hover:bg-[#c3207a]" />
+              <img src="/public/icons/facebook.svg" alt="Share on Facebook" className="w-16 h-16 rounded-full bg-[#04004c] p-1 hover:bg-[#c3207a]" />
             </a>
             <a href={`https://twitter.com/intent/tweet?url=${window.location.href}`} target="_blank" rel="noopener noreferrer">
-              <img src="/public/icons/twitter.svg" alt="Share on Twitter" className="w-16 h-16 rounded-full bg-[#e81489] p-1 hover:bg-[#c3207a]" />
+              <img src="/public/icons/twitter.svg" alt="Share on Twitter" className="w-16 h-16 rounded-full bg-[#04004c] p-1 hover:bg-[#c3207a]" />
             </a>
             <a href="https://www.instagram.com/weddingzvenue.in_?igsh=cG90dXR2Nml2NHMy&utm_source=qr" target="_blank" rel="noopener noreferrer">
-              <img src="/public/icons/instagram.svg" alt="Go to Instagram" className="w-16 h-16 rounded-full bg-[#e81489] p-1 hover:bg-[#c3207a]" />
+              <img src="/public/icons/instagram.svg" alt="Go to Instagram" className="w-16 h-16 rounded-full bg-[#04004c] p-1 hover:bg-[#c3207a]" />
             </a>
           </div>
 

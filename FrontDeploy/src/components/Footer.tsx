@@ -73,7 +73,7 @@
 //           <div key={index} className="border-b border-gray-700 pb-2">
 //             <button
 //               onClick={() => toggleSection(index)}
-//               className="w-full flex justify-between items-center text-xl font-semibold text-[#D6BF5E] py-2 focus:outline-none"
+//               className="w-full flex justify-between items-center text-xl font-semibold text-white py-2 focus:outline-none"
 //             >
 //               {section.title}
               
@@ -87,7 +87,7 @@
 //               <ul className="mt-2 space-y-2">
 //                 {section.links.map((link, idx) => (
 //                   <li key={idx}>
-//                     <Link to="#" className="text-base hover:text-[#D6BF5E]">
+//                     <Link to="#" className="text-base hover:text-white">
 //                       {link}
 //                     </Link>
 //                   </li>
@@ -102,11 +102,11 @@
 //       <div className="container mx-auto px-4 lg:px-20 hidden lg:flex justify-evenly space-y-0">
 //         {sections.map((section, index) => (
 //           <div key={index} className="text-left">
-//             <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">{section.title}</h2>
+//             <h2 className="text-xl font-semibold text-white mb-2">{section.title}</h2>
 //             <ul className="footer-links flex flex-col">
 //               {section.links.map((link, idx) => (
 //                 <li key={idx} className="mb-2">
-//                   <Link to="#" className="text-l hover:text-[#D6BF5E]">
+//                   <Link to="#" className="text-l hover:text-white">
 //                     {link}
 //                   </Link>
 //                 </li>
@@ -120,7 +120,7 @@
 //       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
 //         <p className="text-xs">
 //           &copy; {new Date().getFullYear()}{' '}
-//           <span className="font-semibold text-[#D6BF5E]">Weddingz Venue</span>. All rights reserved.
+//           <span className="font-semibold text-white">Weddingz Venue</span>. All rights reserved.
 //         </p>
 //         <p className="mt-1 text-xs">
 //           Designed by{' '}
@@ -128,7 +128,7 @@
 //             href="https://binarama.com/"
 //             target="_blank"
 //             rel="noopener noreferrer"
-//             className="text-[#D6BF5E] hover:underline font-medium"
+//             className="text-white hover:underline font-medium"
 //           >
 //             AMONG US COMMUNITY
 //           </a>
@@ -209,14 +209,14 @@ function Footer() {
   
 
   return (
-    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-gray-300 py-8">
+    <footer className="bg-[#1b1b1b] text-gray-300 py-8">
       {/* Mobile View (Dropdowns) */}
       <div className="container mx-auto px-4 lg:px-20 lg:hidden space-y-4">
         {sections.map((section, index) => (
           <div key={index} className="border-b border-gray-700 pb-2">
             <button
               onClick={() => toggleSection(index)}
-              className="w-full flex justify-between items-center text-xl font-semibold text-[#D6BF5E] py-2 focus:outline-none"
+              className="w-full flex justify-between items-center text-xl font-semibold text-white py-2 focus:outline-none"
             >
               {section.title}
               
@@ -230,7 +230,7 @@ function Footer() {
               <ul className="mt-2 space-y-2">
                 {section.links.map((link, idx) => (
                   <li key={idx}>
-                    <Link to={link.path} className="text-base hover:text-[#D6BF5E]">
+                    <Link to={link.path} className="text-base hover:text-white">
                       {link.name}
                     </Link>
                   </li>
@@ -245,11 +245,11 @@ function Footer() {
       <div className="container mx-auto px-4 lg:px-20 hidden lg:flex justify-evenly space-y-0">
         {sections.map((section, index) => (
           <div key={index} className="text-left">
-            <h2 className="text-xl font-semibold text-[#D6BF5E] mb-2">{section.title}</h2>
+            <h2 className="text-xl font-semibold text-white mb-2">{section.title}</h2>
             <ul className="footer-links flex flex-col">
               {section.links.map((link, idx) => (
                 <li key={idx} className="mb-2">
-                  <Link to={link.path} className="text-l hover:text-[#D6BF5E]">
+                  <Link to={link.path} className="text-l hover:text-white">
                     {link.name}
                   </Link>
                 </li>
@@ -263,15 +263,15 @@ function Footer() {
           <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
           <p className="mb-2">Shakti Khand 2, Indirapuram</p>
           <p className="mb-2">Ghaziabad, 201014</p>
-          <p className="mb-2">Phone: <a href="tel:‪+918076207112‬" className="hover:underline text-[#D6BF5E]">‪+91 8076207112‬</a></p>
-          <p>Email: <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-[#D6BF5E]">Weddingzvenue.in@gmail.com</a></p>
+          <p className="mb-2">Phone: <a href="tel:‪+918076207112‬" className="hover:underline text-white">‪+91 8076207112‬</a></p>
+          <p>Email: <a href="mailto:Weddingzvenue.in@gmail.com" className="hover:underline text-white">Weddingzvenue.in@gmail.com</a></p>
         </div>
 
       {/* Divider Line
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
         <p className="text-xs">
           &copy; {new Date().getFullYear()}{' '}
-          <span className="font-semibold text-[#D6BF5E]">Weddingz Venue</span>. All rights reserved.
+          <span className="font-semibold text-white">Weddingz Venue</span>. All rights reserved.
         </p>
         <p className="mt-1 text-xs">
           Designed by{' '}
@@ -279,7 +279,7 @@ function Footer() {
             href="https://binarama.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#D6BF5E] hover:underline font-medium"
+            className="text-white hover:underline font-medium"
           >
             AMONG US COMMUNITY
           </a>

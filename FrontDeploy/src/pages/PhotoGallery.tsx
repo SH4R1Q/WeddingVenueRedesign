@@ -107,7 +107,7 @@ const PhotosPage: React.FC = () => {
                                 <img
                                     src="/icons/pinterest.svg"
                                     alt="Pin on Pinterest"
-                                    className="w-10 h-10 rounded-full bg-[#e81489] p-1 hover:!bg-[#c3207a]"
+                                    className="w-10 h-10 rounded-full bg-[#1b1b1b] p-1 hover:!bg-[#c3207a]"
                                 />
                             </a>
                             <p className="text-center font-marcellus">Image Title</p>

@@ -106,7 +106,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
         {/* Apply and Reset Buttons */}
         <div className="flex items-center gap-4">
           <button
-            className="bg-indigo-500 text-white py-1 px-3 rounded-full text-sm"
+            className="bg-[#04004c] text-white py-1 px-3 rounded-full text-sm"
             onClick={handleApply}
           >
             Apply

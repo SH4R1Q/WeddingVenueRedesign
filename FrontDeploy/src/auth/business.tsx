@@ -11,13 +11,13 @@ const Business: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-r from-gray-100 to-gray-200 p-8">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-r from-[#1e1e1e] to-gray-800 text-white p-8">
       
       {/* Header with Back Button */}
       <div className="w-full max-w-5xl flex justify-between items-center mb-10">
         <button
           onClick={() => navigate(-1)}
-          className="text-lg font-medium text-gray-700 hover:text-blue-600 transition-colors"
+          className="text-lg font-medium bg-[#1e1e1e] hover:bg-black bg-opacity-90 text-white transition-colors"
         >
           ← Back
         </button>
@@ -29,8 +29,8 @@ const Business: React.FC = () => {
         <button
           className={`px-6 py-3 text-xl font-semibold rounded-t-lg ${
             activeForm === 'vendor'
-              ? 'bg-blue-700 text-white'
-              : 'bg-gray-300 text-gray-800 hover:bg-gray-400'
+              ? 'bg-[#1e1e1e] text-white'
+              : 'bg-[#1e1e1e] hover:bg-black bg-opacity-90 text-white'
           }`}
           onClick={() => handleFormSwitch('vendor')}
         >
@@ -39,8 +39,8 @@ const Business: React.FC = () => {
         <button
           className={`px-6 py-3 text-xl font-semibold rounded-t-lg ${
             activeForm === 'venue'
-              ? 'bg-blue-700 text-white'
-              : 'bg-gray-300 text-gray-800 hover:bg-gray-400'
+              ? 'bg-[#1e1e1e] text-white'
+              : 'bg-[#1e1e1e] hover:bg-black bg-opacity-90 text-white'
           }`}
           onClick={() => handleFormSwitch('venue')}
         >
@@ -49,7 +49,7 @@ const Business: React.FC = () => {
       </div>
 
       {/* Form Container */}
-      <div className="w-full max-w-5xl bg-gradient-to-r from-blue-50 to-blue-100 p-10 rounded-b-lg shadow-lg">
+      <div className="w-full max-w-5xl bg-gradient-to-r from-[#1e1e1e] to-gray-800 text-white p-10 rounded-b-lg shadow-lg">
         {activeForm === 'vendor' ? <VendorRegistrationForm /> : <VenueRegistrationForm />}
       </div>
     </div>
