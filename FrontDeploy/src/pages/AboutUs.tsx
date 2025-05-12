@@ -66,7 +66,7 @@ const AboutUs: React.FC = () => {
       <div className="w-full lg:w-1/3 border border-white border-3">
         <div className="h-64 sm:h-96 overflow-hidden">
           <img
-            src="aboutusMiddle.png"
+            src="about_us_1.jpg"
             alt="Center"
             className="w-full h-full object-cover transition-transform duration-300 transform hover:scale-110"
           />

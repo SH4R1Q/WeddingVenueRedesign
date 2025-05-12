@@ -14,11 +14,11 @@ export default function FloatingMenu() {
       {open && (
         <div className="flex flex-col items-end space-y-2 mb-2">
           <Link
-            to="/BlogCard"
+            to="/link1"
             onClick={handleLinkClick}
             className="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800 transition"
           >
-            Contact Venue
+            Hotel Inquiry
           </Link>
           <Link
             to="/auth/businessRegistration/VendorRegistrationForm"
